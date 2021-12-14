@@ -1,0 +1,14 @@
+{
+  "resourceName": "eppey",
+  "policyUUID": "4ba626fd",
+  "bucketName": "eppeybucket",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}
