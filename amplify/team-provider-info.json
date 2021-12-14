@@ -9,7 +9,32 @@
       "UnauthRoleName": "amplify-eppey-dev-120210-unauthRole",
       "StackName": "amplify-eppey-dev-120210",
       "StackId": "arn:aws:cloudformation:us-east-2:282395963244:stack/amplify-eppey-dev-120210/6a50c3b0-5c36-11ec-9931-027c7d81d0dc",
-      "AmplifyAppId": "d2ybapj9v8gfkg"
+      "AmplifyAppId": "d2ybapj9v8gfkg",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-eppey-dev-120210-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "auth": {
+        "eppey21ee40cb": {}
+      },
+      "function": {
+        "eppey21ee40cbCustomMessage": {
+          "REDIRECTURL": "https://www.eppey.app",
+          "EMAILSUBJECT": "Please confirm your email address",
+          "EMAILMESSAGE": "Thanks for creating your EPPEY account! Before we get started, we need you to verify your email to make sure we got it right.",
+          "deploymentBucketName": "amplify-eppey-dev-120210-deployment",
+          "s3Key": "amplify-builds/eppey21ee40cbCustomMessage-58623369324c4c4b7278-build.zip"
+        },
+        "eppey21ee40cbPostConfirmation": {
+          "GROUP": "student",
+          "deploymentBucketName": "amplify-eppey-dev-120210-deployment",
+          "s3Key": "amplify-builds/eppey21ee40cbPostConfirmation-4559554c474476337436-build.zip"
+        },
+        "eppey21ee40cbPreSignup": {
+          "DOMAINALLOWLIST": "gatech.edu, virginia.edu",
+          "deploymentBucketName": "amplify-eppey-dev-120210-deployment",
+          "s3Key": "amplify-builds/eppey21ee40cbPreSignup-445468625072586a4b4e-build.zip"
+        }
+      }
     }
   }
 }

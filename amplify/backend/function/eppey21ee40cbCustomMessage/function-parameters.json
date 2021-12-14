@@ -1,0 +1,26 @@
+{
+  "trigger": true,
+  "modules": [
+    "verification-link"
+  ],
+  "parentResource": "eppey21ee40cb",
+  "functionName": "eppey21ee40cbCustomMessage",
+  "resourceName": "eppey21ee40cbCustomMessage",
+  "parentStack": "auth",
+  "triggerEnvs": [
+    {
+      "key": "RESOURCENAME",
+      "value": "resourceName"
+    }
+  ],
+  "triggerDir": "/Users/hueyk/.nvm/versions/node/v16.3.0/lib/node_modules/@aws-amplify/cli/node_modules/@aws-amplify/amplify-category-auth/provider-utils/awscloudformation/triggers/CustomMessage",
+  "triggerTemplate": "CustomMessage.json.ejs",
+  "triggerEventPath": "CustomMessage.event.json",
+  "roleName": "eppey21ee40cbCustomMessage",
+  "skipEdit": true,
+  "REDIRECTURL": "https://www.eppey.app",
+  "EMAILSUBJECT": "Please confirm your email address",
+  "EMAILMESSAGE": "Thanks for creating your EPPEY account! Before we get started, we need you to verify your email to make sure we got it right.",
+  "RESOURCENAME": "resourceName",
+  "enableCors": false
+}

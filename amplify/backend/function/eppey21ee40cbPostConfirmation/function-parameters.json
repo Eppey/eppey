@@ -1,0 +1,18 @@
+{
+  "trigger": true,
+  "modules": [
+    "add-to-group"
+  ],
+  "parentResource": "eppey21ee40cb",
+  "functionName": "eppey21ee40cbPostConfirmation",
+  "resourceName": "eppey21ee40cbPostConfirmation",
+  "parentStack": "auth",
+  "triggerEnvs": [],
+  "triggerDir": "/Users/hueyk/.nvm/versions/node/v16.3.0/lib/node_modules/@aws-amplify/cli/node_modules/@aws-amplify/amplify-category-auth/provider-utils/awscloudformation/triggers/PostConfirmation",
+  "triggerTemplate": "PostConfirmation.json.ejs",
+  "triggerEventPath": "PostConfirmation.event.json",
+  "roleName": "eppey21ee40cbPostConfirmation",
+  "skipEdit": true,
+  "GROUP": "student",
+  "enableCors": false
+}
