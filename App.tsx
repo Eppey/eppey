@@ -1,22 +1,23 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { store } from './src/redux/store';
+import { Provider } from 'react-redux';
 
 import Amplify from 'aws-amplify';
 import config from './src/aws-exports';
 // @ts-ignore
 import { withAuthenticator } from 'aws-amplify-react-native';
-Amplify.configure(config);
-
-// Connect frontend to API (Documentation)
-// https://docs.amplify.aws/start/getting-started/data-model/q/integration/react-native/#deploying-the-api
+Amplify.configure({ ...config, Analytics: { disabled: true } });
 
 export function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <View style={styles.container}>
+        <Text>Open up App.tsx to start working on your app!</Text>
+        <StatusBar style="auto" />
+      </View>
+    </Provider>
   );
 }
 
