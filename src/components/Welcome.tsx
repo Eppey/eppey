@@ -1,7 +1,10 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { StyleSheet, Text, View, Image, Pressable, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 
 const WelcomeScreen = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={{ height: '100%' }}>
       <View style={styles.topContainer}>
@@ -18,7 +21,7 @@ const WelcomeScreen = () => {
         </Text>
         <Pressable
           style={styles.button}
-          onPress={() => Alert.alert('Button pressed')}
+          onPress={() => navigation.navigate('Signup' as never)}
         >
           <Text style={[styles.buttonText, styles.ftype1]}>GET STARTED</Text>
         </Pressable>

@@ -1,20 +1,39 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { store } from './src/redux/store';
 import { Provider } from 'react-redux';
 
-// @ts-ignore
-import { withAuthenticator } from 'aws-amplify-react-native';
 import Amplify from 'aws-amplify';
 import config from './src/aws-exports';
 Amplify.configure({ ...config, Analytics: { disabled: true } });
 
-import WelcomeScreen from './src/components/WelcomeScreen';
+import Welcome from './src/components/Welcome';
+import Signup from './src/components/Auth/Signup';
 
-export function App() {
+const Stack = createNativeStackNavigator();
+
+export default function App() {
   return (
     <Provider store={store}>
-      <WelcomeScreen />
+      <NavigationContainer>
+        <SafeAreaProvider>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Welcome"
+              component={Welcome}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Signup"
+              component={Signup}
+              options={{ headerShown: false }}
+            />
+          </Stack.Navigator>
+        </SafeAreaProvider>
+      </NavigationContainer>
     </Provider>
   );
 }
@@ -27,5 +46,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
-export default withAuthenticator(App, { usernameAttributes: 'email' });
