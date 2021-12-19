@@ -14,6 +14,9 @@ import Welcome from './src/components/Welcome';
 import Signup from './src/components/Auth/Signup';
 import SignupComplete from './src/components/Auth/SignupComplete';
 import Signin from './src/components/Auth/Signin';
+import PwReset from './src/components/Auth/PwReset';
+import PwResetConfirm from './src/components/Auth/PwResetConfirm';
+import PwResetDone from './src/components/Auth/PwResetDone';
 
 import Home from './src/components/Main/Home';
 
@@ -43,6 +46,21 @@ export default function App() {
             <Stack.Screen
               name="Signin"
               component={Signin}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="PwReset"
+              component={PwReset}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="PwResetConfirm"
+              component={PwResetConfirm}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="PwResetDone"
+              component={PwResetDone}
               options={{ headerShown: false }}
             />
             <Stack.Screen

@@ -10,6 +10,7 @@ interface UserState {
   posts: number;
   comments: number;
   points: number;
+  resetEmail: string;
 }
 
 const initialState: UserState = {
@@ -21,6 +22,7 @@ const initialState: UserState = {
   posts: 0,
   comments: 0,
   points: 0,
+  resetEmail: '',
 };
 
 export const userSlice = createSlice({
@@ -55,6 +57,9 @@ export const userSlice = createSlice({
     changePoints: (state, action: PayloadAction<number>) => {
       state.points += action.payload;
     },
+    setResetEmail: (state, action: PayloadAction<string>) => {
+      state.resetEmail = action.payload;
+    },
   },
 });
 
@@ -66,8 +71,10 @@ export const {
   incrementComments,
   decrementComments,
   changePoints,
+  setResetEmail,
 } = userSlice.actions;
 
 export const selectUser = (state: RootState) => state.user;
+export const selectResetEmail = (state: RootState) => state.user.resetEmail;
 
 export default userSlice.reducer;

@@ -6,7 +6,7 @@ export const fonts = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 36,
     lineHeight: 40,
-    letterSpacing: -1.24,
+    letterSpacing: -0.24,
     color: '#283244',
   },
   header2: {

@@ -28,7 +28,10 @@ const Welcome = () => {
         >
           <Text style={fonts.fButton}>GET STARTED</Text>
         </Pressable>
-        <Text style={styles.description2}>
+        <Text
+          style={styles.description2}
+          onPress={() => navigation.navigate('Signin' as never)}
+        >
           Already have an account?{' '}
           <Text style={{ fontWeight: 'bold' }}>Sign In</Text>
         </Text>

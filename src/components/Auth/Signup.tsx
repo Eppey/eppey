@@ -75,6 +75,7 @@ const Signup = () => {
           placeholder="(ending with .edu)"
           autoFocus={true}
           autoCapitalize="none"
+          autoCorrect={false}
           onChangeText={(value) => {
             setEmail(value);
           }}

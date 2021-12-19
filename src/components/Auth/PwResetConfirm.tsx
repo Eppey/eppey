@@ -1,36 +1,44 @@
-import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import {
-  StyleSheet,
-  Text,
-  View,
+  Alert,
   Image,
   Pressable,
   SafeAreaView,
+  StyleSheet,
+  Text,
   TextInput,
-  Alert,
+  View,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+import { useSelector } from 'react-redux';
+import { selectResetEmail } from '../../redux/slices/userSlice';
 
 import { Auth } from 'aws-amplify';
 
 import { fonts } from '../../styles/fonts';
 import { components } from '../../styles/components';
 
-type User = {
+type profile = {
   email: string;
-  password: string;
+  newPassword: string;
+  code: string;
 };
 
-const Signin = () => {
+const PwResetConfirm = () => {
   const navigation = useNavigation();
-  const [email, setEmail] = useState('');
+  const email = useSelector(selectResetEmail);
   const [password, setPassword] = useState('');
+  const [code, setCode] = useState('');
 
-  async function userSignIn(user: User): Promise<void> {
+  async function userChangePw(profile: profile): Promise<void> {
     try {
-      await Auth.signIn(user.email, user.password);
-      // Use redux & keychain to store user information
-      navigation.navigate('Home' as never);
+      await Auth.forgotPasswordSubmit(
+        profile.email,
+        profile.code,
+        profile.newPassword
+      );
+      navigation.navigate('PwResetDone' as never);
     } catch (err: any) {
       Alert.alert(err.code);
     }
@@ -49,20 +57,21 @@ const Signin = () => {
           />
           <Text style={fonts.fBack}>Back</Text>
         </Pressable>
-        <Text style={styles.signup}>Sign In</Text>
-        <Text style={[styles.body1Light, { fontWeight: 'bold' }]}>Email</Text>
+        <Text style={styles.signup}>Check Email</Text>
+        <Text style={[styles.body1Light, { fontWeight: 'bold' }]}>
+          Confirmation Code
+        </Text>
         <TextInput
           style={components.inputField}
-          placeholder="(ending with .edu)"
           autoFocus={true}
           autoCapitalize="none"
           autoCorrect={false}
           onChangeText={(value) => {
-            setEmail(value);
+            setCode(value);
           }}
         />
         <Text style={[styles.body1Light, { fontWeight: 'bold' }]}>
-          Password
+          New Password
         </Text>
         <TextInput
           style={components.inputField}
@@ -73,24 +82,20 @@ const Signin = () => {
         />
       </View>
       <View style={{ alignItems: 'center' }}>
-        <Text
-          style={[styles.body1Light, { textAlign: 'right' }]}
-          onPress={() => navigation.navigate('PwReset' as never)}
-        >
-          Forgot password? |<Text style={{ fontWeight: 'bold' }}> Reset</Text>
-        </Text>
         <Pressable
           style={styles.button}
-          onPress={() => userSignIn({ email: email, password: password })}
+          onPress={() =>
+            userChangePw({ email: email, newPassword: password, code: code })
+          }
         >
-          <Text style={fonts.fButton}>SIGN IN</Text>
+          <Text style={fonts.fButton}>RESET PASSWORD</Text>
         </Pressable>
       </View>
     </SafeAreaView>
   );
 };
 
-export default Signin;
+export default PwResetConfirm;
 
 const styles = StyleSheet.create({
   container: {
