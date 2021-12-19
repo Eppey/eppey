@@ -13,6 +13,7 @@ Amplify.configure({ ...config, Analytics: { disabled: true } });
 import Welcome from './src/components/Welcome';
 import Signup from './src/components/Auth/Signup';
 import SignupComplete from './src/components/Auth/SignupComplete';
+import Signin from './src/components/Auth/Signin';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +36,11 @@ export default function App() {
             <Stack.Screen
               name="SignupComplete"
               component={SignupComplete}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Signin"
+              component={Signin}
               options={{ headerShown: false }}
             />
           </Stack.Navigator>

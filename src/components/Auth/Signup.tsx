@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,10 +8,49 @@ import {
   Pressable,
   SafeAreaView,
   TextInput,
+  Alert,
 } from 'react-native';
+
+import { Auth } from 'aws-amplify';
+
+type User = {
+  email: string;
+  password: string;
+};
 
 const SignupScreen = () => {
   const navigation = useNavigation();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  async function signUp(user: User): Promise<void> {
+    if (user.password.length >= 8) {
+      try {
+        await Auth.signUp({
+          username: user.email,
+          password: user.password,
+          attributes: {
+            email: user.email,
+          },
+        });
+        navigation.navigate('SignupComplete' as never);
+      } catch (err: any) {
+        if (err.code === 'UserNotConfirmedException') {
+          Alert.alert('Account not verified yet');
+        } else if (err.code === 'PasswordResetRequiredException') {
+          Alert.alert('Existing user found. Please reset your password');
+        } else if (err.code === 'NotAuthorizedException') {
+          Alert.alert('Forgot Password?');
+        } else if (err.code === 'UserNotFoundException') {
+          Alert.alert('User does not exist!');
+        } else {
+          Alert.alert(err.code);
+        }
+      }
+    } else {
+      Alert.alert('Password length should be between 8 ~ 20');
+    }
+  }
 
   return (
     <SafeAreaView>
@@ -32,9 +71,17 @@ const SignupScreen = () => {
           style={styles.inputField}
           placeholder="(ending with .edu)"
           autoFocus={true}
+          onChangeText={(value) => {
+            setEmail(value);
+          }}
         />
         <Text style={[styles.ftype2, { fontWeight: 'bold' }]}>Password</Text>
-        <TextInput style={styles.inputField} />
+        <TextInput
+          style={styles.inputField}
+          onChangeText={(value) => {
+            setPassword(value);
+          }}
+        />
       </View>
       <View style={{ alignItems: 'center' }}>
         <Text style={[styles.ftype2, { textAlign: 'center' }]}>
@@ -44,7 +91,7 @@ const SignupScreen = () => {
         </Text>
         <Pressable
           style={styles.button}
-          onPress={() => navigation.navigate('SignupComplete' as never)}
+          onPress={() => signUp({ email: email, password: password })}
         >
           <Text style={[styles.buttonText, styles.ftype1]}>SIGN UP</Text>
         </Pressable>
