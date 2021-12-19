@@ -40,7 +40,7 @@ const PwResetConfirm = () => {
       );
       navigation.navigate('PwResetDone' as never);
     } catch (err: any) {
-      Alert.alert(err.code);
+      Alert.alert('Error', err.message);
     }
   }
 

@@ -39,19 +39,22 @@ const Signup = () => {
         navigation.navigate('SignupComplete' as never);
       } catch (err: any) {
         if (err.code === 'UserNotConfirmedException') {
-          Alert.alert('Account not verified yet');
+          Alert.alert('Error', 'Account not verified yet');
         } else if (err.code === 'PasswordResetRequiredException') {
-          Alert.alert('Existing user found. Please reset your password');
+          Alert.alert(
+            'Error',
+            'Existing user found. Please reset your password'
+          );
         } else if (err.code === 'NotAuthorizedException') {
-          Alert.alert('Forgot Password?');
+          Alert.alert('Error', 'Forgot Password?');
         } else if (err.code === 'UserNotFoundException') {
-          Alert.alert('User does not exist!');
+          Alert.alert('Error', 'User does not exist!');
         } else {
-          Alert.alert(err.code);
+          Alert.alert('Error', err.message);
         }
       }
     } else {
-      Alert.alert('Password length should be between 8 ~ 20');
+      Alert.alert('Error', 'Password length should be between 8 ~ 20');
     }
   }
 

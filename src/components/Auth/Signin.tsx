@@ -10,6 +10,7 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Auth } from 'aws-amplify';
 
@@ -29,10 +30,21 @@ const Signin = () => {
   async function userSignIn(user: User): Promise<void> {
     try {
       await Auth.signIn(user.email, user.password);
-      // Use redux & keychain to store user information
+      saveUserInfo(user);
       navigation.navigate('Home' as never);
     } catch (err: any) {
-      Alert.alert(err.code);
+      Alert.alert('Error', err.message);
+    }
+  }
+
+  async function saveUserInfo(user: User): Promise<void> {
+    try {
+      await AsyncStorage.multiSet([
+        ['@userEmail', user.email],
+        ['@userPassword', user.password],
+      ]);
+    } catch (err) {
+      console.log(err);
     }
   }
 

@@ -1,12 +1,30 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { Auth } from 'aws-amplify';
 
 import { fonts } from '../styles/fonts';
 import { components } from '../styles/components';
 
 const Welcome = () => {
   const navigation = useNavigation();
+
+  async function checkAutoLogin(): Promise<void> {
+    try {
+      let email = (await AsyncStorage.getItem('@userEmail')) as string;
+      let password = (await AsyncStorage.getItem('@userPassword')) as string;
+      if (email !== null) {
+        await Auth.signIn(email, password);
+        navigation.navigate('Home' as never);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  checkAutoLogin();
 
   return (
     <View style={{ height: '100%' }}>

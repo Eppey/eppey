@@ -32,13 +32,17 @@ const PwReset = () => {
         navigation.navigate('PwResetConfirm' as never);
       } catch (err: any) {
         if (err.code === 'UserNotFoundException') {
-          Alert.alert('No such user');
+          Alert.alert('Error', 'No such user');
         } else {
-          Alert.alert(err.code);
+          Alert.alert(err.message);
         }
       }
     } else {
-      Alert.alert('Email length should be longer than 0');
+      if (email.length == 0) {
+        Alert.alert('Error', 'Email length should be longer than 0');
+      } else {
+        Alert.alert('Error', 'Email should end with .edu');
+      }
     }
   }
 
