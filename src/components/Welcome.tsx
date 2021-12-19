@@ -2,7 +2,10 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 
-const WelcomeScreen = () => {
+import { fonts } from '../styles/fonts';
+import { components } from '../styles/components';
+
+const Welcome = () => {
   const navigation = useNavigation();
 
   return (
@@ -15,7 +18,7 @@ const WelcomeScreen = () => {
       </View>
       <View style={styles.bottomContainer}>
         <Text style={styles.title}>Welcome to EPPEY</Text>
-        <Text style={[styles.description, styles.ftype1]}>
+        <Text style={styles.description}>
           Join a community of over 100k+ international{'\n'}students from South
           Korea!
         </Text>
@@ -23,9 +26,12 @@ const WelcomeScreen = () => {
           style={styles.button}
           onPress={() => navigation.navigate('Signup' as never)}
         >
-          <Text style={[styles.buttonText, styles.ftype1]}>GET STARTED</Text>
+          <Text style={fonts.fButton}>GET STARTED</Text>
         </Pressable>
-        <Text style={[styles.description2, styles.ftype1]}>
+        <Text
+          style={styles.description2}
+          onPress={() => navigation.navigate('Signin' as never)}
+        >
           Already have an account?{' '}
           <Text style={{ fontWeight: 'bold' }}>Sign In</Text>
         </Text>
@@ -34,7 +40,7 @@ const WelcomeScreen = () => {
   );
 };
 
-export default WelcomeScreen;
+export default Welcome;
 
 const styles = StyleSheet.create({
   topContainer: {
@@ -52,42 +58,11 @@ const styles = StyleSheet.create({
     height: '45%',
     resizeMode: 'contain',
   },
-  title: {
-    marginTop: '25%',
-    fontFamily: 'System',
-    fontWeight: 'bold',
-    color: '#272F40',
-    fontSize: 36,
-    lineHeight: 40,
-    letterSpacing: -1.24,
-  },
+  title: { ...fonts.header1, ...{ marginTop: '25%' } },
   description: {
-    marginTop: '4%',
-    color: '#272F4080',
-    fontSize: 14,
+    ...fonts.body1Light,
+    ...{ marginTop: '4%', textAlign: 'center', color: '#272F4080' },
   },
-  description2: {
-    marginTop: '2%',
-    color: '#272F40B2',
-    fontSize: 14,
-  },
-  buttonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-  },
-  button: {
-    marginTop: '12%',
-    height: 50,
-    width: '65%',
-    borderRadius: 30,
-    backgroundColor: '#272F40',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  ftype1: {
-    fontFamily: 'System',
-    textAlign: 'center',
-    lineHeight: 20,
-    letterSpacing: -0.24,
-  },
+  description2: { ...fonts.body1Light, ...{ marginTop: '2%' } },
+  button: { ...components.button, ...{ marginTop: '12%' } },
 });
