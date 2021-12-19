@@ -10,7 +10,7 @@ const SignupComplete = () => {
   return (
     <SafeAreaView style={{ alignItems: 'center' }}>
       <Text style={styles.signup}>Sign Up{'\n'}Complete!</Text>
-      <Text style={styles.ftype2}>
+      <Text style={styles.body1Light}>
         Please check your
         <Text style={{ fontWeight: 'bold' }}> email</Text> for
         <Text style={{ fontWeight: 'bold' }}> confirmation</Text>
@@ -32,6 +32,6 @@ const styles = StyleSheet.create({
     ...fonts.header1,
     ...{ marginTop: '70%', marginBottom: 20, textAlign: 'center' },
   },
-  ftype2: { ...fonts.body1Light, ...{ marginBottom: 8 } },
+  body1Light: { ...fonts.body1Light, ...{ marginBottom: 8 } },
   button: { ...components.button, ...{ marginTop: 40 } },
 });

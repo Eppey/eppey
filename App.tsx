@@ -15,6 +15,8 @@ import Signup from './src/components/Auth/Signup';
 import SignupComplete from './src/components/Auth/SignupComplete';
 import Signin from './src/components/Auth/Signin';
 
+import Home from './src/components/Main/Home';
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -41,6 +43,11 @@ export default function App() {
             <Stack.Screen
               name="Signin"
               component={Signin}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Home"
+              component={Home}
               options={{ headerShown: false }}
             />
           </Stack.Navigator>

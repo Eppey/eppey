@@ -48,10 +48,10 @@ export const fonts = StyleSheet.create({
     color: '#FFFFFF',
   },
   fBack: {
-    marginStart: 2,
     fontFamily: 'System',
     fontSize: 18,
     textAlign: 'left',
     color: '#283244',
+    marginStart: 2,
   },
 });

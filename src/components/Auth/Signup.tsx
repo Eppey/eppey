@@ -21,12 +21,12 @@ type User = {
   password: string;
 };
 
-const SignupScreen = () => {
+const Signup = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  async function signUp(user: User): Promise<void> {
+  async function userSignUp(user: User): Promise<void> {
     if (user.password.length >= 8) {
       try {
         await Auth.signUp({
@@ -69,32 +69,36 @@ const SignupScreen = () => {
           <Text style={fonts.fBack}>Back</Text>
         </Pressable>
         <Text style={styles.signup}>Sign Up</Text>
-        <Text style={[styles.ftype2, { fontWeight: 'bold' }]}>Email</Text>
+        <Text style={[styles.body1Light, { fontWeight: 'bold' }]}>Email</Text>
         <TextInput
           style={components.inputField}
           placeholder="(ending with .edu)"
           autoFocus={true}
+          autoCapitalize="none"
           onChangeText={(value) => {
             setEmail(value);
           }}
         />
-        <Text style={[styles.ftype2, { fontWeight: 'bold' }]}>Password</Text>
+        <Text style={[styles.body1Light, { fontWeight: 'bold' }]}>
+          Password
+        </Text>
         <TextInput
           style={components.inputField}
+          secureTextEntry={true}
           onChangeText={(value) => {
             setPassword(value);
           }}
         />
       </View>
       <View style={{ alignItems: 'center' }}>
-        <Text style={[styles.ftype2, { textAlign: 'center' }]}>
+        <Text style={[styles.body1Light, { textAlign: 'center' }]}>
           By signing up, you’re agreeing to{'\n'}EPPEY’s{' '}
           <Text style={{ fontWeight: 'bold' }}>Terms of Service</Text> and
           <Text style={{ fontWeight: 'bold' }}> Privacy Policy</Text>
         </Text>
         <Pressable
           style={styles.button}
-          onPress={() => signUp({ email: email, password: password })}
+          onPress={() => userSignUp({ email: email, password: password })}
         >
           <Text style={fonts.fButton}>SIGN UP</Text>
         </Pressable>
@@ -103,7 +107,7 @@ const SignupScreen = () => {
   );
 };
 
-export default SignupScreen;
+export default Signup;
 
 const styles = StyleSheet.create({
   container: {
@@ -111,5 +115,5 @@ const styles = StyleSheet.create({
   },
   signup: { ...fonts.header1, ...{ marginTop: 20, marginBottom: 25 } },
   button: { ...components.button, ...{ marginTop: 30 } },
-  ftype2: { ...fonts.body1Light, ...{ marginBottom: 8 } },
+  body1Light: { ...fonts.body1Light, ...{ marginBottom: 8 } },
 });

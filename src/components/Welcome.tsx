@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 import { fonts } from '../styles/fonts';
 import { components } from '../styles/components';
 
-const WelcomeScreen = () => {
+const Welcome = () => {
   const navigation = useNavigation();
 
   return (
@@ -37,7 +37,7 @@ const WelcomeScreen = () => {
   );
 };
 
-export default WelcomeScreen;
+export default Welcome;
 
 const styles = StyleSheet.create({
   topContainer: {
