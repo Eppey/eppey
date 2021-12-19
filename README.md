@@ -193,8 +193,6 @@ Sehoan Choi - [sehoanchoi](https://www.linkedin.com/in/sehoanchoi/) - sehoanchoi
 
 ## Acknowledgments
 
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
-
 - [coolicons](https://www.figma.com/community/file/800815864899415771)
 - [Figma iOS UI Kit](https://www.figma.com/community/file/809487622678629513)
 - [Mockupy - Cute 3D Device Mockup](https://www.figma.com/community/file/1052097126940064675)
