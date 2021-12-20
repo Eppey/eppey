@@ -2,18 +2,19 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateBlog = /* GraphQL */ `
-  subscription OnCreateBlog {
-    onCreateBlog {
+export const onCreateUser = /* GraphQL */ `
+  subscription OnCreateUser {
+    onCreateUser {
       id
       name
       posts {
         items {
           id
           title
+          topic
           createdAt
           updatedAt
-          blogPostsId
+          userPostsId
         }
         nextToken
       }
@@ -22,18 +23,19 @@ export const onCreateBlog = /* GraphQL */ `
     }
   }
 `;
-export const onUpdateBlog = /* GraphQL */ `
-  subscription OnUpdateBlog {
-    onUpdateBlog {
+export const onUpdateUser = /* GraphQL */ `
+  subscription OnUpdateUser {
+    onUpdateUser {
       id
       name
       posts {
         items {
           id
           title
+          topic
           createdAt
           updatedAt
-          blogPostsId
+          userPostsId
         }
         nextToken
       }
@@ -42,18 +44,19 @@ export const onUpdateBlog = /* GraphQL */ `
     }
   }
 `;
-export const onDeleteBlog = /* GraphQL */ `
-  subscription OnDeleteBlog {
-    onDeleteBlog {
+export const onDeleteUser = /* GraphQL */ `
+  subscription OnDeleteUser {
+    onDeleteUser {
       id
       name
       posts {
         items {
           id
           title
+          topic
           createdAt
           updatedAt
-          blogPostsId
+          userPostsId
         }
         nextToken
       }
@@ -67,7 +70,8 @@ export const onCreatePost = /* GraphQL */ `
     onCreatePost {
       id
       title
-      blog {
+      topic
+      user {
         id
         name
         posts {
@@ -88,7 +92,7 @@ export const onCreatePost = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      blogPostsId
+      userPostsId
     }
   }
 `;
@@ -97,7 +101,8 @@ export const onUpdatePost = /* GraphQL */ `
     onUpdatePost {
       id
       title
-      blog {
+      topic
+      user {
         id
         name
         posts {
@@ -118,7 +123,7 @@ export const onUpdatePost = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      blogPostsId
+      userPostsId
     }
   }
 `;
@@ -127,7 +132,8 @@ export const onDeletePost = /* GraphQL */ `
     onDeletePost {
       id
       title
-      blog {
+      topic
+      user {
         id
         name
         posts {
@@ -148,7 +154,7 @@ export const onDeletePost = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      blogPostsId
+      userPostsId
     }
   }
 `;
@@ -159,7 +165,8 @@ export const onCreateComment = /* GraphQL */ `
       post {
         id
         title
-        blog {
+        topic
+        user {
           id
           name
           createdAt
@@ -170,7 +177,7 @@ export const onCreateComment = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        blogPostsId
+        userPostsId
       }
       content
       createdAt
@@ -186,7 +193,8 @@ export const onUpdateComment = /* GraphQL */ `
       post {
         id
         title
-        blog {
+        topic
+        user {
           id
           name
           createdAt
@@ -197,7 +205,7 @@ export const onUpdateComment = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        blogPostsId
+        userPostsId
       }
       content
       createdAt
@@ -213,7 +221,8 @@ export const onDeleteComment = /* GraphQL */ `
       post {
         id
         title
-        blog {
+        topic
+        user {
           id
           name
           createdAt
@@ -224,7 +233,7 @@ export const onDeleteComment = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        blogPostsId
+        userPostsId
       }
       content
       createdAt

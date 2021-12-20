@@ -2,16 +2,16 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateBlogInput = {
+export type CreateUserInput = {
   id?: string | null,
   name: string,
 };
 
-export type ModelBlogConditionInput = {
+export type ModelUserConditionInput = {
   name?: ModelStringInput | null,
-  and?: Array< ModelBlogConditionInput | null > | null,
-  or?: Array< ModelBlogConditionInput | null > | null,
-  not?: ModelBlogConditionInput | null,
+  and?: Array< ModelUserConditionInput | null > | null,
+  or?: Array< ModelUserConditionInput | null > | null,
+  not?: ModelUserConditionInput | null,
 };
 
 export type ModelStringInput = {
@@ -54,8 +54,8 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type Blog = {
-  __typename: "Blog",
+export type User = {
+  __typename: "User",
   id: string,
   name: string,
   posts?: ModelPostConnection | null,
@@ -73,11 +73,12 @@ export type Post = {
   __typename: "Post",
   id: string,
   title: string,
-  blog?: Blog | null,
+  topic: string,
+  user?: User | null,
   comments?: ModelCommentConnection | null,
   createdAt: string,
   updatedAt: string,
-  blogPostsId?: string | null,
+  userPostsId?: string | null,
 };
 
 export type ModelCommentConnection = {
@@ -96,27 +97,29 @@ export type Comment = {
   postCommentsId?: string | null,
 };
 
-export type UpdateBlogInput = {
+export type UpdateUserInput = {
   id: string,
   name?: string | null,
 };
 
-export type DeleteBlogInput = {
+export type DeleteUserInput = {
   id: string,
 };
 
 export type CreatePostInput = {
   id?: string | null,
   title: string,
-  blogPostsId?: string | null,
+  topic: string,
+  userPostsId?: string | null,
 };
 
 export type ModelPostConditionInput = {
   title?: ModelStringInput | null,
+  topic?: ModelStringInput | null,
   and?: Array< ModelPostConditionInput | null > | null,
   or?: Array< ModelPostConditionInput | null > | null,
   not?: ModelPostConditionInput | null,
-  blogPostsId?: ModelIDInput | null,
+  userPostsId?: ModelIDInput | null,
 };
 
 export type ModelIDInput = {
@@ -138,7 +141,8 @@ export type ModelIDInput = {
 export type UpdatePostInput = {
   id: string,
   title?: string | null,
-  blogPostsId?: string | null,
+  topic?: string | null,
+  userPostsId?: string | null,
 };
 
 export type DeletePostInput = {
@@ -169,27 +173,28 @@ export type DeleteCommentInput = {
   id: string,
 };
 
-export type ModelBlogFilterInput = {
+export type ModelUserFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
-  and?: Array< ModelBlogFilterInput | null > | null,
-  or?: Array< ModelBlogFilterInput | null > | null,
-  not?: ModelBlogFilterInput | null,
+  and?: Array< ModelUserFilterInput | null > | null,
+  or?: Array< ModelUserFilterInput | null > | null,
+  not?: ModelUserFilterInput | null,
 };
 
-export type ModelBlogConnection = {
-  __typename: "ModelBlogConnection",
-  items:  Array<Blog >,
+export type ModelUserConnection = {
+  __typename: "ModelUserConnection",
+  items:  Array<User >,
   nextToken?: string | null,
 };
 
 export type ModelPostFilterInput = {
   id?: ModelIDInput | null,
   title?: ModelStringInput | null,
+  topic?: ModelStringInput | null,
   and?: Array< ModelPostFilterInput | null > | null,
   or?: Array< ModelPostFilterInput | null > | null,
   not?: ModelPostFilterInput | null,
-  blogPostsId?: ModelIDInput | null,
+  userPostsId?: ModelIDInput | null,
 };
 
 export type ModelCommentFilterInput = {
@@ -201,14 +206,14 @@ export type ModelCommentFilterInput = {
   postCommentsId?: ModelIDInput | null,
 };
 
-export type CreateBlogMutationVariables = {
-  input: CreateBlogInput,
-  condition?: ModelBlogConditionInput | null,
+export type CreateUserMutationVariables = {
+  input: CreateUserInput,
+  condition?: ModelUserConditionInput | null,
 };
 
-export type CreateBlogMutation = {
-  createBlog?:  {
-    __typename: "Blog",
+export type CreateUserMutation = {
+  createUser?:  {
+    __typename: "User",
     id: string,
     name: string,
     posts?:  {
@@ -217,9 +222,10 @@ export type CreateBlogMutation = {
         __typename: "Post",
         id: string,
         title: string,
+        topic: string,
         createdAt: string,
         updatedAt: string,
-        blogPostsId?: string | null,
+        userPostsId?: string | null,
       } >,
       nextToken?: string | null,
     } | null,
@@ -228,14 +234,14 @@ export type CreateBlogMutation = {
   } | null,
 };
 
-export type UpdateBlogMutationVariables = {
-  input: UpdateBlogInput,
-  condition?: ModelBlogConditionInput | null,
+export type UpdateUserMutationVariables = {
+  input: UpdateUserInput,
+  condition?: ModelUserConditionInput | null,
 };
 
-export type UpdateBlogMutation = {
-  updateBlog?:  {
-    __typename: "Blog",
+export type UpdateUserMutation = {
+  updateUser?:  {
+    __typename: "User",
     id: string,
     name: string,
     posts?:  {
@@ -244,9 +250,10 @@ export type UpdateBlogMutation = {
         __typename: "Post",
         id: string,
         title: string,
+        topic: string,
         createdAt: string,
         updatedAt: string,
-        blogPostsId?: string | null,
+        userPostsId?: string | null,
       } >,
       nextToken?: string | null,
     } | null,
@@ -255,14 +262,14 @@ export type UpdateBlogMutation = {
   } | null,
 };
 
-export type DeleteBlogMutationVariables = {
-  input: DeleteBlogInput,
-  condition?: ModelBlogConditionInput | null,
+export type DeleteUserMutationVariables = {
+  input: DeleteUserInput,
+  condition?: ModelUserConditionInput | null,
 };
 
-export type DeleteBlogMutation = {
-  deleteBlog?:  {
-    __typename: "Blog",
+export type DeleteUserMutation = {
+  deleteUser?:  {
+    __typename: "User",
     id: string,
     name: string,
     posts?:  {
@@ -271,9 +278,10 @@ export type DeleteBlogMutation = {
         __typename: "Post",
         id: string,
         title: string,
+        topic: string,
         createdAt: string,
         updatedAt: string,
-        blogPostsId?: string | null,
+        userPostsId?: string | null,
       } >,
       nextToken?: string | null,
     } | null,
@@ -292,8 +300,9 @@ export type CreatePostMutation = {
     __typename: "Post",
     id: string,
     title: string,
-    blog?:  {
-      __typename: "Blog",
+    topic: string,
+    user?:  {
+      __typename: "User",
       id: string,
       name: string,
       posts?:  {
@@ -317,7 +326,7 @@ export type CreatePostMutation = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    blogPostsId?: string | null,
+    userPostsId?: string | null,
   } | null,
 };
 
@@ -331,8 +340,9 @@ export type UpdatePostMutation = {
     __typename: "Post",
     id: string,
     title: string,
-    blog?:  {
-      __typename: "Blog",
+    topic: string,
+    user?:  {
+      __typename: "User",
       id: string,
       name: string,
       posts?:  {
@@ -356,7 +366,7 @@ export type UpdatePostMutation = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    blogPostsId?: string | null,
+    userPostsId?: string | null,
   } | null,
 };
 
@@ -370,8 +380,9 @@ export type DeletePostMutation = {
     __typename: "Post",
     id: string,
     title: string,
-    blog?:  {
-      __typename: "Blog",
+    topic: string,
+    user?:  {
+      __typename: "User",
       id: string,
       name: string,
       posts?:  {
@@ -395,7 +406,7 @@ export type DeletePostMutation = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    blogPostsId?: string | null,
+    userPostsId?: string | null,
   } | null,
 };
 
@@ -412,8 +423,9 @@ export type CreateCommentMutation = {
       __typename: "Post",
       id: string,
       title: string,
-      blog?:  {
-        __typename: "Blog",
+      topic: string,
+      user?:  {
+        __typename: "User",
         id: string,
         name: string,
         createdAt: string,
@@ -425,7 +437,7 @@ export type CreateCommentMutation = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      blogPostsId?: string | null,
+      userPostsId?: string | null,
     } | null,
     content: string,
     createdAt: string,
@@ -447,8 +459,9 @@ export type UpdateCommentMutation = {
       __typename: "Post",
       id: string,
       title: string,
-      blog?:  {
-        __typename: "Blog",
+      topic: string,
+      user?:  {
+        __typename: "User",
         id: string,
         name: string,
         createdAt: string,
@@ -460,7 +473,7 @@ export type UpdateCommentMutation = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      blogPostsId?: string | null,
+      userPostsId?: string | null,
     } | null,
     content: string,
     createdAt: string,
@@ -482,8 +495,9 @@ export type DeleteCommentMutation = {
       __typename: "Post",
       id: string,
       title: string,
-      blog?:  {
-        __typename: "Blog",
+      topic: string,
+      user?:  {
+        __typename: "User",
         id: string,
         name: string,
         createdAt: string,
@@ -495,7 +509,7 @@ export type DeleteCommentMutation = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      blogPostsId?: string | null,
+      userPostsId?: string | null,
     } | null,
     content: string,
     createdAt: string,
@@ -504,13 +518,13 @@ export type DeleteCommentMutation = {
   } | null,
 };
 
-export type GetBlogQueryVariables = {
+export type GetUserQueryVariables = {
   id: string,
 };
 
-export type GetBlogQuery = {
-  getBlog?:  {
-    __typename: "Blog",
+export type GetUserQuery = {
+  getUser?:  {
+    __typename: "User",
     id: string,
     name: string,
     posts?:  {
@@ -519,9 +533,10 @@ export type GetBlogQuery = {
         __typename: "Post",
         id: string,
         title: string,
+        topic: string,
         createdAt: string,
         updatedAt: string,
-        blogPostsId?: string | null,
+        userPostsId?: string | null,
       } >,
       nextToken?: string | null,
     } | null,
@@ -530,17 +545,17 @@ export type GetBlogQuery = {
   } | null,
 };
 
-export type ListBlogsQueryVariables = {
-  filter?: ModelBlogFilterInput | null,
+export type ListUsersQueryVariables = {
+  filter?: ModelUserFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListBlogsQuery = {
-  listBlogs?:  {
-    __typename: "ModelBlogConnection",
+export type ListUsersQuery = {
+  listUsers?:  {
+    __typename: "ModelUserConnection",
     items:  Array< {
-      __typename: "Blog",
+      __typename: "User",
       id: string,
       name: string,
       posts?:  {
@@ -563,8 +578,9 @@ export type GetPostQuery = {
     __typename: "Post",
     id: string,
     title: string,
-    blog?:  {
-      __typename: "Blog",
+    topic: string,
+    user?:  {
+      __typename: "User",
       id: string,
       name: string,
       posts?:  {
@@ -588,7 +604,7 @@ export type GetPostQuery = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    blogPostsId?: string | null,
+    userPostsId?: string | null,
   } | null,
 };
 
@@ -605,8 +621,9 @@ export type ListPostsQuery = {
       __typename: "Post",
       id: string,
       title: string,
-      blog?:  {
-        __typename: "Blog",
+      topic: string,
+      user?:  {
+        __typename: "User",
         id: string,
         name: string,
         createdAt: string,
@@ -618,7 +635,7 @@ export type ListPostsQuery = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      blogPostsId?: string | null,
+      userPostsId?: string | null,
     } >,
     nextToken?: string | null,
   } | null,
@@ -636,8 +653,9 @@ export type GetCommentQuery = {
       __typename: "Post",
       id: string,
       title: string,
-      blog?:  {
-        __typename: "Blog",
+      topic: string,
+      user?:  {
+        __typename: "User",
         id: string,
         name: string,
         createdAt: string,
@@ -649,7 +667,7 @@ export type GetCommentQuery = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      blogPostsId?: string | null,
+      userPostsId?: string | null,
     } | null,
     content: string,
     createdAt: string,
@@ -674,9 +692,10 @@ export type ListCommentsQuery = {
         __typename: "Post",
         id: string,
         title: string,
+        topic: string,
         createdAt: string,
         updatedAt: string,
-        blogPostsId?: string | null,
+        userPostsId?: string | null,
       } | null,
       content: string,
       createdAt: string,
@@ -687,9 +706,9 @@ export type ListCommentsQuery = {
   } | null,
 };
 
-export type OnCreateBlogSubscription = {
-  onCreateBlog?:  {
-    __typename: "Blog",
+export type OnCreateUserSubscription = {
+  onCreateUser?:  {
+    __typename: "User",
     id: string,
     name: string,
     posts?:  {
@@ -698,9 +717,10 @@ export type OnCreateBlogSubscription = {
         __typename: "Post",
         id: string,
         title: string,
+        topic: string,
         createdAt: string,
         updatedAt: string,
-        blogPostsId?: string | null,
+        userPostsId?: string | null,
       } >,
       nextToken?: string | null,
     } | null,
@@ -709,9 +729,9 @@ export type OnCreateBlogSubscription = {
   } | null,
 };
 
-export type OnUpdateBlogSubscription = {
-  onUpdateBlog?:  {
-    __typename: "Blog",
+export type OnUpdateUserSubscription = {
+  onUpdateUser?:  {
+    __typename: "User",
     id: string,
     name: string,
     posts?:  {
@@ -720,9 +740,10 @@ export type OnUpdateBlogSubscription = {
         __typename: "Post",
         id: string,
         title: string,
+        topic: string,
         createdAt: string,
         updatedAt: string,
-        blogPostsId?: string | null,
+        userPostsId?: string | null,
       } >,
       nextToken?: string | null,
     } | null,
@@ -731,9 +752,9 @@ export type OnUpdateBlogSubscription = {
   } | null,
 };
 
-export type OnDeleteBlogSubscription = {
-  onDeleteBlog?:  {
-    __typename: "Blog",
+export type OnDeleteUserSubscription = {
+  onDeleteUser?:  {
+    __typename: "User",
     id: string,
     name: string,
     posts?:  {
@@ -742,9 +763,10 @@ export type OnDeleteBlogSubscription = {
         __typename: "Post",
         id: string,
         title: string,
+        topic: string,
         createdAt: string,
         updatedAt: string,
-        blogPostsId?: string | null,
+        userPostsId?: string | null,
       } >,
       nextToken?: string | null,
     } | null,
@@ -758,8 +780,9 @@ export type OnCreatePostSubscription = {
     __typename: "Post",
     id: string,
     title: string,
-    blog?:  {
-      __typename: "Blog",
+    topic: string,
+    user?:  {
+      __typename: "User",
       id: string,
       name: string,
       posts?:  {
@@ -783,7 +806,7 @@ export type OnCreatePostSubscription = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    blogPostsId?: string | null,
+    userPostsId?: string | null,
   } | null,
 };
 
@@ -792,8 +815,9 @@ export type OnUpdatePostSubscription = {
     __typename: "Post",
     id: string,
     title: string,
-    blog?:  {
-      __typename: "Blog",
+    topic: string,
+    user?:  {
+      __typename: "User",
       id: string,
       name: string,
       posts?:  {
@@ -817,7 +841,7 @@ export type OnUpdatePostSubscription = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    blogPostsId?: string | null,
+    userPostsId?: string | null,
   } | null,
 };
 
@@ -826,8 +850,9 @@ export type OnDeletePostSubscription = {
     __typename: "Post",
     id: string,
     title: string,
-    blog?:  {
-      __typename: "Blog",
+    topic: string,
+    user?:  {
+      __typename: "User",
       id: string,
       name: string,
       posts?:  {
@@ -851,7 +876,7 @@ export type OnDeletePostSubscription = {
     } | null,
     createdAt: string,
     updatedAt: string,
-    blogPostsId?: string | null,
+    userPostsId?: string | null,
   } | null,
 };
 
@@ -863,8 +888,9 @@ export type OnCreateCommentSubscription = {
       __typename: "Post",
       id: string,
       title: string,
-      blog?:  {
-        __typename: "Blog",
+      topic: string,
+      user?:  {
+        __typename: "User",
         id: string,
         name: string,
         createdAt: string,
@@ -876,7 +902,7 @@ export type OnCreateCommentSubscription = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      blogPostsId?: string | null,
+      userPostsId?: string | null,
     } | null,
     content: string,
     createdAt: string,
@@ -893,8 +919,9 @@ export type OnUpdateCommentSubscription = {
       __typename: "Post",
       id: string,
       title: string,
-      blog?:  {
-        __typename: "Blog",
+      topic: string,
+      user?:  {
+        __typename: "User",
         id: string,
         name: string,
         createdAt: string,
@@ -906,7 +933,7 @@ export type OnUpdateCommentSubscription = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      blogPostsId?: string | null,
+      userPostsId?: string | null,
     } | null,
     content: string,
     createdAt: string,
@@ -923,8 +950,9 @@ export type OnDeleteCommentSubscription = {
       __typename: "Post",
       id: string,
       title: string,
-      blog?:  {
-        __typename: "Blog",
+      topic: string,
+      user?:  {
+        __typename: "User",
         id: string,
         name: string,
         createdAt: string,
@@ -936,7 +964,7 @@ export type OnDeleteCommentSubscription = {
       } | null,
       createdAt: string,
       updatedAt: string,
-      blogPostsId?: string | null,
+      userPostsId?: string | null,
     } | null,
     content: string,
     createdAt: string,

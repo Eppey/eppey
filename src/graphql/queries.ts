@@ -2,18 +2,19 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getBlog = /* GraphQL */ `
-  query GetBlog($id: ID!) {
-    getBlog(id: $id) {
+export const getUser = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
       id
       name
       posts {
         items {
           id
           title
+          topic
           createdAt
           updatedAt
-          blogPostsId
+          userPostsId
         }
         nextToken
       }
@@ -22,13 +23,13 @@ export const getBlog = /* GraphQL */ `
     }
   }
 `;
-export const listBlogs = /* GraphQL */ `
-  query ListBlogs(
-    $filter: ModelBlogFilterInput
+export const listUsers = /* GraphQL */ `
+  query ListUsers(
+    $filter: ModelUserFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listBlogs(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         name
@@ -47,7 +48,8 @@ export const getPost = /* GraphQL */ `
     getPost(id: $id) {
       id
       title
-      blog {
+      topic
+      user {
         id
         name
         posts {
@@ -68,7 +70,7 @@ export const getPost = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      blogPostsId
+      userPostsId
     }
   }
 `;
@@ -82,7 +84,8 @@ export const listPosts = /* GraphQL */ `
       items {
         id
         title
-        blog {
+        topic
+        user {
           id
           name
           createdAt
@@ -93,7 +96,7 @@ export const listPosts = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        blogPostsId
+        userPostsId
       }
       nextToken
     }
@@ -106,7 +109,8 @@ export const getComment = /* GraphQL */ `
       post {
         id
         title
-        blog {
+        topic
+        user {
           id
           name
           createdAt
@@ -117,7 +121,7 @@ export const getComment = /* GraphQL */ `
         }
         createdAt
         updatedAt
-        blogPostsId
+        userPostsId
       }
       content
       createdAt
@@ -138,9 +142,10 @@ export const listComments = /* GraphQL */ `
         post {
           id
           title
+          topic
           createdAt
           updatedAt
-          blogPostsId
+          userPostsId
         }
         content
         createdAt

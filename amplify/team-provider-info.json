@@ -22,17 +22,17 @@
           "EMAILSUBJECT": "Please confirm your email address",
           "EMAILMESSAGE": "Thanks for creating your EPPEY account! Before we get started, we need you to verify your email to make sure we got it right.",
           "deploymentBucketName": "amplify-eppey-dev-120210-deployment",
-          "s3Key": "amplify-builds/eppey21ee40cbCustomMessage-38654843665959315967-build.zip"
+          "s3Key": "amplify-builds/eppey21ee40cbCustomMessage-58623369324c4c4b7278-build.zip"
         },
         "eppey21ee40cbPostConfirmation": {
           "GROUP": "student",
           "deploymentBucketName": "amplify-eppey-dev-120210-deployment",
-          "s3Key": "amplify-builds/eppey21ee40cbPostConfirmation-6a6963356d576f306672-build.zip"
+          "s3Key": "amplify-builds/eppey21ee40cbPostConfirmation-4559554c474476337436-build.zip"
         },
         "eppey21ee40cbPreSignup": {
           "DOMAINALLOWLIST": "gatech.edu, virginia.edu",
           "deploymentBucketName": "amplify-eppey-dev-120210-deployment",
-          "s3Key": "amplify-builds/eppey21ee40cbPreSignup-61492b706a74666d6747-build.zip"
+          "s3Key": "amplify-builds/eppey21ee40cbPreSignup-445468625072586a4b4e-build.zip"
         }
       }
     }
