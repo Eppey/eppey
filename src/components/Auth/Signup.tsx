@@ -10,23 +10,40 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
 
 import { Auth } from 'aws-amplify';
 
 import { fonts } from '../../styles/fonts';
 import { components } from '../../styles/components';
+import { universities } from '../../data/universities';
+import { majors } from '../../data/majors';
 
 type User = {
   email: string;
   password: string;
+  major: string;
+  nickname: string;
+  school: string;
 };
 
 const Signup = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [major, setMajor] = useState('-');
+  const [nickname, setNickname] = useState('');
 
   async function userSignUp(user: User): Promise<void> {
+    if (user.school == 'N/A') {
+      Alert.alert('Error', 'Invalid email');
+      return;
+    }
+    if (user.major == '-') {
+      Alert.alert('Error', 'Pick a valid major');
+      return;
+    }
+
     if (user.password.length >= 8) {
       try {
         await Auth.signUp({
@@ -34,28 +51,26 @@ const Signup = () => {
           password: user.password,
           attributes: {
             email: user.email,
+            'custom:major': user.major,
+            'custom:nickname': user.nickname,
+            'custom:school': user.school,
           },
         });
         navigation.navigate('SignupComplete' as never);
       } catch (err: any) {
-        if (err.code === 'UserNotConfirmedException') {
-          Alert.alert('Error', 'Account not verified yet');
-        } else if (err.code === 'PasswordResetRequiredException') {
-          Alert.alert(
-            'Error',
-            'Existing user found. Please reset your password'
-          );
-        } else if (err.code === 'NotAuthorizedException') {
-          Alert.alert('Error', 'Forgot Password?');
-        } else if (err.code === 'UserNotFoundException') {
-          Alert.alert('Error', 'User does not exist!');
-        } else {
-          Alert.alert('Error', err.message);
-        }
+        Alert.alert('Error', err.message);
       }
     } else {
       Alert.alert('Error', 'Password length should be between 8 ~ 20');
     }
+  }
+
+  function getSchool(email: String): string {
+    const domain = email.substring(email.indexOf('@') + 1);
+    if (domain in universities) {
+      return universities[domain].name;
+    }
+    return 'N/A';
   }
 
   return (
@@ -93,6 +108,24 @@ const Signup = () => {
             setPassword(value);
           }}
         />
+        <Text style={[styles.body1Light, { fontWeight: 'bold' }]}>
+          Nickname
+        </Text>
+        <TextInput
+          style={components.inputField}
+          onChangeText={(value) => {
+            setNickname(value);
+          }}
+        />
+        <Text style={[styles.body1Light, { fontWeight: 'bold' }]}>Major</Text>
+        <Picker
+          selectedValue={major}
+          onValueChange={(itemValue, idx) => setMajor(itemValue)}
+        >
+          {majors.map((item) => (
+            <Picker.Item label={item} value={item} key={item} />
+          ))}
+        </Picker>
       </View>
       <View style={{ alignItems: 'center' }}>
         <Text style={[styles.body1Light, { textAlign: 'center' }]}>
@@ -102,7 +135,15 @@ const Signup = () => {
         </Text>
         <Pressable
           style={styles.button}
-          onPress={() => userSignUp({ email: email, password: password })}
+          onPress={() =>
+            userSignUp({
+              email: email,
+              password: password,
+              major: major,
+              nickname: nickname,
+              school: getSchool(email),
+            })
+          }
         >
           <Text style={fonts.fButton}>SIGN UP</Text>
         </Pressable>
