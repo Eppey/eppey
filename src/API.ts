@@ -4,11 +4,19 @@
 
 export type CreateUserInput = {
   id?: string | null,
-  name: string,
+  nickname: string,
+  email: string,
+  school: string,
+  major: string,
+  points: number,
 };
 
 export type ModelUserConditionInput = {
-  name?: ModelStringInput | null,
+  nickname?: ModelStringInput | null,
+  email?: ModelStringInput | null,
+  school?: ModelStringInput | null,
+  major?: ModelStringInput | null,
+  points?: ModelIntInput | null,
   and?: Array< ModelUserConditionInput | null > | null,
   or?: Array< ModelUserConditionInput | null > | null,
   not?: ModelUserConditionInput | null,
@@ -54,11 +62,28 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
+export type ModelIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
 export type User = {
   __typename: "User",
   id: string,
-  name: string,
+  nickname: string,
+  email: string,
+  school: string,
+  major: string,
   posts?: ModelPostConnection | null,
+  comments?: ModelCommentConnection | null,
+  points: number,
   createdAt: string,
   updatedAt: string,
 };
@@ -90,16 +115,22 @@ export type ModelCommentConnection = {
 export type Comment = {
   __typename: "Comment",
   id: string,
+  user?: User | null,
   post?: Post | null,
   content: string,
   createdAt: string,
   updatedAt: string,
+  userCommentsId?: string | null,
   postCommentsId?: string | null,
 };
 
 export type UpdateUserInput = {
   id: string,
-  name?: string | null,
+  nickname?: string | null,
+  email?: string | null,
+  school?: string | null,
+  major?: string | null,
+  points?: number | null,
 };
 
 export type DeleteUserInput = {
@@ -152,6 +183,7 @@ export type DeletePostInput = {
 export type CreateCommentInput = {
   id?: string | null,
   content: string,
+  userCommentsId?: string | null,
   postCommentsId?: string | null,
 };
 
@@ -160,12 +192,14 @@ export type ModelCommentConditionInput = {
   and?: Array< ModelCommentConditionInput | null > | null,
   or?: Array< ModelCommentConditionInput | null > | null,
   not?: ModelCommentConditionInput | null,
+  userCommentsId?: ModelIDInput | null,
   postCommentsId?: ModelIDInput | null,
 };
 
 export type UpdateCommentInput = {
   id: string,
   content?: string | null,
+  userCommentsId?: string | null,
   postCommentsId?: string | null,
 };
 
@@ -175,7 +209,11 @@ export type DeleteCommentInput = {
 
 export type ModelUserFilterInput = {
   id?: ModelIDInput | null,
-  name?: ModelStringInput | null,
+  nickname?: ModelStringInput | null,
+  email?: ModelStringInput | null,
+  school?: ModelStringInput | null,
+  major?: ModelStringInput | null,
+  points?: ModelIntInput | null,
   and?: Array< ModelUserFilterInput | null > | null,
   or?: Array< ModelUserFilterInput | null > | null,
   not?: ModelUserFilterInput | null,
@@ -203,6 +241,7 @@ export type ModelCommentFilterInput = {
   and?: Array< ModelCommentFilterInput | null > | null,
   or?: Array< ModelCommentFilterInput | null > | null,
   not?: ModelCommentFilterInput | null,
+  userCommentsId?: ModelIDInput | null,
   postCommentsId?: ModelIDInput | null,
 };
 
@@ -215,7 +254,10 @@ export type CreateUserMutation = {
   createUser?:  {
     __typename: "User",
     id: string,
-    name: string,
+    nickname: string,
+    email: string,
+    school: string,
+    major: string,
     posts?:  {
       __typename: "ModelPostConnection",
       items:  Array< {
@@ -229,6 +271,20 @@ export type CreateUserMutation = {
       } >,
       nextToken?: string | null,
     } | null,
+    comments?:  {
+      __typename: "ModelCommentConnection",
+      items:  Array< {
+        __typename: "Comment",
+        id: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        userCommentsId?: string | null,
+        postCommentsId?: string | null,
+      } >,
+      nextToken?: string | null,
+    } | null,
+    points: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -243,7 +299,10 @@ export type UpdateUserMutation = {
   updateUser?:  {
     __typename: "User",
     id: string,
-    name: string,
+    nickname: string,
+    email: string,
+    school: string,
+    major: string,
     posts?:  {
       __typename: "ModelPostConnection",
       items:  Array< {
@@ -257,6 +316,20 @@ export type UpdateUserMutation = {
       } >,
       nextToken?: string | null,
     } | null,
+    comments?:  {
+      __typename: "ModelCommentConnection",
+      items:  Array< {
+        __typename: "Comment",
+        id: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        userCommentsId?: string | null,
+        postCommentsId?: string | null,
+      } >,
+      nextToken?: string | null,
+    } | null,
+    points: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -271,7 +344,10 @@ export type DeleteUserMutation = {
   deleteUser?:  {
     __typename: "User",
     id: string,
-    name: string,
+    nickname: string,
+    email: string,
+    school: string,
+    major: string,
     posts?:  {
       __typename: "ModelPostConnection",
       items:  Array< {
@@ -285,6 +361,20 @@ export type DeleteUserMutation = {
       } >,
       nextToken?: string | null,
     } | null,
+    comments?:  {
+      __typename: "ModelCommentConnection",
+      items:  Array< {
+        __typename: "Comment",
+        id: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        userCommentsId?: string | null,
+        postCommentsId?: string | null,
+      } >,
+      nextToken?: string | null,
+    } | null,
+    points: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -304,11 +394,19 @@ export type CreatePostMutation = {
     user?:  {
       __typename: "User",
       id: string,
-      name: string,
+      nickname: string,
+      email: string,
+      school: string,
+      major: string,
       posts?:  {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      comments?:  {
+        __typename: "ModelCommentConnection",
+        nextToken?: string | null,
+      } | null,
+      points: number,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -320,6 +418,7 @@ export type CreatePostMutation = {
         content: string,
         createdAt: string,
         updatedAt: string,
+        userCommentsId?: string | null,
         postCommentsId?: string | null,
       } >,
       nextToken?: string | null,
@@ -344,11 +443,19 @@ export type UpdatePostMutation = {
     user?:  {
       __typename: "User",
       id: string,
-      name: string,
+      nickname: string,
+      email: string,
+      school: string,
+      major: string,
       posts?:  {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      comments?:  {
+        __typename: "ModelCommentConnection",
+        nextToken?: string | null,
+      } | null,
+      points: number,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -360,6 +467,7 @@ export type UpdatePostMutation = {
         content: string,
         createdAt: string,
         updatedAt: string,
+        userCommentsId?: string | null,
         postCommentsId?: string | null,
       } >,
       nextToken?: string | null,
@@ -384,11 +492,19 @@ export type DeletePostMutation = {
     user?:  {
       __typename: "User",
       id: string,
-      name: string,
+      nickname: string,
+      email: string,
+      school: string,
+      major: string,
       posts?:  {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      comments?:  {
+        __typename: "ModelCommentConnection",
+        nextToken?: string | null,
+      } | null,
+      points: number,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -400,6 +516,7 @@ export type DeletePostMutation = {
         content: string,
         createdAt: string,
         updatedAt: string,
+        userCommentsId?: string | null,
         postCommentsId?: string | null,
       } >,
       nextToken?: string | null,
@@ -419,6 +536,25 @@ export type CreateCommentMutation = {
   createComment?:  {
     __typename: "Comment",
     id: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      nickname: string,
+      email: string,
+      school: string,
+      major: string,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      comments?:  {
+        __typename: "ModelCommentConnection",
+        nextToken?: string | null,
+      } | null,
+      points: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     post?:  {
       __typename: "Post",
       id: string,
@@ -427,7 +563,11 @@ export type CreateCommentMutation = {
       user?:  {
         __typename: "User",
         id: string,
-        name: string,
+        nickname: string,
+        email: string,
+        school: string,
+        major: string,
+        points: number,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -442,6 +582,7 @@ export type CreateCommentMutation = {
     content: string,
     createdAt: string,
     updatedAt: string,
+    userCommentsId?: string | null,
     postCommentsId?: string | null,
   } | null,
 };
@@ -455,6 +596,25 @@ export type UpdateCommentMutation = {
   updateComment?:  {
     __typename: "Comment",
     id: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      nickname: string,
+      email: string,
+      school: string,
+      major: string,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      comments?:  {
+        __typename: "ModelCommentConnection",
+        nextToken?: string | null,
+      } | null,
+      points: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     post?:  {
       __typename: "Post",
       id: string,
@@ -463,7 +623,11 @@ export type UpdateCommentMutation = {
       user?:  {
         __typename: "User",
         id: string,
-        name: string,
+        nickname: string,
+        email: string,
+        school: string,
+        major: string,
+        points: number,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -478,6 +642,7 @@ export type UpdateCommentMutation = {
     content: string,
     createdAt: string,
     updatedAt: string,
+    userCommentsId?: string | null,
     postCommentsId?: string | null,
   } | null,
 };
@@ -491,6 +656,25 @@ export type DeleteCommentMutation = {
   deleteComment?:  {
     __typename: "Comment",
     id: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      nickname: string,
+      email: string,
+      school: string,
+      major: string,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      comments?:  {
+        __typename: "ModelCommentConnection",
+        nextToken?: string | null,
+      } | null,
+      points: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     post?:  {
       __typename: "Post",
       id: string,
@@ -499,7 +683,11 @@ export type DeleteCommentMutation = {
       user?:  {
         __typename: "User",
         id: string,
-        name: string,
+        nickname: string,
+        email: string,
+        school: string,
+        major: string,
+        points: number,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -514,6 +702,7 @@ export type DeleteCommentMutation = {
     content: string,
     createdAt: string,
     updatedAt: string,
+    userCommentsId?: string | null,
     postCommentsId?: string | null,
   } | null,
 };
@@ -526,7 +715,10 @@ export type GetUserQuery = {
   getUser?:  {
     __typename: "User",
     id: string,
-    name: string,
+    nickname: string,
+    email: string,
+    school: string,
+    major: string,
     posts?:  {
       __typename: "ModelPostConnection",
       items:  Array< {
@@ -540,6 +732,20 @@ export type GetUserQuery = {
       } >,
       nextToken?: string | null,
     } | null,
+    comments?:  {
+      __typename: "ModelCommentConnection",
+      items:  Array< {
+        __typename: "Comment",
+        id: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        userCommentsId?: string | null,
+        postCommentsId?: string | null,
+      } >,
+      nextToken?: string | null,
+    } | null,
+    points: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -557,11 +763,19 @@ export type ListUsersQuery = {
     items:  Array< {
       __typename: "User",
       id: string,
-      name: string,
+      nickname: string,
+      email: string,
+      school: string,
+      major: string,
       posts?:  {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      comments?:  {
+        __typename: "ModelCommentConnection",
+        nextToken?: string | null,
+      } | null,
+      points: number,
       createdAt: string,
       updatedAt: string,
     } >,
@@ -582,11 +796,19 @@ export type GetPostQuery = {
     user?:  {
       __typename: "User",
       id: string,
-      name: string,
+      nickname: string,
+      email: string,
+      school: string,
+      major: string,
       posts?:  {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      comments?:  {
+        __typename: "ModelCommentConnection",
+        nextToken?: string | null,
+      } | null,
+      points: number,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -598,6 +820,7 @@ export type GetPostQuery = {
         content: string,
         createdAt: string,
         updatedAt: string,
+        userCommentsId?: string | null,
         postCommentsId?: string | null,
       } >,
       nextToken?: string | null,
@@ -625,7 +848,11 @@ export type ListPostsQuery = {
       user?:  {
         __typename: "User",
         id: string,
-        name: string,
+        nickname: string,
+        email: string,
+        school: string,
+        major: string,
+        points: number,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -649,6 +876,25 @@ export type GetCommentQuery = {
   getComment?:  {
     __typename: "Comment",
     id: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      nickname: string,
+      email: string,
+      school: string,
+      major: string,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      comments?:  {
+        __typename: "ModelCommentConnection",
+        nextToken?: string | null,
+      } | null,
+      points: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     post?:  {
       __typename: "Post",
       id: string,
@@ -657,7 +903,11 @@ export type GetCommentQuery = {
       user?:  {
         __typename: "User",
         id: string,
-        name: string,
+        nickname: string,
+        email: string,
+        school: string,
+        major: string,
+        points: number,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -672,6 +922,7 @@ export type GetCommentQuery = {
     content: string,
     createdAt: string,
     updatedAt: string,
+    userCommentsId?: string | null,
     postCommentsId?: string | null,
   } | null,
 };
@@ -688,6 +939,17 @@ export type ListCommentsQuery = {
     items:  Array< {
       __typename: "Comment",
       id: string,
+      user?:  {
+        __typename: "User",
+        id: string,
+        nickname: string,
+        email: string,
+        school: string,
+        major: string,
+        points: number,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
       post?:  {
         __typename: "Post",
         id: string,
@@ -700,6 +962,7 @@ export type ListCommentsQuery = {
       content: string,
       createdAt: string,
       updatedAt: string,
+      userCommentsId?: string | null,
       postCommentsId?: string | null,
     } >,
     nextToken?: string | null,
@@ -710,7 +973,10 @@ export type OnCreateUserSubscription = {
   onCreateUser?:  {
     __typename: "User",
     id: string,
-    name: string,
+    nickname: string,
+    email: string,
+    school: string,
+    major: string,
     posts?:  {
       __typename: "ModelPostConnection",
       items:  Array< {
@@ -724,6 +990,20 @@ export type OnCreateUserSubscription = {
       } >,
       nextToken?: string | null,
     } | null,
+    comments?:  {
+      __typename: "ModelCommentConnection",
+      items:  Array< {
+        __typename: "Comment",
+        id: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        userCommentsId?: string | null,
+        postCommentsId?: string | null,
+      } >,
+      nextToken?: string | null,
+    } | null,
+    points: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -733,7 +1013,10 @@ export type OnUpdateUserSubscription = {
   onUpdateUser?:  {
     __typename: "User",
     id: string,
-    name: string,
+    nickname: string,
+    email: string,
+    school: string,
+    major: string,
     posts?:  {
       __typename: "ModelPostConnection",
       items:  Array< {
@@ -747,6 +1030,20 @@ export type OnUpdateUserSubscription = {
       } >,
       nextToken?: string | null,
     } | null,
+    comments?:  {
+      __typename: "ModelCommentConnection",
+      items:  Array< {
+        __typename: "Comment",
+        id: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        userCommentsId?: string | null,
+        postCommentsId?: string | null,
+      } >,
+      nextToken?: string | null,
+    } | null,
+    points: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -756,7 +1053,10 @@ export type OnDeleteUserSubscription = {
   onDeleteUser?:  {
     __typename: "User",
     id: string,
-    name: string,
+    nickname: string,
+    email: string,
+    school: string,
+    major: string,
     posts?:  {
       __typename: "ModelPostConnection",
       items:  Array< {
@@ -770,6 +1070,20 @@ export type OnDeleteUserSubscription = {
       } >,
       nextToken?: string | null,
     } | null,
+    comments?:  {
+      __typename: "ModelCommentConnection",
+      items:  Array< {
+        __typename: "Comment",
+        id: string,
+        content: string,
+        createdAt: string,
+        updatedAt: string,
+        userCommentsId?: string | null,
+        postCommentsId?: string | null,
+      } >,
+      nextToken?: string | null,
+    } | null,
+    points: number,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -784,11 +1098,19 @@ export type OnCreatePostSubscription = {
     user?:  {
       __typename: "User",
       id: string,
-      name: string,
+      nickname: string,
+      email: string,
+      school: string,
+      major: string,
       posts?:  {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      comments?:  {
+        __typename: "ModelCommentConnection",
+        nextToken?: string | null,
+      } | null,
+      points: number,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -800,6 +1122,7 @@ export type OnCreatePostSubscription = {
         content: string,
         createdAt: string,
         updatedAt: string,
+        userCommentsId?: string | null,
         postCommentsId?: string | null,
       } >,
       nextToken?: string | null,
@@ -819,11 +1142,19 @@ export type OnUpdatePostSubscription = {
     user?:  {
       __typename: "User",
       id: string,
-      name: string,
+      nickname: string,
+      email: string,
+      school: string,
+      major: string,
       posts?:  {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      comments?:  {
+        __typename: "ModelCommentConnection",
+        nextToken?: string | null,
+      } | null,
+      points: number,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -835,6 +1166,7 @@ export type OnUpdatePostSubscription = {
         content: string,
         createdAt: string,
         updatedAt: string,
+        userCommentsId?: string | null,
         postCommentsId?: string | null,
       } >,
       nextToken?: string | null,
@@ -854,11 +1186,19 @@ export type OnDeletePostSubscription = {
     user?:  {
       __typename: "User",
       id: string,
-      name: string,
+      nickname: string,
+      email: string,
+      school: string,
+      major: string,
       posts?:  {
         __typename: "ModelPostConnection",
         nextToken?: string | null,
       } | null,
+      comments?:  {
+        __typename: "ModelCommentConnection",
+        nextToken?: string | null,
+      } | null,
+      points: number,
       createdAt: string,
       updatedAt: string,
     } | null,
@@ -870,6 +1210,7 @@ export type OnDeletePostSubscription = {
         content: string,
         createdAt: string,
         updatedAt: string,
+        userCommentsId?: string | null,
         postCommentsId?: string | null,
       } >,
       nextToken?: string | null,
@@ -884,6 +1225,25 @@ export type OnCreateCommentSubscription = {
   onCreateComment?:  {
     __typename: "Comment",
     id: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      nickname: string,
+      email: string,
+      school: string,
+      major: string,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      comments?:  {
+        __typename: "ModelCommentConnection",
+        nextToken?: string | null,
+      } | null,
+      points: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     post?:  {
       __typename: "Post",
       id: string,
@@ -892,7 +1252,11 @@ export type OnCreateCommentSubscription = {
       user?:  {
         __typename: "User",
         id: string,
-        name: string,
+        nickname: string,
+        email: string,
+        school: string,
+        major: string,
+        points: number,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -907,6 +1271,7 @@ export type OnCreateCommentSubscription = {
     content: string,
     createdAt: string,
     updatedAt: string,
+    userCommentsId?: string | null,
     postCommentsId?: string | null,
   } | null,
 };
@@ -915,6 +1280,25 @@ export type OnUpdateCommentSubscription = {
   onUpdateComment?:  {
     __typename: "Comment",
     id: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      nickname: string,
+      email: string,
+      school: string,
+      major: string,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      comments?:  {
+        __typename: "ModelCommentConnection",
+        nextToken?: string | null,
+      } | null,
+      points: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     post?:  {
       __typename: "Post",
       id: string,
@@ -923,7 +1307,11 @@ export type OnUpdateCommentSubscription = {
       user?:  {
         __typename: "User",
         id: string,
-        name: string,
+        nickname: string,
+        email: string,
+        school: string,
+        major: string,
+        points: number,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -938,6 +1326,7 @@ export type OnUpdateCommentSubscription = {
     content: string,
     createdAt: string,
     updatedAt: string,
+    userCommentsId?: string | null,
     postCommentsId?: string | null,
   } | null,
 };
@@ -946,6 +1335,25 @@ export type OnDeleteCommentSubscription = {
   onDeleteComment?:  {
     __typename: "Comment",
     id: string,
+    user?:  {
+      __typename: "User",
+      id: string,
+      nickname: string,
+      email: string,
+      school: string,
+      major: string,
+      posts?:  {
+        __typename: "ModelPostConnection",
+        nextToken?: string | null,
+      } | null,
+      comments?:  {
+        __typename: "ModelCommentConnection",
+        nextToken?: string | null,
+      } | null,
+      points: number,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     post?:  {
       __typename: "Post",
       id: string,
@@ -954,7 +1362,11 @@ export type OnDeleteCommentSubscription = {
       user?:  {
         __typename: "User",
         id: string,
-        name: string,
+        nickname: string,
+        email: string,
+        school: string,
+        major: string,
+        points: number,
         createdAt: string,
         updatedAt: string,
       } | null,
@@ -969,6 +1381,7 @@ export type OnDeleteCommentSubscription = {
     content: string,
     createdAt: string,
     updatedAt: string,
+    userCommentsId?: string | null,
     postCommentsId?: string | null,
   } | null,
 };

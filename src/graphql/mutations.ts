@@ -9,7 +9,10 @@ export const createUser = /* GraphQL */ `
   ) {
     createUser(input: $input, condition: $condition) {
       id
-      name
+      nickname
+      email
+      school
+      major
       posts {
         items {
           id
@@ -21,6 +24,18 @@ export const createUser = /* GraphQL */ `
         }
         nextToken
       }
+      comments {
+        items {
+          id
+          content
+          createdAt
+          updatedAt
+          userCommentsId
+          postCommentsId
+        }
+        nextToken
+      }
+      points
       createdAt
       updatedAt
     }
@@ -33,7 +48,10 @@ export const updateUser = /* GraphQL */ `
   ) {
     updateUser(input: $input, condition: $condition) {
       id
-      name
+      nickname
+      email
+      school
+      major
       posts {
         items {
           id
@@ -45,6 +63,18 @@ export const updateUser = /* GraphQL */ `
         }
         nextToken
       }
+      comments {
+        items {
+          id
+          content
+          createdAt
+          updatedAt
+          userCommentsId
+          postCommentsId
+        }
+        nextToken
+      }
+      points
       createdAt
       updatedAt
     }
@@ -57,7 +87,10 @@ export const deleteUser = /* GraphQL */ `
   ) {
     deleteUser(input: $input, condition: $condition) {
       id
-      name
+      nickname
+      email
+      school
+      major
       posts {
         items {
           id
@@ -69,6 +102,18 @@ export const deleteUser = /* GraphQL */ `
         }
         nextToken
       }
+      comments {
+        items {
+          id
+          content
+          createdAt
+          updatedAt
+          userCommentsId
+          postCommentsId
+        }
+        nextToken
+      }
+      points
       createdAt
       updatedAt
     }
@@ -85,10 +130,17 @@ export const createPost = /* GraphQL */ `
       topic
       user {
         id
-        name
+        nickname
+        email
+        school
+        major
         posts {
           nextToken
         }
+        comments {
+          nextToken
+        }
+        points
         createdAt
         updatedAt
       }
@@ -98,6 +150,7 @@ export const createPost = /* GraphQL */ `
           content
           createdAt
           updatedAt
+          userCommentsId
           postCommentsId
         }
         nextToken
@@ -119,10 +172,17 @@ export const updatePost = /* GraphQL */ `
       topic
       user {
         id
-        name
+        nickname
+        email
+        school
+        major
         posts {
           nextToken
         }
+        comments {
+          nextToken
+        }
+        points
         createdAt
         updatedAt
       }
@@ -132,6 +192,7 @@ export const updatePost = /* GraphQL */ `
           content
           createdAt
           updatedAt
+          userCommentsId
           postCommentsId
         }
         nextToken
@@ -153,10 +214,17 @@ export const deletePost = /* GraphQL */ `
       topic
       user {
         id
-        name
+        nickname
+        email
+        school
+        major
         posts {
           nextToken
         }
+        comments {
+          nextToken
+        }
+        points
         createdAt
         updatedAt
       }
@@ -166,6 +234,7 @@ export const deletePost = /* GraphQL */ `
           content
           createdAt
           updatedAt
+          userCommentsId
           postCommentsId
         }
         nextToken
@@ -183,13 +252,33 @@ export const createComment = /* GraphQL */ `
   ) {
     createComment(input: $input, condition: $condition) {
       id
+      user {
+        id
+        nickname
+        email
+        school
+        major
+        posts {
+          nextToken
+        }
+        comments {
+          nextToken
+        }
+        points
+        createdAt
+        updatedAt
+      }
       post {
         id
         title
         topic
         user {
           id
-          name
+          nickname
+          email
+          school
+          major
+          points
           createdAt
           updatedAt
         }
@@ -203,6 +292,7 @@ export const createComment = /* GraphQL */ `
       content
       createdAt
       updatedAt
+      userCommentsId
       postCommentsId
     }
   }
@@ -214,13 +304,33 @@ export const updateComment = /* GraphQL */ `
   ) {
     updateComment(input: $input, condition: $condition) {
       id
+      user {
+        id
+        nickname
+        email
+        school
+        major
+        posts {
+          nextToken
+        }
+        comments {
+          nextToken
+        }
+        points
+        createdAt
+        updatedAt
+      }
       post {
         id
         title
         topic
         user {
           id
-          name
+          nickname
+          email
+          school
+          major
+          points
           createdAt
           updatedAt
         }
@@ -234,6 +344,7 @@ export const updateComment = /* GraphQL */ `
       content
       createdAt
       updatedAt
+      userCommentsId
       postCommentsId
     }
   }
@@ -245,13 +356,33 @@ export const deleteComment = /* GraphQL */ `
   ) {
     deleteComment(input: $input, condition: $condition) {
       id
+      user {
+        id
+        nickname
+        email
+        school
+        major
+        posts {
+          nextToken
+        }
+        comments {
+          nextToken
+        }
+        points
+        createdAt
+        updatedAt
+      }
       post {
         id
         title
         topic
         user {
           id
-          name
+          nickname
+          email
+          school
+          major
+          points
           createdAt
           updatedAt
         }
@@ -265,6 +396,7 @@ export const deleteComment = /* GraphQL */ `
       content
       createdAt
       updatedAt
+      userCommentsId
       postCommentsId
     }
   }

@@ -1,11 +1,17 @@
 # This "input" configures a global authorization rule to enable public access to
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
-
+input AMPLIFY {
+  globalAuthRule: AuthRule = { allow: public }
+} # FOR TESTING ONLY!
 type User @model {
   id: ID!
-  name: String!
+  nickname: String!
+  email: String!
+  school: String!
+  major: String!
   posts: [Post!] @hasMany
+  comments: [Comment!] @hasMany
+  points: Int!
 }
 
 type Post @model {
@@ -18,6 +24,7 @@ type Post @model {
 
 type Comment @model {
   id: ID!
+  user: User @belongsTo
   post: Post @belongsTo
   content: String!
 }
@@ -25,17 +32,17 @@ type Comment @model {
 # Query data by non-id properties
 
 # type Todo @model
-  # @key(name: "todosByStatus", fields: ["status"], queryField: "todosByStatus") {
-  # id: ID!
-  # name: String!
-  # status: String!
+# @key(name: "todosByStatus", fields: ["status"], queryField: "todosByStatus") {
+# id: ID!
+# name: String!
+# status: String!
 # }
 # query todosByStatus {
-  # todosByStatus(status: "completed") {
-    # items {
-      # id
-      # name
-      # status
-    # }
-  # }
+# todosByStatus(status: "completed") {
+# items {
+# id
+# name
+# status
+# }
+# }
 # }

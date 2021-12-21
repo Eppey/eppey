@@ -6,7 +6,10 @@ export const onCreateUser = /* GraphQL */ `
   subscription OnCreateUser {
     onCreateUser {
       id
-      name
+      nickname
+      email
+      school
+      major
       posts {
         items {
           id
@@ -18,6 +21,18 @@ export const onCreateUser = /* GraphQL */ `
         }
         nextToken
       }
+      comments {
+        items {
+          id
+          content
+          createdAt
+          updatedAt
+          userCommentsId
+          postCommentsId
+        }
+        nextToken
+      }
+      points
       createdAt
       updatedAt
     }
@@ -27,7 +42,10 @@ export const onUpdateUser = /* GraphQL */ `
   subscription OnUpdateUser {
     onUpdateUser {
       id
-      name
+      nickname
+      email
+      school
+      major
       posts {
         items {
           id
@@ -39,6 +57,18 @@ export const onUpdateUser = /* GraphQL */ `
         }
         nextToken
       }
+      comments {
+        items {
+          id
+          content
+          createdAt
+          updatedAt
+          userCommentsId
+          postCommentsId
+        }
+        nextToken
+      }
+      points
       createdAt
       updatedAt
     }
@@ -48,7 +78,10 @@ export const onDeleteUser = /* GraphQL */ `
   subscription OnDeleteUser {
     onDeleteUser {
       id
-      name
+      nickname
+      email
+      school
+      major
       posts {
         items {
           id
@@ -60,6 +93,18 @@ export const onDeleteUser = /* GraphQL */ `
         }
         nextToken
       }
+      comments {
+        items {
+          id
+          content
+          createdAt
+          updatedAt
+          userCommentsId
+          postCommentsId
+        }
+        nextToken
+      }
+      points
       createdAt
       updatedAt
     }
@@ -73,10 +118,17 @@ export const onCreatePost = /* GraphQL */ `
       topic
       user {
         id
-        name
+        nickname
+        email
+        school
+        major
         posts {
           nextToken
         }
+        comments {
+          nextToken
+        }
+        points
         createdAt
         updatedAt
       }
@@ -86,6 +138,7 @@ export const onCreatePost = /* GraphQL */ `
           content
           createdAt
           updatedAt
+          userCommentsId
           postCommentsId
         }
         nextToken
@@ -104,10 +157,17 @@ export const onUpdatePost = /* GraphQL */ `
       topic
       user {
         id
-        name
+        nickname
+        email
+        school
+        major
         posts {
           nextToken
         }
+        comments {
+          nextToken
+        }
+        points
         createdAt
         updatedAt
       }
@@ -117,6 +177,7 @@ export const onUpdatePost = /* GraphQL */ `
           content
           createdAt
           updatedAt
+          userCommentsId
           postCommentsId
         }
         nextToken
@@ -135,10 +196,17 @@ export const onDeletePost = /* GraphQL */ `
       topic
       user {
         id
-        name
+        nickname
+        email
+        school
+        major
         posts {
           nextToken
         }
+        comments {
+          nextToken
+        }
+        points
         createdAt
         updatedAt
       }
@@ -148,6 +216,7 @@ export const onDeletePost = /* GraphQL */ `
           content
           createdAt
           updatedAt
+          userCommentsId
           postCommentsId
         }
         nextToken
@@ -162,13 +231,33 @@ export const onCreateComment = /* GraphQL */ `
   subscription OnCreateComment {
     onCreateComment {
       id
+      user {
+        id
+        nickname
+        email
+        school
+        major
+        posts {
+          nextToken
+        }
+        comments {
+          nextToken
+        }
+        points
+        createdAt
+        updatedAt
+      }
       post {
         id
         title
         topic
         user {
           id
-          name
+          nickname
+          email
+          school
+          major
+          points
           createdAt
           updatedAt
         }
@@ -182,6 +271,7 @@ export const onCreateComment = /* GraphQL */ `
       content
       createdAt
       updatedAt
+      userCommentsId
       postCommentsId
     }
   }
@@ -190,13 +280,33 @@ export const onUpdateComment = /* GraphQL */ `
   subscription OnUpdateComment {
     onUpdateComment {
       id
+      user {
+        id
+        nickname
+        email
+        school
+        major
+        posts {
+          nextToken
+        }
+        comments {
+          nextToken
+        }
+        points
+        createdAt
+        updatedAt
+      }
       post {
         id
         title
         topic
         user {
           id
-          name
+          nickname
+          email
+          school
+          major
+          points
           createdAt
           updatedAt
         }
@@ -210,6 +320,7 @@ export const onUpdateComment = /* GraphQL */ `
       content
       createdAt
       updatedAt
+      userCommentsId
       postCommentsId
     }
   }
@@ -218,13 +329,33 @@ export const onDeleteComment = /* GraphQL */ `
   subscription OnDeleteComment {
     onDeleteComment {
       id
+      user {
+        id
+        nickname
+        email
+        school
+        major
+        posts {
+          nextToken
+        }
+        comments {
+          nextToken
+        }
+        points
+        createdAt
+        updatedAt
+      }
       post {
         id
         title
         topic
         user {
           id
-          name
+          nickname
+          email
+          school
+          major
+          points
           createdAt
           updatedAt
         }
@@ -238,6 +369,7 @@ export const onDeleteComment = /* GraphQL */ `
       content
       createdAt
       updatedAt
+      userCommentsId
       postCommentsId
     }
   }
