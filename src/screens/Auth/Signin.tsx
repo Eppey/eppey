@@ -53,7 +53,7 @@ const Signin = () => {
       <View style={styles.container}>
         <Pressable
           style={{ flexDirection: 'row' }}
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation.navigate('Welcome' as never)}
         >
           <Image
             style={components.backButton}

@@ -10,15 +10,15 @@ import Amplify from 'aws-amplify';
 import config from './src/aws-exports';
 Amplify.configure({ ...config, Analytics: { disabled: true } });
 
-import Welcome from './src/components/Welcome';
-import Signup from './src/components/Auth/Signup';
-import SignupComplete from './src/components/Auth/SignupComplete';
-import Signin from './src/components/Auth/Signin';
-import PwReset from './src/components/Auth/PwReset';
-import PwResetConfirm from './src/components/Auth/PwResetConfirm';
-import PwResetDone from './src/components/Auth/PwResetDone';
+import Welcome from './src/screens/Welcome';
+import Signup from './src/screens/Auth/Signup';
+import SignupComplete from './src/screens/Auth/SignupComplete';
+import Signin from './src/screens/Auth/Signin';
+import PwReset from './src/screens/Auth/PwReset';
+import PwResetConfirm from './src/screens/Auth/PwResetConfirm';
+import PwResetDone from './src/screens/Auth/PwResetDone';
 
-import Home from './src/components/Main/Home';
+import Home from './src/screens/Main/Home';
 
 const Stack = createNativeStackNavigator();
 
@@ -27,46 +27,22 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <SafeAreaProvider>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Welcome"
-              component={Welcome}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Signup"
-              component={Signup}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="SignupComplete"
-              component={SignupComplete}
-              options={{ headerShown: false }}
-            />
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Welcome" component={Welcome} />
+            <Stack.Screen name="Signup" component={Signup} />
+            <Stack.Screen name="SignupComplete" component={SignupComplete} />
             <Stack.Screen
               name="Signin"
               component={Signin}
-              options={{ headerShown: false }}
+              options={{ gestureEnabled: false }}
             />
-            <Stack.Screen
-              name="PwReset"
-              component={PwReset}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="PwResetConfirm"
-              component={PwResetConfirm}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="PwResetDone"
-              component={PwResetDone}
-              options={{ headerShown: false }}
-            />
+            <Stack.Screen name="PwReset" component={PwReset} />
+            <Stack.Screen name="PwResetConfirm" component={PwResetConfirm} />
+            <Stack.Screen name="PwResetDone" component={PwResetDone} />
             <Stack.Screen
               name="Home"
               component={Home}
-              options={{ headerShown: false }}
+              options={{ gestureEnabled: false }}
             />
           </Stack.Navigator>
         </SafeAreaProvider>
