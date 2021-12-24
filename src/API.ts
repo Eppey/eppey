@@ -100,6 +100,7 @@ export type Post = {
   id: string,
   title: string,
   topic: string,
+  content: string,
   user?: User | null,
   comments?: ModelCommentConnection | null,
   createdAt: string,
@@ -144,12 +145,14 @@ export type CreatePostInput = {
   id?: string | null,
   title: string,
   topic: string,
+  content: string,
   userPostsId?: string | null,
 };
 
 export type ModelPostConditionInput = {
   title?: ModelStringInput | null,
   topic?: ModelStringInput | null,
+  content?: ModelStringInput | null,
   and?: Array< ModelPostConditionInput | null > | null,
   or?: Array< ModelPostConditionInput | null > | null,
   not?: ModelPostConditionInput | null,
@@ -176,6 +179,7 @@ export type UpdatePostInput = {
   id: string,
   title?: string | null,
   topic?: string | null,
+  content?: string | null,
   userPostsId?: string | null,
 };
 
@@ -232,6 +236,7 @@ export type ModelPostFilterInput = {
   id?: ModelIDInput | null,
   title?: ModelStringInput | null,
   topic?: ModelStringInput | null,
+  content?: ModelStringInput | null,
   and?: Array< ModelPostFilterInput | null > | null,
   or?: Array< ModelPostFilterInput | null > | null,
   not?: ModelPostFilterInput | null,
@@ -268,6 +273,7 @@ export type CreateUserMutation = {
         id: string,
         title: string,
         topic: string,
+        content: string,
         createdAt: string,
         updatedAt: string,
         userPostsId?: string | null,
@@ -316,6 +322,7 @@ export type UpdateUserMutation = {
         id: string,
         title: string,
         topic: string,
+        content: string,
         createdAt: string,
         updatedAt: string,
         userPostsId?: string | null,
@@ -364,6 +371,7 @@ export type DeleteUserMutation = {
         id: string,
         title: string,
         topic: string,
+        content: string,
         createdAt: string,
         updatedAt: string,
         userPostsId?: string | null,
@@ -403,6 +411,7 @@ export type CreatePostMutation = {
     id: string,
     title: string,
     topic: string,
+    content: string,
     user?:  {
       __typename: "User",
       id: string,
@@ -455,6 +464,7 @@ export type UpdatePostMutation = {
     id: string,
     title: string,
     topic: string,
+    content: string,
     user?:  {
       __typename: "User",
       id: string,
@@ -507,6 +517,7 @@ export type DeletePostMutation = {
     id: string,
     title: string,
     topic: string,
+    content: string,
     user?:  {
       __typename: "User",
       id: string,
@@ -582,6 +593,7 @@ export type CreateCommentMutation = {
       id: string,
       title: string,
       topic: string,
+      content: string,
       user?:  {
         __typename: "User",
         id: string,
@@ -646,6 +658,7 @@ export type UpdateCommentMutation = {
       id: string,
       title: string,
       topic: string,
+      content: string,
       user?:  {
         __typename: "User",
         id: string,
@@ -710,6 +723,7 @@ export type DeleteCommentMutation = {
       id: string,
       title: string,
       topic: string,
+      content: string,
       user?:  {
         __typename: "User",
         id: string,
@@ -759,6 +773,7 @@ export type GetUserQuery = {
         id: string,
         title: string,
         topic: string,
+        content: string,
         createdAt: string,
         updatedAt: string,
         userPostsId?: string | null,
@@ -830,6 +845,7 @@ export type GetPostQuery = {
     id: string,
     title: string,
     topic: string,
+    content: string,
     user?:  {
       __typename: "User",
       id: string,
@@ -885,6 +901,7 @@ export type ListPostsQuery = {
       id: string,
       title: string,
       topic: string,
+      content: string,
       user?:  {
         __typename: "User",
         id: string,
@@ -943,6 +960,7 @@ export type GetCommentQuery = {
       id: string,
       title: string,
       topic: string,
+      content: string,
       user?:  {
         __typename: "User",
         id: string,
@@ -1002,6 +1020,7 @@ export type ListCommentsQuery = {
         id: string,
         title: string,
         topic: string,
+        content: string,
         createdAt: string,
         updatedAt: string,
         userPostsId?: string | null,
@@ -1037,6 +1056,7 @@ export type OnCreateUserSubscription = {
         id: string,
         title: string,
         topic: string,
+        content: string,
         createdAt: string,
         updatedAt: string,
         userPostsId?: string | null,
@@ -1084,6 +1104,7 @@ export type OnUpdateUserSubscription = {
         id: string,
         title: string,
         topic: string,
+        content: string,
         createdAt: string,
         updatedAt: string,
         userPostsId?: string | null,
@@ -1131,6 +1152,7 @@ export type OnDeleteUserSubscription = {
         id: string,
         title: string,
         topic: string,
+        content: string,
         createdAt: string,
         updatedAt: string,
         userPostsId?: string | null,
@@ -1169,6 +1191,7 @@ export type OnCreatePostSubscription = {
     id: string,
     title: string,
     topic: string,
+    content: string,
     user?:  {
       __typename: "User",
       id: string,
@@ -1220,6 +1243,7 @@ export type OnUpdatePostSubscription = {
     id: string,
     title: string,
     topic: string,
+    content: string,
     user?:  {
       __typename: "User",
       id: string,
@@ -1271,6 +1295,7 @@ export type OnDeletePostSubscription = {
     id: string,
     title: string,
     topic: string,
+    content: string,
     user?:  {
       __typename: "User",
       id: string,
@@ -1345,6 +1370,7 @@ export type OnCreateCommentSubscription = {
       id: string,
       title: string,
       topic: string,
+      content: string,
       user?:  {
         __typename: "User",
         id: string,
@@ -1408,6 +1434,7 @@ export type OnUpdateCommentSubscription = {
       id: string,
       title: string,
       topic: string,
+      content: string,
       user?:  {
         __typename: "User",
         id: string,
@@ -1471,6 +1498,7 @@ export type OnDeleteCommentSubscription = {
       id: string,
       title: string,
       topic: string,
+      content: string,
       user?:  {
         __typename: "User",
         id: string,

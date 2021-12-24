@@ -18,6 +18,7 @@ export const createUser = /* GraphQL */ `
           id
           title
           topic
+          content
           createdAt
           updatedAt
           userPostsId
@@ -60,6 +61,7 @@ export const updateUser = /* GraphQL */ `
           id
           title
           topic
+          content
           createdAt
           updatedAt
           userPostsId
@@ -102,6 +104,7 @@ export const deleteUser = /* GraphQL */ `
           id
           title
           topic
+          content
           createdAt
           updatedAt
           userPostsId
@@ -137,6 +140,7 @@ export const createPost = /* GraphQL */ `
       id
       title
       topic
+      content
       user {
         id
         nickname
@@ -182,6 +186,7 @@ export const updatePost = /* GraphQL */ `
       id
       title
       topic
+      content
       user {
         id
         nickname
@@ -227,6 +232,7 @@ export const deletePost = /* GraphQL */ `
       id
       title
       topic
+      content
       user {
         id
         nickname
@@ -291,6 +297,7 @@ export const createComment = /* GraphQL */ `
         id
         title
         topic
+        content
         user {
           id
           nickname
@@ -347,6 +354,7 @@ export const updateComment = /* GraphQL */ `
         id
         title
         topic
+        content
         user {
           id
           nickname
@@ -403,6 +411,7 @@ export const deleteComment = /* GraphQL */ `
         id
         title
         topic
+        content
         user {
           id
           nickname

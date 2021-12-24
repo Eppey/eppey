@@ -15,6 +15,7 @@ export const getUser = /* GraphQL */ `
           id
           title
           topic
+          content
           createdAt
           updatedAt
           userPostsId
@@ -75,6 +76,7 @@ export const getPost = /* GraphQL */ `
       id
       title
       topic
+      content
       user {
         id
         nickname
@@ -122,6 +124,7 @@ export const listPosts = /* GraphQL */ `
         id
         title
         topic
+        content
         user {
           id
           nickname
@@ -170,6 +173,7 @@ export const getComment = /* GraphQL */ `
         id
         title
         topic
+        content
         user {
           id
           nickname
@@ -222,6 +226,7 @@ export const listComments = /* GraphQL */ `
           id
           title
           topic
+          content
           createdAt
           updatedAt
           userPostsId

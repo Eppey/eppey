@@ -50,7 +50,7 @@
         "eppeyauthPostConfirmation": {
           "GROUP": "user",
           "deploymentBucketName": "amplify-eppey-eppey-224004-deployment",
-          "s3Key": "amplify-builds/eppeyauthPostConfirmation-476a53334c3535397a2f-build.zip"
+          "s3Key": "amplify-builds/eppeyauthPostConfirmation-352b786e6a2f4c613946-build.zip"
         },
         "eppeyauthCustomMessage": {
           "REDIRECTURL": "https://www.google.com/",
