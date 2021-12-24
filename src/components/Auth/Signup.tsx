@@ -114,6 +114,7 @@ const Signup = () => {
         <TextInput
           style={components.inputField}
           autoCapitalize="none"
+          autoCorrect={false}
           onChangeText={(value) => {
             setNickname(value);
           }}
