@@ -21,6 +21,7 @@ export const createUser = /* GraphQL */ `
           createdAt
           updatedAt
           userPostsId
+          owner
         }
         nextToken
       }
@@ -32,12 +33,14 @@ export const createUser = /* GraphQL */ `
           updatedAt
           userCommentsId
           postCommentsId
+          owner
         }
         nextToken
       }
       points
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -60,6 +63,7 @@ export const updateUser = /* GraphQL */ `
           createdAt
           updatedAt
           userPostsId
+          owner
         }
         nextToken
       }
@@ -71,12 +75,14 @@ export const updateUser = /* GraphQL */ `
           updatedAt
           userCommentsId
           postCommentsId
+          owner
         }
         nextToken
       }
       points
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -99,6 +105,7 @@ export const deleteUser = /* GraphQL */ `
           createdAt
           updatedAt
           userPostsId
+          owner
         }
         nextToken
       }
@@ -110,12 +117,14 @@ export const deleteUser = /* GraphQL */ `
           updatedAt
           userCommentsId
           postCommentsId
+          owner
         }
         nextToken
       }
       points
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -143,6 +152,7 @@ export const createPost = /* GraphQL */ `
         points
         createdAt
         updatedAt
+        owner
       }
       comments {
         items {
@@ -152,12 +162,14 @@ export const createPost = /* GraphQL */ `
           updatedAt
           userCommentsId
           postCommentsId
+          owner
         }
         nextToken
       }
       createdAt
       updatedAt
       userPostsId
+      owner
     }
   }
 `;
@@ -185,6 +197,7 @@ export const updatePost = /* GraphQL */ `
         points
         createdAt
         updatedAt
+        owner
       }
       comments {
         items {
@@ -194,12 +207,14 @@ export const updatePost = /* GraphQL */ `
           updatedAt
           userCommentsId
           postCommentsId
+          owner
         }
         nextToken
       }
       createdAt
       updatedAt
       userPostsId
+      owner
     }
   }
 `;
@@ -227,6 +242,7 @@ export const deletePost = /* GraphQL */ `
         points
         createdAt
         updatedAt
+        owner
       }
       comments {
         items {
@@ -236,12 +252,14 @@ export const deletePost = /* GraphQL */ `
           updatedAt
           userCommentsId
           postCommentsId
+          owner
         }
         nextToken
       }
       createdAt
       updatedAt
       userPostsId
+      owner
     }
   }
 `;
@@ -267,6 +285,7 @@ export const createComment = /* GraphQL */ `
         points
         createdAt
         updatedAt
+        owner
       }
       post {
         id
@@ -281,6 +300,7 @@ export const createComment = /* GraphQL */ `
           points
           createdAt
           updatedAt
+          owner
         }
         comments {
           nextToken
@@ -288,12 +308,14 @@ export const createComment = /* GraphQL */ `
         createdAt
         updatedAt
         userPostsId
+        owner
       }
       content
       createdAt
       updatedAt
       userCommentsId
       postCommentsId
+      owner
     }
   }
 `;
@@ -319,6 +341,7 @@ export const updateComment = /* GraphQL */ `
         points
         createdAt
         updatedAt
+        owner
       }
       post {
         id
@@ -333,6 +356,7 @@ export const updateComment = /* GraphQL */ `
           points
           createdAt
           updatedAt
+          owner
         }
         comments {
           nextToken
@@ -340,12 +364,14 @@ export const updateComment = /* GraphQL */ `
         createdAt
         updatedAt
         userPostsId
+        owner
       }
       content
       createdAt
       updatedAt
       userCommentsId
       postCommentsId
+      owner
     }
   }
 `;
@@ -371,6 +397,7 @@ export const deleteComment = /* GraphQL */ `
         points
         createdAt
         updatedAt
+        owner
       }
       post {
         id
@@ -385,6 +412,7 @@ export const deleteComment = /* GraphQL */ `
           points
           createdAt
           updatedAt
+          owner
         }
         comments {
           nextToken
@@ -392,12 +420,14 @@ export const deleteComment = /* GraphQL */ `
         createdAt
         updatedAt
         userPostsId
+        owner
       }
       content
       createdAt
       updatedAt
       userCommentsId
       postCommentsId
+      owner
     }
   }
 `;

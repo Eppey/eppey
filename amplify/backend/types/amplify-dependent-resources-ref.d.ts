@@ -1,33 +1,59 @@
 export type AmplifyDependentResourcesAttributes = {
     "api": {
-        "eppey": {
-            "GraphQLAPIKeyOutput": "string",
+        "AdminQueries": {
+            "RootUrl": "string",
+            "ApiName": "string",
+            "ApiId": "string"
+        },
+        "eppeyAPI": {
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
         }
     },
     "function": {
-        "eppey21ee40cbCustomMessage": {
+        "eppeyauthCustomMessage": {
             "Name": "string",
             "Arn": "string",
             "LambdaExecutionRole": "string",
             "Region": "string"
         },
-        "eppey21ee40cbPostConfirmation": {
+        "eppeyauthPostConfirmation": {
             "Name": "string",
             "Arn": "string",
             "LambdaExecutionRole": "string",
             "Region": "string"
         },
-        "eppey21ee40cbPreSignup": {
+        "eppeyauthPreSignup": {
             "Name": "string",
             "Arn": "string",
             "LambdaExecutionRole": "string",
             "Region": "string"
+        },
+        "AdminQueriesa1cec51c": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
+        },
+        "S3Trigger1f7740c5": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
+        },
+        "S3Triggere298b1d3": {
+            "Name": "string",
+            "Arn": "string",
+            "Region": "string",
+            "LambdaExecutionRole": "string"
         }
     },
     "auth": {
-        "eppey21ee40cb": {
+        "userPoolGroups": {
+            "userGroupRole": "string",
+            "adminGroupRole": "string"
+        },
+        "eppeyauth": {
             "IdentityPoolId": "string",
             "IdentityPoolName": "string",
             "UserPoolId": "string",

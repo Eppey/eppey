@@ -14,26 +14,72 @@
     },
     "categories": {
       "auth": {
-        "eppey21ee40cb": {}
+        "eppeyauth": {},
+        "true": {}
       },
       "function": {
-        "eppey21ee40cbCustomMessage": {
-          "REDIRECTURL": "https://www.eppey.app",
-          "EMAILSUBJECT": "Please confirm your email address",
-          "EMAILMESSAGE": "Thanks for creating your EPPEY account! Before we get started, we need you to verify your email to make sure we got it right.",
-          "deploymentBucketName": "amplify-eppey-dev-120210-deployment",
-          "s3Key": "amplify-builds/eppey21ee40cbCustomMessage-58623369324c4c4b7278-build.zip"
+        "eppeyauthCustomMessage": {
+          "REDIRECTURL": "https://www.google.com/",
+          "EMAILSUBJECT": "[EPPEY] Account confirmation",
+          "EMAILMESSAGE": "Confirm your account by clicking the link."
         },
-        "eppey21ee40cbPostConfirmation": {
-          "GROUP": "student",
-          "deploymentBucketName": "amplify-eppey-dev-120210-deployment",
-          "s3Key": "amplify-builds/eppey21ee40cbPostConfirmation-4559554c474476337436-build.zip"
+        "eppeyauthPostConfirmation": {
+          "GROUP": "user"
         },
-        "eppey21ee40cbPreSignup": {
-          "DOMAINALLOWLIST": "gatech.edu, virginia.edu",
-          "deploymentBucketName": "amplify-eppey-dev-120210-deployment",
-          "s3Key": "amplify-builds/eppey21ee40cbPreSignup-445468625072586a4b4e-build.zip"
+        "eppeyauthPreSignup": {
+          "DOMAINALLOWLIST": "gatech.edu, virginia.edu"
         }
+      }
+    }
+  },
+  "eppey": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-eppey-eppey-224004-authRole",
+      "UnauthRoleArn": "arn:aws:iam::282395963244:role/amplify-eppey-eppey-224004-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::282395963244:role/amplify-eppey-eppey-224004-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-eppey-eppey-224004-deployment",
+      "UnauthRoleName": "amplify-eppey-eppey-224004-unauthRole",
+      "StackName": "amplify-eppey-eppey-224004",
+      "StackId": "arn:aws:cloudformation:us-east-2:282395963244:stack/amplify-eppey-eppey-224004/2f8b7670-646b-11ec-974a-023ebe32615c",
+      "AmplifyAppId": "d2ybapj9v8gfkg",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-eppey-eppey-224004-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "function": {
+        "eppeyauthPostConfirmation": {
+          "GROUP": "user",
+          "deploymentBucketName": "amplify-eppey-eppey-224004-deployment",
+          "s3Key": "amplify-builds/eppeyauthPostConfirmation-476a53334c3535397a2f-build.zip"
+        },
+        "eppeyauthCustomMessage": {
+          "REDIRECTURL": "https://www.google.com/",
+          "EMAILSUBJECT": "[EPPEY] Account confirmation",
+          "EMAILMESSAGE": "Confirm your account by clicking the link.",
+          "deploymentBucketName": "amplify-eppey-eppey-224004-deployment",
+          "s3Key": "amplify-builds/eppeyauthCustomMessage-47397875736770313952-build.zip"
+        },
+        "eppeyauthPreSignup": {
+          "DOMAINALLOWLIST": "gatech.edu, virginia.edu",
+          "deploymentBucketName": "amplify-eppey-eppey-224004-deployment",
+          "s3Key": "amplify-builds/eppeyauthPreSignup-372b514a305566483662-build.zip"
+        },
+        "AdminQueriesa1cec51c": {
+          "deploymentBucketName": "amplify-eppey-eppey-224004-deployment",
+          "s3Key": "amplify-builds/AdminQueriesa1cec51c-6a434950316a35776e65-build.zip"
+        },
+        "S3Trigger1f7740c5": {
+          "deploymentBucketName": "amplify-eppey-eppey-224004-deployment",
+          "s3Key": "amplify-builds/S3Trigger1f7740c5-644e37412b3641504644-build.zip"
+        },
+        "S3Triggere298b1d3": {
+          "deploymentBucketName": "amplify-eppey-eppey-224004-deployment",
+          "s3Key": "amplify-builds/S3Triggere298b1d3-696f68506866654c4a54-build.zip"
+        }
+      },
+      "auth": {
+        "userPoolGroups": {},
+        "eppeyauth": {}
       }
     }
   }

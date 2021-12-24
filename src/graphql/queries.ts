@@ -18,6 +18,7 @@ export const getUser = /* GraphQL */ `
           createdAt
           updatedAt
           userPostsId
+          owner
         }
         nextToken
       }
@@ -29,12 +30,14 @@ export const getUser = /* GraphQL */ `
           updatedAt
           userCommentsId
           postCommentsId
+          owner
         }
         nextToken
       }
       points
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -60,6 +63,7 @@ export const listUsers = /* GraphQL */ `
         points
         createdAt
         updatedAt
+        owner
       }
       nextToken
     }
@@ -86,6 +90,7 @@ export const getPost = /* GraphQL */ `
         points
         createdAt
         updatedAt
+        owner
       }
       comments {
         items {
@@ -95,12 +100,14 @@ export const getPost = /* GraphQL */ `
           updatedAt
           userCommentsId
           postCommentsId
+          owner
         }
         nextToken
       }
       createdAt
       updatedAt
       userPostsId
+      owner
     }
   }
 `;
@@ -124,6 +131,7 @@ export const listPosts = /* GraphQL */ `
           points
           createdAt
           updatedAt
+          owner
         }
         comments {
           nextToken
@@ -131,6 +139,7 @@ export const listPosts = /* GraphQL */ `
         createdAt
         updatedAt
         userPostsId
+        owner
       }
       nextToken
     }
@@ -155,6 +164,7 @@ export const getComment = /* GraphQL */ `
         points
         createdAt
         updatedAt
+        owner
       }
       post {
         id
@@ -169,6 +179,7 @@ export const getComment = /* GraphQL */ `
           points
           createdAt
           updatedAt
+          owner
         }
         comments {
           nextToken
@@ -176,12 +187,14 @@ export const getComment = /* GraphQL */ `
         createdAt
         updatedAt
         userPostsId
+        owner
       }
       content
       createdAt
       updatedAt
       userCommentsId
       postCommentsId
+      owner
     }
   }
 `;
@@ -203,6 +216,7 @@ export const listComments = /* GraphQL */ `
           points
           createdAt
           updatedAt
+          owner
         }
         post {
           id
@@ -211,12 +225,14 @@ export const listComments = /* GraphQL */ `
           createdAt
           updatedAt
           userPostsId
+          owner
         }
         content
         createdAt
         updatedAt
         userCommentsId
         postCommentsId
+        owner
       }
       nextToken
     }

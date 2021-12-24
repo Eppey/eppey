@@ -86,11 +86,12 @@ export type User = {
   points: number,
   createdAt: string,
   updatedAt: string,
+  owner?: string | null,
 };
 
 export type ModelPostConnection = {
   __typename: "ModelPostConnection",
-  items:  Array<Post >,
+  items:  Array<Post | null >,
   nextToken?: string | null,
 };
 
@@ -104,11 +105,12 @@ export type Post = {
   createdAt: string,
   updatedAt: string,
   userPostsId?: string | null,
+  owner?: string | null,
 };
 
 export type ModelCommentConnection = {
   __typename: "ModelCommentConnection",
-  items:  Array<Comment >,
+  items:  Array<Comment | null >,
   nextToken?: string | null,
 };
 
@@ -122,6 +124,7 @@ export type Comment = {
   updatedAt: string,
   userCommentsId?: string | null,
   postCommentsId?: string | null,
+  owner?: string | null,
 };
 
 export type UpdateUserInput = {
@@ -221,7 +224,7 @@ export type ModelUserFilterInput = {
 
 export type ModelUserConnection = {
   __typename: "ModelUserConnection",
-  items:  Array<User >,
+  items:  Array<User | null >,
   nextToken?: string | null,
 };
 
@@ -268,7 +271,8 @@ export type CreateUserMutation = {
         createdAt: string,
         updatedAt: string,
         userPostsId?: string | null,
-      } >,
+        owner?: string | null,
+      } | null >,
       nextToken?: string | null,
     } | null,
     comments?:  {
@@ -281,12 +285,14 @@ export type CreateUserMutation = {
         updatedAt: string,
         userCommentsId?: string | null,
         postCommentsId?: string | null,
-      } >,
+        owner?: string | null,
+      } | null >,
       nextToken?: string | null,
     } | null,
     points: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -313,7 +319,8 @@ export type UpdateUserMutation = {
         createdAt: string,
         updatedAt: string,
         userPostsId?: string | null,
-      } >,
+        owner?: string | null,
+      } | null >,
       nextToken?: string | null,
     } | null,
     comments?:  {
@@ -326,12 +333,14 @@ export type UpdateUserMutation = {
         updatedAt: string,
         userCommentsId?: string | null,
         postCommentsId?: string | null,
-      } >,
+        owner?: string | null,
+      } | null >,
       nextToken?: string | null,
     } | null,
     points: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -358,7 +367,8 @@ export type DeleteUserMutation = {
         createdAt: string,
         updatedAt: string,
         userPostsId?: string | null,
-      } >,
+        owner?: string | null,
+      } | null >,
       nextToken?: string | null,
     } | null,
     comments?:  {
@@ -371,12 +381,14 @@ export type DeleteUserMutation = {
         updatedAt: string,
         userCommentsId?: string | null,
         postCommentsId?: string | null,
-      } >,
+        owner?: string | null,
+      } | null >,
       nextToken?: string | null,
     } | null,
     points: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -409,6 +421,7 @@ export type CreatePostMutation = {
       points: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
     comments?:  {
       __typename: "ModelCommentConnection",
@@ -420,12 +433,14 @@ export type CreatePostMutation = {
         updatedAt: string,
         userCommentsId?: string | null,
         postCommentsId?: string | null,
-      } >,
+        owner?: string | null,
+      } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     userPostsId?: string | null,
+    owner?: string | null,
   } | null,
 };
 
@@ -458,6 +473,7 @@ export type UpdatePostMutation = {
       points: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
     comments?:  {
       __typename: "ModelCommentConnection",
@@ -469,12 +485,14 @@ export type UpdatePostMutation = {
         updatedAt: string,
         userCommentsId?: string | null,
         postCommentsId?: string | null,
-      } >,
+        owner?: string | null,
+      } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     userPostsId?: string | null,
+    owner?: string | null,
   } | null,
 };
 
@@ -507,6 +525,7 @@ export type DeletePostMutation = {
       points: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
     comments?:  {
       __typename: "ModelCommentConnection",
@@ -518,12 +537,14 @@ export type DeletePostMutation = {
         updatedAt: string,
         userCommentsId?: string | null,
         postCommentsId?: string | null,
-      } >,
+        owner?: string | null,
+      } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     userPostsId?: string | null,
+    owner?: string | null,
   } | null,
 };
 
@@ -554,6 +575,7 @@ export type CreateCommentMutation = {
       points: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
     post?:  {
       __typename: "Post",
@@ -570,6 +592,7 @@ export type CreateCommentMutation = {
         points: number,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null,
       comments?:  {
         __typename: "ModelCommentConnection",
@@ -578,12 +601,14 @@ export type CreateCommentMutation = {
       createdAt: string,
       updatedAt: string,
       userPostsId?: string | null,
+      owner?: string | null,
     } | null,
     content: string,
     createdAt: string,
     updatedAt: string,
     userCommentsId?: string | null,
     postCommentsId?: string | null,
+    owner?: string | null,
   } | null,
 };
 
@@ -614,6 +639,7 @@ export type UpdateCommentMutation = {
       points: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
     post?:  {
       __typename: "Post",
@@ -630,6 +656,7 @@ export type UpdateCommentMutation = {
         points: number,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null,
       comments?:  {
         __typename: "ModelCommentConnection",
@@ -638,12 +665,14 @@ export type UpdateCommentMutation = {
       createdAt: string,
       updatedAt: string,
       userPostsId?: string | null,
+      owner?: string | null,
     } | null,
     content: string,
     createdAt: string,
     updatedAt: string,
     userCommentsId?: string | null,
     postCommentsId?: string | null,
+    owner?: string | null,
   } | null,
 };
 
@@ -674,6 +703,7 @@ export type DeleteCommentMutation = {
       points: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
     post?:  {
       __typename: "Post",
@@ -690,6 +720,7 @@ export type DeleteCommentMutation = {
         points: number,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null,
       comments?:  {
         __typename: "ModelCommentConnection",
@@ -698,12 +729,14 @@ export type DeleteCommentMutation = {
       createdAt: string,
       updatedAt: string,
       userPostsId?: string | null,
+      owner?: string | null,
     } | null,
     content: string,
     createdAt: string,
     updatedAt: string,
     userCommentsId?: string | null,
     postCommentsId?: string | null,
+    owner?: string | null,
   } | null,
 };
 
@@ -729,7 +762,8 @@ export type GetUserQuery = {
         createdAt: string,
         updatedAt: string,
         userPostsId?: string | null,
-      } >,
+        owner?: string | null,
+      } | null >,
       nextToken?: string | null,
     } | null,
     comments?:  {
@@ -742,12 +776,14 @@ export type GetUserQuery = {
         updatedAt: string,
         userCommentsId?: string | null,
         postCommentsId?: string | null,
-      } >,
+        owner?: string | null,
+      } | null >,
       nextToken?: string | null,
     } | null,
     points: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -778,7 +814,8 @@ export type ListUsersQuery = {
       points: number,
       createdAt: string,
       updatedAt: string,
-    } >,
+      owner?: string | null,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -811,6 +848,7 @@ export type GetPostQuery = {
       points: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
     comments?:  {
       __typename: "ModelCommentConnection",
@@ -822,12 +860,14 @@ export type GetPostQuery = {
         updatedAt: string,
         userCommentsId?: string | null,
         postCommentsId?: string | null,
-      } >,
+        owner?: string | null,
+      } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     userPostsId?: string | null,
+    owner?: string | null,
   } | null,
 };
 
@@ -855,6 +895,7 @@ export type ListPostsQuery = {
         points: number,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null,
       comments?:  {
         __typename: "ModelCommentConnection",
@@ -863,7 +904,8 @@ export type ListPostsQuery = {
       createdAt: string,
       updatedAt: string,
       userPostsId?: string | null,
-    } >,
+      owner?: string | null,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -894,6 +936,7 @@ export type GetCommentQuery = {
       points: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
     post?:  {
       __typename: "Post",
@@ -910,6 +953,7 @@ export type GetCommentQuery = {
         points: number,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null,
       comments?:  {
         __typename: "ModelCommentConnection",
@@ -918,12 +962,14 @@ export type GetCommentQuery = {
       createdAt: string,
       updatedAt: string,
       userPostsId?: string | null,
+      owner?: string | null,
     } | null,
     content: string,
     createdAt: string,
     updatedAt: string,
     userCommentsId?: string | null,
     postCommentsId?: string | null,
+    owner?: string | null,
   } | null,
 };
 
@@ -949,6 +995,7 @@ export type ListCommentsQuery = {
         points: number,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null,
       post?:  {
         __typename: "Post",
@@ -958,15 +1005,21 @@ export type ListCommentsQuery = {
         createdAt: string,
         updatedAt: string,
         userPostsId?: string | null,
+        owner?: string | null,
       } | null,
       content: string,
       createdAt: string,
       updatedAt: string,
       userCommentsId?: string | null,
       postCommentsId?: string | null,
-    } >,
+      owner?: string | null,
+    } | null >,
     nextToken?: string | null,
   } | null,
+};
+
+export type OnCreateUserSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnCreateUserSubscription = {
@@ -987,7 +1040,8 @@ export type OnCreateUserSubscription = {
         createdAt: string,
         updatedAt: string,
         userPostsId?: string | null,
-      } >,
+        owner?: string | null,
+      } | null >,
       nextToken?: string | null,
     } | null,
     comments?:  {
@@ -1000,13 +1054,19 @@ export type OnCreateUserSubscription = {
         updatedAt: string,
         userCommentsId?: string | null,
         postCommentsId?: string | null,
-      } >,
+        owner?: string | null,
+      } | null >,
       nextToken?: string | null,
     } | null,
     points: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
+};
+
+export type OnUpdateUserSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnUpdateUserSubscription = {
@@ -1027,7 +1087,8 @@ export type OnUpdateUserSubscription = {
         createdAt: string,
         updatedAt: string,
         userPostsId?: string | null,
-      } >,
+        owner?: string | null,
+      } | null >,
       nextToken?: string | null,
     } | null,
     comments?:  {
@@ -1040,13 +1101,19 @@ export type OnUpdateUserSubscription = {
         updatedAt: string,
         userCommentsId?: string | null,
         postCommentsId?: string | null,
-      } >,
+        owner?: string | null,
+      } | null >,
       nextToken?: string | null,
     } | null,
     points: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
+};
+
+export type OnDeleteUserSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnDeleteUserSubscription = {
@@ -1067,7 +1134,8 @@ export type OnDeleteUserSubscription = {
         createdAt: string,
         updatedAt: string,
         userPostsId?: string | null,
-      } >,
+        owner?: string | null,
+      } | null >,
       nextToken?: string | null,
     } | null,
     comments?:  {
@@ -1080,13 +1148,19 @@ export type OnDeleteUserSubscription = {
         updatedAt: string,
         userCommentsId?: string | null,
         postCommentsId?: string | null,
-      } >,
+        owner?: string | null,
+      } | null >,
       nextToken?: string | null,
     } | null,
     points: number,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
+};
+
+export type OnCreatePostSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnCreatePostSubscription = {
@@ -1113,6 +1187,7 @@ export type OnCreatePostSubscription = {
       points: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
     comments?:  {
       __typename: "ModelCommentConnection",
@@ -1124,13 +1199,19 @@ export type OnCreatePostSubscription = {
         updatedAt: string,
         userCommentsId?: string | null,
         postCommentsId?: string | null,
-      } >,
+        owner?: string | null,
+      } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     userPostsId?: string | null,
+    owner?: string | null,
   } | null,
+};
+
+export type OnUpdatePostSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnUpdatePostSubscription = {
@@ -1157,6 +1238,7 @@ export type OnUpdatePostSubscription = {
       points: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
     comments?:  {
       __typename: "ModelCommentConnection",
@@ -1168,13 +1250,19 @@ export type OnUpdatePostSubscription = {
         updatedAt: string,
         userCommentsId?: string | null,
         postCommentsId?: string | null,
-      } >,
+        owner?: string | null,
+      } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     userPostsId?: string | null,
+    owner?: string | null,
   } | null,
+};
+
+export type OnDeletePostSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnDeletePostSubscription = {
@@ -1201,6 +1289,7 @@ export type OnDeletePostSubscription = {
       points: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
     comments?:  {
       __typename: "ModelCommentConnection",
@@ -1212,13 +1301,19 @@ export type OnDeletePostSubscription = {
         updatedAt: string,
         userCommentsId?: string | null,
         postCommentsId?: string | null,
-      } >,
+        owner?: string | null,
+      } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
     userPostsId?: string | null,
+    owner?: string | null,
   } | null,
+};
+
+export type OnCreateCommentSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnCreateCommentSubscription = {
@@ -1243,6 +1338,7 @@ export type OnCreateCommentSubscription = {
       points: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
     post?:  {
       __typename: "Post",
@@ -1259,6 +1355,7 @@ export type OnCreateCommentSubscription = {
         points: number,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null,
       comments?:  {
         __typename: "ModelCommentConnection",
@@ -1267,13 +1364,19 @@ export type OnCreateCommentSubscription = {
       createdAt: string,
       updatedAt: string,
       userPostsId?: string | null,
+      owner?: string | null,
     } | null,
     content: string,
     createdAt: string,
     updatedAt: string,
     userCommentsId?: string | null,
     postCommentsId?: string | null,
+    owner?: string | null,
   } | null,
+};
+
+export type OnUpdateCommentSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnUpdateCommentSubscription = {
@@ -1298,6 +1401,7 @@ export type OnUpdateCommentSubscription = {
       points: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
     post?:  {
       __typename: "Post",
@@ -1314,6 +1418,7 @@ export type OnUpdateCommentSubscription = {
         points: number,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null,
       comments?:  {
         __typename: "ModelCommentConnection",
@@ -1322,13 +1427,19 @@ export type OnUpdateCommentSubscription = {
       createdAt: string,
       updatedAt: string,
       userPostsId?: string | null,
+      owner?: string | null,
     } | null,
     content: string,
     createdAt: string,
     updatedAt: string,
     userCommentsId?: string | null,
     postCommentsId?: string | null,
+    owner?: string | null,
   } | null,
+};
+
+export type OnDeleteCommentSubscriptionVariables = {
+  owner?: string | null,
 };
 
 export type OnDeleteCommentSubscription = {
@@ -1353,6 +1464,7 @@ export type OnDeleteCommentSubscription = {
       points: number,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null,
     post?:  {
       __typename: "Post",
@@ -1369,6 +1481,7 @@ export type OnDeleteCommentSubscription = {
         points: number,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | null,
       comments?:  {
         __typename: "ModelCommentConnection",
@@ -1377,11 +1490,13 @@ export type OnDeleteCommentSubscription = {
       createdAt: string,
       updatedAt: string,
       userPostsId?: string | null,
+      owner?: string | null,
     } | null,
     content: string,
     createdAt: string,
     updatedAt: string,
     userCommentsId?: string | null,
     postCommentsId?: string | null,
+    owner?: string | null,
   } | null,
 };

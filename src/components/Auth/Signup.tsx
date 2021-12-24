@@ -51,8 +51,8 @@ const Signup = () => {
           password: user.password,
           attributes: {
             email: user.email,
+            nickname: user.nickname,
             'custom:major': user.major,
-            'custom:nickname': user.nickname,
             'custom:school': user.school,
           },
         });
@@ -113,6 +113,7 @@ const Signup = () => {
         </Text>
         <TextInput
           style={components.inputField}
+          autoCapitalize="none"
           onChangeText={(value) => {
             setNickname(value);
           }}

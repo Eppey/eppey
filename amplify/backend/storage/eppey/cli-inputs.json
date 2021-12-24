@@ -1,6 +1,6 @@
 {
   "resourceName": "eppey",
-  "policyUUID": "4ba626fd",
+  "policyUUID": "a13ace94",
   "bucketName": "eppeybucket",
   "storageAccess": "auth",
   "guestAccess": [],
@@ -9,6 +9,5 @@
     "READ",
     "DELETE"
   ],
-  "triggerFunction": "NONE",
-  "groupAccess": {}
+  "triggerFunction": "S3Triggere298b1d3"
 }

@@ -1,0 +1,19 @@
+{
+  "trigger": true,
+  "modules": [
+    "add-to-group",
+    "custom"
+  ],
+  "parentResource": "eppeyauth",
+  "functionName": "eppeyauthPostConfirmation",
+  "resourceName": "eppeyauthPostConfirmation",
+  "parentStack": "auth",
+  "triggerEnvs": [],
+  "triggerDir": "/Users/hueyk/.nvm/versions/node/v16.3.0/lib/node_modules/@aws-amplify/cli/node_modules/@aws-amplify/amplify-category-auth/provider-utils/awscloudformation/triggers/PostConfirmation",
+  "triggerTemplate": "PostConfirmation.json.ejs",
+  "triggerEventPath": "PostConfirmation.event.json",
+  "roleName": "eppeyauthPostConfirmation",
+  "skipEdit": true,
+  "GROUP": "user",
+  "enableCors": false
+}

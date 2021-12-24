@@ -1,14 +1,36 @@
 {
   "api": {
-    "eppey": {
+    "AdminQueries": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "authorizationType": "AMAZON_COGNITO_USER_POOLS",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "eppeyauth",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "AdminQueriesa1cec51c",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        }
+      ]
+    },
+    "eppeyAPI": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {
         "authConfig": {
           "defaultAuthentication": {
-            "authenticationType": "API_KEY",
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "autheppeyauth"
             }
           },
           "additionalAuthenticationProviders": []
@@ -17,30 +39,70 @@
     }
   },
   "function": {
-    "eppey21ee40cbCustomMessage": {
+    "eppeyauthCustomMessage": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "eppey21ee40cbPostConfirmation": {
+    "eppeyauthPostConfirmation": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "eppey21ee40cbPreSignup": {
+    "eppeyauthPreSignup": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "AdminQueriesa1cec51c": {
+      "service": "Lambda",
+      "providerPlugin": "awscloudformation",
+      "build": true,
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "eppeyauth",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ]
+    },
+    "S3Trigger1f7740c5": {
+      "service": "Lambda",
+      "providerPlugin": "awscloudformation",
+      "build": true
+    },
+    "S3Triggere298b1d3": {
+      "service": "Lambda",
+      "providerPlugin": "awscloudformation",
+      "build": true
     }
   },
   "auth": {
-    "eppey21ee40cb": {
+    "userPoolGroups": {
+      "service": "Cognito-UserPool-Groups",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "eppeyauth",
+          "attributes": [
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID",
+            "IdentityPoolId"
+          ]
+        }
+      ]
+    },
+    "eppeyauth": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "eppey21ee40cbCustomMessage",
+          "resourceName": "eppeyauthCustomMessage",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
@@ -49,7 +111,7 @@
         },
         {
           "category": "function",
-          "resourceName": "eppey21ee40cbPostConfirmation",
+          "resourceName": "eppeyauthPostConfirmation",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
@@ -58,7 +120,7 @@
         },
         {
           "category": "function",
-          "resourceName": "eppey21ee40cbPreSignup",
+          "resourceName": "eppeyauthPreSignup",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
@@ -73,11 +135,14 @@
           "EMAIL"
         ],
         "signupAttributes": [
-          "EMAIL"
+          "EMAIL",
+          "NICKNAME"
         ],
         "passwordProtectionSettings": {
-          "passwordPolicyMinLength": 8,
-          "passwordPolicyCharacters": []
+          "passwordPolicyMinLength": "8",
+          "passwordPolicyCharacters": [
+            "REQUIRES_NUMBERS"
+          ]
         },
         "mfaConfiguration": "OFF",
         "mfaTypes": [
@@ -93,7 +158,17 @@
     "eppey": {
       "service": "S3",
       "providerPlugin": "awscloudformation",
-      "dependsOn": []
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "S3Triggere298b1d3",
+          "attributes": [
+            "Name",
+            "Arn",
+            "LambdaExecutionRole"
+          ]
+        }
+      ]
     }
   }
 }
