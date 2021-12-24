@@ -42,7 +42,7 @@ export default function App() {
             <Stack.Screen
               name="Home"
               component={Home}
-              options={{ gestureEnabled: false }}
+              // options={{ gestureEnabled: false }}
             />
           </Stack.Navigator>
         </SafeAreaProvider>

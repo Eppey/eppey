@@ -1,4 +1,5 @@
 # Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+# https://docs.amplify.aws/cli/graphql/data-modeling/#has-one-relationship
 
 type User
   @model
@@ -8,8 +9,8 @@ type User
   email: String!
   school: String!
   major: String!
-  posts: [Post!] @hasMany
-  comments: [Comment!] @hasMany
+  posts: [Post] @hasMany(indexName: "postByUser", fields: ["id"])
+  comments: [Comment] @hasMany(indexName: "commentByUser", fields: ["id"])
   points: Int!
 }
 
@@ -23,11 +24,14 @@ type Post
     ]
   ) {
   id: ID!
+  userID: ID! @index(name: "postByUser", sortKeyFields: ["id"])
   title: String!
   topic: String!
   content: String!
-  user: User @belongsTo
-  comments: [Comment!] @hasMany # post can contain zero comment, but not null comment
+  views: Int!
+  bookmarks: Int!
+  comments: [Comment] @hasMany(indexName: "commentByPost", fields: ["id"])
+  user: User @belongsTo(fields: ["userID"])
 }
 
 type Comment
@@ -40,7 +44,10 @@ type Comment
     ]
   ) {
   id: ID!
-  user: User @belongsTo
-  post: Post @belongsTo
+  userID: ID! @index(name: "commentByUser", sortKeyFields: ["id"])
+  postID: ID! @index(name: "commentByPost", sortKeyFields: ["id"])
+  likes: Int!
   content: String!
+  user: User @belongsTo(fields: ["userID"])
+  post: Post @belongsTo(fields: ["postID"])
 }

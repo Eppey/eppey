@@ -13,12 +13,14 @@ export const onCreateUser = /* GraphQL */ `
       posts {
         items {
           id
+          userID
           title
           topic
           content
+          views
+          bookmarks
           createdAt
           updatedAt
-          userPostsId
           owner
         }
         nextToken
@@ -26,11 +28,12 @@ export const onCreateUser = /* GraphQL */ `
       comments {
         items {
           id
+          userID
+          postID
+          likes
           content
           createdAt
           updatedAt
-          userCommentsId
-          postCommentsId
           owner
         }
         nextToken
@@ -53,12 +56,14 @@ export const onUpdateUser = /* GraphQL */ `
       posts {
         items {
           id
+          userID
           title
           topic
           content
+          views
+          bookmarks
           createdAt
           updatedAt
-          userPostsId
           owner
         }
         nextToken
@@ -66,11 +71,12 @@ export const onUpdateUser = /* GraphQL */ `
       comments {
         items {
           id
+          userID
+          postID
+          likes
           content
           createdAt
           updatedAt
-          userCommentsId
-          postCommentsId
           owner
         }
         nextToken
@@ -93,12 +99,14 @@ export const onDeleteUser = /* GraphQL */ `
       posts {
         items {
           id
+          userID
           title
           topic
           content
+          views
+          bookmarks
           createdAt
           updatedAt
-          userPostsId
           owner
         }
         nextToken
@@ -106,11 +114,12 @@ export const onDeleteUser = /* GraphQL */ `
       comments {
         items {
           id
+          userID
+          postID
+          likes
           content
           createdAt
           updatedAt
-          userCommentsId
-          postCommentsId
           owner
         }
         nextToken
@@ -126,9 +135,25 @@ export const onCreatePost = /* GraphQL */ `
   subscription OnCreatePost($owner: String) {
     onCreatePost(owner: $owner) {
       id
+      userID
       title
       topic
       content
+      views
+      bookmarks
+      comments {
+        items {
+          id
+          userID
+          postID
+          likes
+          content
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       user {
         id
         nickname
@@ -146,21 +171,8 @@ export const onCreatePost = /* GraphQL */ `
         updatedAt
         owner
       }
-      comments {
-        items {
-          id
-          content
-          createdAt
-          updatedAt
-          userCommentsId
-          postCommentsId
-          owner
-        }
-        nextToken
-      }
       createdAt
       updatedAt
-      userPostsId
       owner
     }
   }
@@ -169,9 +181,25 @@ export const onUpdatePost = /* GraphQL */ `
   subscription OnUpdatePost($owner: String) {
     onUpdatePost(owner: $owner) {
       id
+      userID
       title
       topic
       content
+      views
+      bookmarks
+      comments {
+        items {
+          id
+          userID
+          postID
+          likes
+          content
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       user {
         id
         nickname
@@ -189,21 +217,8 @@ export const onUpdatePost = /* GraphQL */ `
         updatedAt
         owner
       }
-      comments {
-        items {
-          id
-          content
-          createdAt
-          updatedAt
-          userCommentsId
-          postCommentsId
-          owner
-        }
-        nextToken
-      }
       createdAt
       updatedAt
-      userPostsId
       owner
     }
   }
@@ -212,9 +227,25 @@ export const onDeletePost = /* GraphQL */ `
   subscription OnDeletePost($owner: String) {
     onDeletePost(owner: $owner) {
       id
+      userID
       title
       topic
       content
+      views
+      bookmarks
+      comments {
+        items {
+          id
+          userID
+          postID
+          likes
+          content
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       user {
         id
         nickname
@@ -232,21 +263,8 @@ export const onDeletePost = /* GraphQL */ `
         updatedAt
         owner
       }
-      comments {
-        items {
-          id
-          content
-          createdAt
-          updatedAt
-          userCommentsId
-          postCommentsId
-          owner
-        }
-        nextToken
-      }
       createdAt
       updatedAt
-      userPostsId
       owner
     }
   }
@@ -255,6 +273,10 @@ export const onCreateComment = /* GraphQL */ `
   subscription OnCreateComment($owner: String) {
     onCreateComment(owner: $owner) {
       id
+      userID
+      postID
+      likes
+      content
       user {
         id
         nickname
@@ -274,9 +296,15 @@ export const onCreateComment = /* GraphQL */ `
       }
       post {
         id
+        userID
         title
         topic
         content
+        views
+        bookmarks
+        comments {
+          nextToken
+        }
         user {
           id
           nickname
@@ -288,19 +316,12 @@ export const onCreateComment = /* GraphQL */ `
           updatedAt
           owner
         }
-        comments {
-          nextToken
-        }
         createdAt
         updatedAt
-        userPostsId
         owner
       }
-      content
       createdAt
       updatedAt
-      userCommentsId
-      postCommentsId
       owner
     }
   }
@@ -309,6 +330,10 @@ export const onUpdateComment = /* GraphQL */ `
   subscription OnUpdateComment($owner: String) {
     onUpdateComment(owner: $owner) {
       id
+      userID
+      postID
+      likes
+      content
       user {
         id
         nickname
@@ -328,9 +353,15 @@ export const onUpdateComment = /* GraphQL */ `
       }
       post {
         id
+        userID
         title
         topic
         content
+        views
+        bookmarks
+        comments {
+          nextToken
+        }
         user {
           id
           nickname
@@ -342,19 +373,12 @@ export const onUpdateComment = /* GraphQL */ `
           updatedAt
           owner
         }
-        comments {
-          nextToken
-        }
         createdAt
         updatedAt
-        userPostsId
         owner
       }
-      content
       createdAt
       updatedAt
-      userCommentsId
-      postCommentsId
       owner
     }
   }
@@ -363,6 +387,10 @@ export const onDeleteComment = /* GraphQL */ `
   subscription OnDeleteComment($owner: String) {
     onDeleteComment(owner: $owner) {
       id
+      userID
+      postID
+      likes
+      content
       user {
         id
         nickname
@@ -382,9 +410,15 @@ export const onDeleteComment = /* GraphQL */ `
       }
       post {
         id
+        userID
         title
         topic
         content
+        views
+        bookmarks
+        comments {
+          nextToken
+        }
         user {
           id
           nickname
@@ -396,19 +430,12 @@ export const onDeleteComment = /* GraphQL */ `
           updatedAt
           owner
         }
-        comments {
-          nextToken
-        }
         createdAt
         updatedAt
-        userPostsId
         owner
       }
-      content
       createdAt
       updatedAt
-      userCommentsId
-      postCommentsId
       owner
     }
   }

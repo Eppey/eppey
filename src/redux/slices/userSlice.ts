@@ -2,26 +2,16 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
 
 interface UserState {
-  id: number;
-  nickname: string;
-  email: string;
+  id: string;
   school: string;
   major: string;
-  posts: number;
-  comments: number;
-  points: number;
   resetEmail: string;
 }
 
 const initialState: UserState = {
-  id: 0,
-  nickname: '',
-  email: '',
+  id: '',
   school: '',
   major: '',
-  posts: 0,
-  comments: 0,
-  points: 0,
   resetEmail: '',
 };
 
@@ -31,31 +21,8 @@ export const userSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state.id = action.payload.id;
-      state.nickname = action.payload.nickname;
-      state.email = action.payload.email;
       state.school = action.payload.school;
       state.major = action.payload.major;
-      state.posts = action.payload.posts;
-      state.comments = action.payload.comments;
-      state.points = action.payload.points;
-    },
-    changeNickname: (state, action) => {
-      state.nickname = action.payload;
-    },
-    incrementPosts: (state) => {
-      state.posts += 1;
-    },
-    decrementPosts: (state) => {
-      state.posts -= 1;
-    },
-    incrementComments: (state) => {
-      state.comments += 1;
-    },
-    decrementComments: (state) => {
-      state.comments -= 1;
-    },
-    changePoints: (state, action: PayloadAction<number>) => {
-      state.points += action.payload;
     },
     setResetEmail: (state, action: PayloadAction<string>) => {
       state.resetEmail = action.payload;
@@ -63,18 +30,12 @@ export const userSlice = createSlice({
   },
 });
 
-export const {
-  setUser,
-  changeNickname,
-  incrementPosts,
-  decrementPosts,
-  incrementComments,
-  decrementComments,
-  changePoints,
-  setResetEmail,
-} = userSlice.actions;
+export const { setUser, setResetEmail } = userSlice.actions;
 
 export const selectUser = (state: RootState) => state.user;
+export const selectId = (state: RootState) => state.user.id;
+export const selectSchool = (state: RootState) => state.user.school;
+export const selectMajor = (state: RootState) => state.user.major;
 export const selectResetEmail = (state: RootState) => state.user.resetEmail;
 
 export default userSlice.reducer;

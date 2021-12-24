@@ -13,12 +13,14 @@ export const getUser = /* GraphQL */ `
       posts {
         items {
           id
+          userID
           title
           topic
           content
+          views
+          bookmarks
           createdAt
           updatedAt
-          userPostsId
           owner
         }
         nextToken
@@ -26,11 +28,12 @@ export const getUser = /* GraphQL */ `
       comments {
         items {
           id
+          userID
+          postID
+          likes
           content
           createdAt
           updatedAt
-          userCommentsId
-          postCommentsId
           owner
         }
         nextToken
@@ -74,9 +77,25 @@ export const getPost = /* GraphQL */ `
   query GetPost($id: ID!) {
     getPost(id: $id) {
       id
+      userID
       title
       topic
       content
+      views
+      bookmarks
+      comments {
+        items {
+          id
+          userID
+          postID
+          likes
+          content
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       user {
         id
         nickname
@@ -94,21 +113,8 @@ export const getPost = /* GraphQL */ `
         updatedAt
         owner
       }
-      comments {
-        items {
-          id
-          content
-          createdAt
-          updatedAt
-          userCommentsId
-          postCommentsId
-          owner
-        }
-        nextToken
-      }
       createdAt
       updatedAt
-      userPostsId
       owner
     }
   }
@@ -122,9 +128,15 @@ export const listPosts = /* GraphQL */ `
     listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        userID
         title
         topic
         content
+        views
+        bookmarks
+        comments {
+          nextToken
+        }
         user {
           id
           nickname
@@ -136,12 +148,8 @@ export const listPosts = /* GraphQL */ `
           updatedAt
           owner
         }
-        comments {
-          nextToken
-        }
         createdAt
         updatedAt
-        userPostsId
         owner
       }
       nextToken
@@ -152,6 +160,10 @@ export const getComment = /* GraphQL */ `
   query GetComment($id: ID!) {
     getComment(id: $id) {
       id
+      userID
+      postID
+      likes
+      content
       user {
         id
         nickname
@@ -171,9 +183,15 @@ export const getComment = /* GraphQL */ `
       }
       post {
         id
+        userID
         title
         topic
         content
+        views
+        bookmarks
+        comments {
+          nextToken
+        }
         user {
           id
           nickname
@@ -185,19 +203,12 @@ export const getComment = /* GraphQL */ `
           updatedAt
           owner
         }
-        comments {
-          nextToken
-        }
         createdAt
         updatedAt
-        userPostsId
         owner
       }
-      content
       createdAt
       updatedAt
-      userCommentsId
-      postCommentsId
       owner
     }
   }
@@ -211,6 +222,10 @@ export const listComments = /* GraphQL */ `
     listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        userID
+        postID
+        likes
+        content
         user {
           id
           nickname
@@ -224,19 +239,18 @@ export const listComments = /* GraphQL */ `
         }
         post {
           id
+          userID
           title
           topic
           content
+          views
+          bookmarks
           createdAt
           updatedAt
-          userPostsId
           owner
         }
-        content
         createdAt
         updatedAt
-        userCommentsId
-        postCommentsId
         owner
       }
       nextToken

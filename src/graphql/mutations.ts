@@ -16,12 +16,14 @@ export const createUser = /* GraphQL */ `
       posts {
         items {
           id
+          userID
           title
           topic
           content
+          views
+          bookmarks
           createdAt
           updatedAt
-          userPostsId
           owner
         }
         nextToken
@@ -29,11 +31,12 @@ export const createUser = /* GraphQL */ `
       comments {
         items {
           id
+          userID
+          postID
+          likes
           content
           createdAt
           updatedAt
-          userCommentsId
-          postCommentsId
           owner
         }
         nextToken
@@ -59,12 +62,14 @@ export const updateUser = /* GraphQL */ `
       posts {
         items {
           id
+          userID
           title
           topic
           content
+          views
+          bookmarks
           createdAt
           updatedAt
-          userPostsId
           owner
         }
         nextToken
@@ -72,11 +77,12 @@ export const updateUser = /* GraphQL */ `
       comments {
         items {
           id
+          userID
+          postID
+          likes
           content
           createdAt
           updatedAt
-          userCommentsId
-          postCommentsId
           owner
         }
         nextToken
@@ -102,12 +108,14 @@ export const deleteUser = /* GraphQL */ `
       posts {
         items {
           id
+          userID
           title
           topic
           content
+          views
+          bookmarks
           createdAt
           updatedAt
-          userPostsId
           owner
         }
         nextToken
@@ -115,11 +123,12 @@ export const deleteUser = /* GraphQL */ `
       comments {
         items {
           id
+          userID
+          postID
+          likes
           content
           createdAt
           updatedAt
-          userCommentsId
-          postCommentsId
           owner
         }
         nextToken
@@ -138,9 +147,25 @@ export const createPost = /* GraphQL */ `
   ) {
     createPost(input: $input, condition: $condition) {
       id
+      userID
       title
       topic
       content
+      views
+      bookmarks
+      comments {
+        items {
+          id
+          userID
+          postID
+          likes
+          content
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       user {
         id
         nickname
@@ -158,21 +183,8 @@ export const createPost = /* GraphQL */ `
         updatedAt
         owner
       }
-      comments {
-        items {
-          id
-          content
-          createdAt
-          updatedAt
-          userCommentsId
-          postCommentsId
-          owner
-        }
-        nextToken
-      }
       createdAt
       updatedAt
-      userPostsId
       owner
     }
   }
@@ -184,9 +196,25 @@ export const updatePost = /* GraphQL */ `
   ) {
     updatePost(input: $input, condition: $condition) {
       id
+      userID
       title
       topic
       content
+      views
+      bookmarks
+      comments {
+        items {
+          id
+          userID
+          postID
+          likes
+          content
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       user {
         id
         nickname
@@ -204,21 +232,8 @@ export const updatePost = /* GraphQL */ `
         updatedAt
         owner
       }
-      comments {
-        items {
-          id
-          content
-          createdAt
-          updatedAt
-          userCommentsId
-          postCommentsId
-          owner
-        }
-        nextToken
-      }
       createdAt
       updatedAt
-      userPostsId
       owner
     }
   }
@@ -230,9 +245,25 @@ export const deletePost = /* GraphQL */ `
   ) {
     deletePost(input: $input, condition: $condition) {
       id
+      userID
       title
       topic
       content
+      views
+      bookmarks
+      comments {
+        items {
+          id
+          userID
+          postID
+          likes
+          content
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       user {
         id
         nickname
@@ -250,21 +281,8 @@ export const deletePost = /* GraphQL */ `
         updatedAt
         owner
       }
-      comments {
-        items {
-          id
-          content
-          createdAt
-          updatedAt
-          userCommentsId
-          postCommentsId
-          owner
-        }
-        nextToken
-      }
       createdAt
       updatedAt
-      userPostsId
       owner
     }
   }
@@ -276,6 +294,10 @@ export const createComment = /* GraphQL */ `
   ) {
     createComment(input: $input, condition: $condition) {
       id
+      userID
+      postID
+      likes
+      content
       user {
         id
         nickname
@@ -295,9 +317,15 @@ export const createComment = /* GraphQL */ `
       }
       post {
         id
+        userID
         title
         topic
         content
+        views
+        bookmarks
+        comments {
+          nextToken
+        }
         user {
           id
           nickname
@@ -309,19 +337,12 @@ export const createComment = /* GraphQL */ `
           updatedAt
           owner
         }
-        comments {
-          nextToken
-        }
         createdAt
         updatedAt
-        userPostsId
         owner
       }
-      content
       createdAt
       updatedAt
-      userCommentsId
-      postCommentsId
       owner
     }
   }
@@ -333,6 +354,10 @@ export const updateComment = /* GraphQL */ `
   ) {
     updateComment(input: $input, condition: $condition) {
       id
+      userID
+      postID
+      likes
+      content
       user {
         id
         nickname
@@ -352,9 +377,15 @@ export const updateComment = /* GraphQL */ `
       }
       post {
         id
+        userID
         title
         topic
         content
+        views
+        bookmarks
+        comments {
+          nextToken
+        }
         user {
           id
           nickname
@@ -366,19 +397,12 @@ export const updateComment = /* GraphQL */ `
           updatedAt
           owner
         }
-        comments {
-          nextToken
-        }
         createdAt
         updatedAt
-        userPostsId
         owner
       }
-      content
       createdAt
       updatedAt
-      userCommentsId
-      postCommentsId
       owner
     }
   }
@@ -390,6 +414,10 @@ export const deleteComment = /* GraphQL */ `
   ) {
     deleteComment(input: $input, condition: $condition) {
       id
+      userID
+      postID
+      likes
+      content
       user {
         id
         nickname
@@ -409,9 +437,15 @@ export const deleteComment = /* GraphQL */ `
       }
       post {
         id
+        userID
         title
         topic
         content
+        views
+        bookmarks
+        comments {
+          nextToken
+        }
         user {
           id
           nickname
@@ -423,19 +457,12 @@ export const deleteComment = /* GraphQL */ `
           updatedAt
           owner
         }
-        comments {
-          nextToken
-        }
         createdAt
         updatedAt
-        userPostsId
         owner
       }
-      content
       createdAt
       updatedAt
-      userCommentsId
-      postCommentsId
       owner
     }
   }

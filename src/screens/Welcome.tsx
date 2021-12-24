@@ -5,10 +5,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Auth } from 'aws-amplify';
 
+import { useDispatch } from 'react-redux';
+import { setUser } from '../redux/slices/userSlice';
+
 import { fonts } from '../styles/fonts';
 import { components } from '../styles/components';
 
 const Welcome = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   async function checkAutoLogin(): Promise<void> {
@@ -17,6 +21,14 @@ const Welcome = () => {
       let password = (await AsyncStorage.getItem('@userPassword')) as string;
       if (email !== null) {
         await Auth.signIn(email, password);
+        const data = await Auth.currentUserInfo();
+        dispatch(
+          setUser({
+            id: data.username,
+            school: data.attributes['custom:school'],
+            major: data.attributes['custom:major'],
+          })
+        );
         navigation.navigate('Home' as never);
       }
     } catch (err) {
