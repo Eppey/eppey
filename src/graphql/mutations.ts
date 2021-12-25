@@ -17,6 +17,7 @@ export const createUser = /* GraphQL */ `
         items {
           id
           userID
+          userNickname
           title
           topic
           content
@@ -35,6 +36,7 @@ export const createUser = /* GraphQL */ `
           postID
           likes
           content
+          userNickname
           createdAt
           updatedAt
           owner
@@ -63,6 +65,7 @@ export const updateUser = /* GraphQL */ `
         items {
           id
           userID
+          userNickname
           title
           topic
           content
@@ -81,6 +84,7 @@ export const updateUser = /* GraphQL */ `
           postID
           likes
           content
+          userNickname
           createdAt
           updatedAt
           owner
@@ -109,6 +113,7 @@ export const deleteUser = /* GraphQL */ `
         items {
           id
           userID
+          userNickname
           title
           topic
           content
@@ -127,6 +132,7 @@ export const deleteUser = /* GraphQL */ `
           postID
           likes
           content
+          userNickname
           createdAt
           updatedAt
           owner
@@ -148,6 +154,7 @@ export const createPost = /* GraphQL */ `
     createPost(input: $input, condition: $condition) {
       id
       userID
+      userNickname
       title
       topic
       content
@@ -160,6 +167,7 @@ export const createPost = /* GraphQL */ `
           postID
           likes
           content
+          userNickname
           createdAt
           updatedAt
           owner
@@ -197,6 +205,7 @@ export const updatePost = /* GraphQL */ `
     updatePost(input: $input, condition: $condition) {
       id
       userID
+      userNickname
       title
       topic
       content
@@ -209,6 +218,7 @@ export const updatePost = /* GraphQL */ `
           postID
           likes
           content
+          userNickname
           createdAt
           updatedAt
           owner
@@ -246,6 +256,7 @@ export const deletePost = /* GraphQL */ `
     deletePost(input: $input, condition: $condition) {
       id
       userID
+      userNickname
       title
       topic
       content
@@ -258,6 +269,7 @@ export const deletePost = /* GraphQL */ `
           postID
           likes
           content
+          userNickname
           createdAt
           updatedAt
           owner
@@ -298,6 +310,7 @@ export const createComment = /* GraphQL */ `
       postID
       likes
       content
+      userNickname
       user {
         id
         nickname
@@ -318,6 +331,7 @@ export const createComment = /* GraphQL */ `
       post {
         id
         userID
+        userNickname
         title
         topic
         content
@@ -358,6 +372,7 @@ export const updateComment = /* GraphQL */ `
       postID
       likes
       content
+      userNickname
       user {
         id
         nickname
@@ -378,6 +393,7 @@ export const updateComment = /* GraphQL */ `
       post {
         id
         userID
+        userNickname
         title
         topic
         content
@@ -418,6 +434,7 @@ export const deleteComment = /* GraphQL */ `
       postID
       likes
       content
+      userNickname
       user {
         id
         nickname
@@ -438,6 +455,7 @@ export const deleteComment = /* GraphQL */ `
       post {
         id
         userID
+        userNickname
         title
         topic
         content

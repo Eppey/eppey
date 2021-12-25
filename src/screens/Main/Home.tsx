@@ -1,11 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, SafeAreaView } from 'react-native';
+
+import PostContainer from '../../components/PostContainer';
 
 const Home = () => {
   return (
-    <View>
-      <Text></Text>
-    </View>
+    <SafeAreaView>
+      <PostContainer />
+    </SafeAreaView>
   );
 };
 

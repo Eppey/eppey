@@ -14,6 +14,7 @@ export const getUser = /* GraphQL */ `
         items {
           id
           userID
+          userNickname
           title
           topic
           content
@@ -32,6 +33,7 @@ export const getUser = /* GraphQL */ `
           postID
           likes
           content
+          userNickname
           createdAt
           updatedAt
           owner
@@ -78,6 +80,7 @@ export const getPost = /* GraphQL */ `
     getPost(id: $id) {
       id
       userID
+      userNickname
       title
       topic
       content
@@ -90,6 +93,7 @@ export const getPost = /* GraphQL */ `
           postID
           likes
           content
+          userNickname
           createdAt
           updatedAt
           owner
@@ -129,6 +133,7 @@ export const listPosts = /* GraphQL */ `
       items {
         id
         userID
+        userNickname
         title
         topic
         content
@@ -164,6 +169,7 @@ export const getComment = /* GraphQL */ `
       postID
       likes
       content
+      userNickname
       user {
         id
         nickname
@@ -184,6 +190,7 @@ export const getComment = /* GraphQL */ `
       post {
         id
         userID
+        userNickname
         title
         topic
         content
@@ -226,6 +233,7 @@ export const listComments = /* GraphQL */ `
         postID
         likes
         content
+        userNickname
         user {
           id
           nickname
@@ -240,6 +248,7 @@ export const listComments = /* GraphQL */ `
         post {
           id
           userID
+          userNickname
           title
           topic
           content
