@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 
 import { API } from 'aws-amplify';
 import * as customQueries from '../../graphql/customQueries';
@@ -36,11 +36,11 @@ const PostContainer = () => {
       return <Text>Loading</Text>;
     } else {
       return (
-        <>
-          {postData.map((item: any) => (
-            <Post post={item} key={i++} />
-          ))}
-        </>
+        <FlatList
+          data={postData}
+          renderItem={({ item }) => <Post post={item} key={i++} />}
+          keyExtractor={(item) => item.id}
+        />
       );
     }
   };

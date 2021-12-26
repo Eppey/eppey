@@ -21,4 +21,13 @@ export const components = StyleSheet.create({
     height: 22,
     resizeMode: 'contain',
   },
+  postTopicBox: {
+    paddingHorizontal: 10,
+    marginBottom: 10,
+    height: 20,
+    borderRadius: 15,
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    justifyContent: 'center',
+  },
 });
