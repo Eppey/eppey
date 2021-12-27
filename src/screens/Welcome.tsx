@@ -29,7 +29,7 @@ const Welcome = () => {
             major: data.attributes['custom:major'],
           })
         );
-        navigation.navigate('Home' as never);
+        navigation.navigate('Main' as never);
       }
     } catch (err) {
       console.log(err);
@@ -64,6 +64,9 @@ const Welcome = () => {
         >
           Already have an account?{' '}
           <Text style={{ fontWeight: 'bold' }}>Sign In</Text>
+        </Text>
+        <Text onPress={() => navigation.navigate('Main' as never)}>
+          press me
         </Text>
       </View>
     </View>

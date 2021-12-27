@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Image } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { store } from './src/redux/store';
 import { Provider } from 'react-redux';
 
@@ -19,8 +20,108 @@ import PwResetConfirm from './src/screens/Auth/PwResetConfirm';
 import PwResetDone from './src/screens/Auth/PwResetDone';
 
 import Home from './src/screens/Main/Home';
+import Search from './src/screens/Main/Search';
+import Write from './src/screens/Main/Write';
+import Post from './src/screens/Main/Post';
+import Notification from './src/screens/Main/Notification';
+import MyPage from './src/screens/MyPage/MyPage';
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+function Main() {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        tabBarShowLabel: false,
+        tabBarStyle: { backgroundColor: '#272F40' },
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          tabBarIcon: () => {
+            return (
+              <Image
+                style={styles.icon}
+                source={require('./assets/icons/home.png')}
+              />
+            );
+          },
+          headerStyle: {
+            backgroundColor: '#FFE1BD',
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Search"
+        component={Search}
+        options={{
+          tabBarIcon: () => {
+            return (
+              <Image
+                style={styles.icon}
+                source={require('./assets/icons/search.png')}
+              />
+            );
+          },
+          headerStyle: {
+            backgroundColor: '#98C4EC',
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Write"
+        component={Write}
+        options={{
+          tabBarIcon: () => {
+            return (
+              <Image
+                style={styles.icon}
+                source={require('./assets/icons/write.png')}
+              />
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Notification"
+        component={Notification}
+        options={{
+          tabBarIcon: () => {
+            return (
+              <Image
+                style={styles.icon}
+                source={require('./assets/icons/notification.png')}
+              />
+            );
+          },
+          headerStyle: {
+            backgroundColor: '#FFB8B8',
+          },
+        }}
+      />
+      <Tab.Screen
+        name="MyPage"
+        component={MyPage}
+        options={{
+          tabBarIcon: () => {
+            return (
+              <Image
+                style={styles.icon}
+                source={require('./assets/icons/more.png')}
+              />
+            );
+          },
+          headerStyle: {
+            backgroundColor: '#D1CAF2',
+          },
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
 
 export default function App() {
   return (
@@ -40,10 +141,11 @@ export default function App() {
             <Stack.Screen name="PwResetConfirm" component={PwResetConfirm} />
             <Stack.Screen name="PwResetDone" component={PwResetDone} />
             <Stack.Screen
-              name="Home"
-              component={Home}
-              // options={{ gestureEnabled: false }}
+              name="Main"
+              component={Main}
+              options={{ gestureEnabled: false }}
             />
+            <Stack.Screen name="Post" component={Post} />
           </Stack.Navigator>
         </SafeAreaProvider>
       </NavigationContainer>
@@ -52,10 +154,9 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  icon: {
+    width: 25,
+    height: 25,
+    resizeMode: 'contain',
   },
 });
