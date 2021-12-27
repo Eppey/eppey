@@ -6,7 +6,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
+[![CC BY-NC-ND 4.0 License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
@@ -175,7 +175,7 @@ Don't forget to give the project a star! Thanks again!
 
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the CC BY-NC-ND 4.0 License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -183,9 +183,8 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Contact
 
-Hwuiwon Kim - [hueyk](http://linkedin.com/in/hueyk/) - hkim@gatech.edu
-
-Sehoan Choi - [sehoanchoi](https://www.linkedin.com/in/sehoanchoi/) - sehoanchoi0124@gmail.com
+- Hwuiwon Kim - [hueyk](http://linkedin.com/in/hueyk/) - hkim@gatech.edu
+- Sehoan Choi - [sehoanchoi](https://www.linkedin.com/in/sehoanchoi/) - sehoanchoi0124@gmail.com
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -210,7 +209,7 @@ Sehoan Choi - [sehoanchoi](https://www.linkedin.com/in/sehoanchoi/) - sehoanchoi
 [stars-url]: https://github.com/Eppey/eppey/stargazers
 [issues-shield]: https://img.shields.io/github/issues/Eppey/eppey?style=for-the-badge
 [issues-url]: https://github.com/Eppey/eppey/issues
-[license-shield]: https://img.shields.io/github/license/Eppey/eppey.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/badge/license-CC%20BY--NC--ND%204.0-green?style=for-the-badge
 [license-url]: https://github.com/Eppey/eppey/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/company/eppey/
