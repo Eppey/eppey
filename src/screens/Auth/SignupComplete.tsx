@@ -6,7 +6,7 @@ import { fonts } from '../../styles/fonts';
 import { components } from '../../styles/components';
 
 const SignupComplete = () => {
-  const navigation = useNavigation();
+  const navigation: any = useNavigation();
   return (
     <SafeAreaView style={{ alignItems: 'center' }}>
       <Text style={styles.signup}>Sign Up{'\n'}Complete!</Text>
@@ -17,7 +17,7 @@ const SignupComplete = () => {
       </Text>
       <Pressable
         style={styles.button}
-        onPress={() => navigation.navigate('Signin' as never)}
+        onPress={() => navigation.navigate('Signin')}
       >
         <Text style={fonts.fButton}>SIGN IN</Text>
       </Pressable>

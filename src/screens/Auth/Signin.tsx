@@ -23,7 +23,7 @@ type User = {
 };
 
 const Signin = () => {
-  const navigation = useNavigation();
+  const navigation: any = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -31,7 +31,7 @@ const Signin = () => {
     try {
       await Auth.signIn(user.email, user.password);
       saveUserInfo(user);
-      navigation.navigate('Home' as never);
+      navigation.navigate('Home');
     } catch (err: any) {
       Alert.alert('Error', err.message);
     }
@@ -53,7 +53,7 @@ const Signin = () => {
       <View style={styles.container}>
         <Pressable
           style={{ flexDirection: 'row' }}
-          onPress={() => navigation.navigate('Welcome' as never)}
+          onPress={() => navigation.navigate('Welcome')}
         >
           <Image
             style={components.backButton}
@@ -87,7 +87,7 @@ const Signin = () => {
       <View style={{ alignItems: 'center' }}>
         <Text
           style={[styles.body1Light, { textAlign: 'right' }]}
-          onPress={() => navigation.navigate('PwReset' as never)}
+          onPress={() => navigation.navigate('PwReset')}
         >
           Forgot password? |<Text style={{ fontWeight: 'bold' }}> Reset</Text>
         </Text>

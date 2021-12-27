@@ -21,7 +21,7 @@ import { components } from '../../styles/components';
 
 const PwReset = () => {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  const navigation: any = useNavigation();
   const [email, setEmail] = useState('');
 
   async function userFindPw(email: string): Promise<void> {
@@ -29,7 +29,7 @@ const PwReset = () => {
       try {
         await Auth.forgotPassword(email);
         dispatch(setResetEmail(email));
-        navigation.navigate('PwResetConfirm' as never);
+        navigation.navigate('PwResetConfirm');
       } catch (err: any) {
         if (err.code === 'UserNotFoundException') {
           Alert.alert('Error', 'No such user');
@@ -83,7 +83,7 @@ const PwReset = () => {
         </Pressable>
         <Text
           style={styles.body1Light1}
-          onPress={() => navigation.navigate('Signin' as never)}
+          onPress={() => navigation.navigate('Signin')}
         >
           Back to<Text style={{ fontWeight: 'bold' }}> Sign In</Text>{' '}
         </Text>
