@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 
 import { API } from 'aws-amplify';
-import * as customQueries from '../../graphql/customQueries';
+import * as customQueries from '../../request/customQueries';
 
 import Post from '../Post';
 

@@ -21,6 +21,7 @@ export const onCreateUser = /* GraphQL */ `
           views
           bookmarks
           createdAt
+          type
           updatedAt
           owner
         }
@@ -66,6 +67,7 @@ export const onUpdateUser = /* GraphQL */ `
           views
           bookmarks
           createdAt
+          type
           updatedAt
           owner
         }
@@ -111,6 +113,7 @@ export const onDeleteUser = /* GraphQL */ `
           views
           bookmarks
           createdAt
+          type
           updatedAt
           owner
         }
@@ -180,6 +183,7 @@ export const onCreatePost = /* GraphQL */ `
         owner
       }
       createdAt
+      type
       updatedAt
       owner
     }
@@ -228,6 +232,7 @@ export const onUpdatePost = /* GraphQL */ `
         owner
       }
       createdAt
+      type
       updatedAt
       owner
     }
@@ -276,6 +281,7 @@ export const onDeletePost = /* GraphQL */ `
         owner
       }
       createdAt
+      type
       updatedAt
       owner
     }
@@ -331,6 +337,7 @@ export const onCreateComment = /* GraphQL */ `
           owner
         }
         createdAt
+        type
         updatedAt
         owner
       }
@@ -390,6 +397,7 @@ export const onUpdateComment = /* GraphQL */ `
           owner
         }
         createdAt
+        type
         updatedAt
         owner
       }
@@ -449,6 +457,7 @@ export const onDeleteComment = /* GraphQL */ `
           owner
         }
         createdAt
+        type
         updatedAt
         owner
       }

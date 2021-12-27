@@ -21,6 +21,7 @@ export const getUser = /* GraphQL */ `
           views
           bookmarks
           createdAt
+          type
           updatedAt
           owner
         }
@@ -118,6 +119,7 @@ export const getPost = /* GraphQL */ `
         owner
       }
       createdAt
+      type
       updatedAt
       owner
     }
@@ -154,6 +156,7 @@ export const listPosts = /* GraphQL */ `
           owner
         }
         createdAt
+        type
         updatedAt
         owner
       }
@@ -211,6 +214,7 @@ export const getComment = /* GraphQL */ `
           owner
         }
         createdAt
+        type
         updatedAt
         owner
       }
@@ -255,6 +259,170 @@ export const listComments = /* GraphQL */ `
           views
           bookmarks
           createdAt
+          type
+          updatedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getLatestPost = /* GraphQL */ `
+  query GetLatestPost(
+    $type: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelPostFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    getLatestPost(
+      type: $type
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userID
+        userNickname
+        title
+        topic
+        content
+        views
+        bookmarks
+        comments {
+          nextToken
+        }
+        user {
+          id
+          nickname
+          email
+          school
+          major
+          points
+          createdAt
+          updatedAt
+          owner
+        }
+        createdAt
+        type
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getUserComment = /* GraphQL */ `
+  query GetUserComment(
+    $userID: ID
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelCommentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    getUserComment(
+      userID: $userID
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userID
+        postID
+        likes
+        content
+        userNickname
+        user {
+          id
+          nickname
+          email
+          school
+          major
+          points
+          createdAt
+          updatedAt
+          owner
+        }
+        post {
+          id
+          userID
+          userNickname
+          title
+          topic
+          content
+          views
+          bookmarks
+          createdAt
+          type
+          updatedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getPostComment = /* GraphQL */ `
+  query GetPostComment(
+    $postID: ID
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelCommentFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    getPostComment(
+      postID: $postID
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userID
+        postID
+        likes
+        content
+        userNickname
+        user {
+          id
+          nickname
+          email
+          school
+          major
+          points
+          createdAt
+          updatedAt
+          owner
+        }
+        post {
+          id
+          userID
+          userNickname
+          title
+          topic
+          content
+          views
+          bookmarks
+          createdAt
+          type
           updatedAt
           owner
         }

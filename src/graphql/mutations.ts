@@ -24,6 +24,7 @@ export const createUser = /* GraphQL */ `
           views
           bookmarks
           createdAt
+          type
           updatedAt
           owner
         }
@@ -72,6 +73,7 @@ export const updateUser = /* GraphQL */ `
           views
           bookmarks
           createdAt
+          type
           updatedAt
           owner
         }
@@ -120,6 +122,7 @@ export const deleteUser = /* GraphQL */ `
           views
           bookmarks
           createdAt
+          type
           updatedAt
           owner
         }
@@ -192,6 +195,7 @@ export const createPost = /* GraphQL */ `
         owner
       }
       createdAt
+      type
       updatedAt
       owner
     }
@@ -243,6 +247,7 @@ export const updatePost = /* GraphQL */ `
         owner
       }
       createdAt
+      type
       updatedAt
       owner
     }
@@ -294,6 +299,7 @@ export const deletePost = /* GraphQL */ `
         owner
       }
       createdAt
+      type
       updatedAt
       owner
     }
@@ -352,6 +358,7 @@ export const createComment = /* GraphQL */ `
           owner
         }
         createdAt
+        type
         updatedAt
         owner
       }
@@ -414,6 +421,7 @@ export const updateComment = /* GraphQL */ `
           owner
         }
         createdAt
+        type
         updatedAt
         owner
       }
@@ -476,6 +484,7 @@ export const deleteComment = /* GraphQL */ `
           owner
         }
         createdAt
+        type
         updatedAt
         owner
       }

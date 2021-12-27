@@ -34,6 +34,12 @@ type Post
   comments: [Comment] @hasMany(indexName: "commentByPost", fields: ["id"])
   user: User @belongsTo(fields: ["userID"])
   createdAt: AWSDateTime!
+  type: String
+    @index(
+      name: "postByDate"
+      queryField: "getLatestPost"
+      sortKeyFields: ["createdAt"]
+    )
 }
 
 type Comment
@@ -46,8 +52,18 @@ type Comment
     ]
   ) {
   id: ID!
-  userID: ID! @index(name: "commentByUser", sortKeyFields: ["createdAt"])
-  postID: ID! @index(name: "commentByPost", sortKeyFields: ["createdAt"])
+  userID: ID!
+    @index(
+      name: "commentByUser"
+      queryField: "getUserComment"
+      sortKeyFields: ["createdAt"]
+    )
+  postID: ID!
+    @index(
+      name: "commentByPost"
+      queryField: "getPostComment"
+      sortKeyFields: ["createdAt"]
+    )
   likes: Int!
   content: String!
   userNickname: String!
