@@ -24,7 +24,7 @@ type Post
     ]
   ) {
   id: ID!
-  userID: ID! @index(name: "postByUser", sortKeyFields: ["id"])
+  userID: ID! @index(name: "postByUser", sortKeyFields: ["createdAt"])
   userNickname: String!
   title: String!
   topic: String!
@@ -33,6 +33,7 @@ type Post
   bookmarks: Int!
   comments: [Comment] @hasMany(indexName: "commentByPost", fields: ["id"])
   user: User @belongsTo(fields: ["userID"])
+  createdAt: AWSDateTime!
 }
 
 type Comment
@@ -45,11 +46,12 @@ type Comment
     ]
   ) {
   id: ID!
-  userID: ID! @index(name: "commentByUser", sortKeyFields: ["id"])
-  postID: ID! @index(name: "commentByPost", sortKeyFields: ["id"])
+  userID: ID! @index(name: "commentByUser", sortKeyFields: ["createdAt"])
+  postID: ID! @index(name: "commentByPost", sortKeyFields: ["createdAt"])
   likes: Int!
   content: String!
   userNickname: String!
   user: User @belongsTo(fields: ["userID"])
   post: Post @belongsTo(fields: ["postID"])
+  createdAt: AWSDateTime!
 }

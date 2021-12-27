@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StatusBar, StyleSheet, View } from 'react-native';
 
 import NavMenu from '../NavMenu';
 
