@@ -1,15 +1,14 @@
 import React from 'react';
-import { StyleSheet, SafeAreaView } from 'react-native';
+import { StyleSheet, StatusBar, View } from 'react-native';
 
 import PostContainer from '../../components/PostContainer';
-import NavBar from '../../components/NavBar';
 
 const Home = () => {
   return (
-    <SafeAreaView>
+    <View>
+      <StatusBar barStyle={'dark-content'} />
       <PostContainer />
-      <NavBar />
-    </SafeAreaView>
+    </View>
   );
 };
 

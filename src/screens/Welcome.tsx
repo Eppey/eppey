@@ -13,7 +13,7 @@ import { components } from '../styles/components';
 
 const Welcome = () => {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  const navigation: any = useNavigation();
 
   async function checkAutoLogin(): Promise<void> {
     try {
@@ -29,7 +29,7 @@ const Welcome = () => {
             major: data.attributes['custom:major'],
           })
         );
-        navigation.navigate('Home' as never);
+        navigation.navigate('Main');
       }
     } catch (err) {
       console.log(err);
@@ -54,17 +54,18 @@ const Welcome = () => {
         </Text>
         <Pressable
           style={styles.button}
-          onPress={() => navigation.navigate('Signup' as never)}
+          onPress={() => navigation.navigate('Signup')}
         >
           <Text style={fonts.fButton}>GET STARTED</Text>
         </Pressable>
         <Text
           style={styles.description2}
-          onPress={() => navigation.navigate('Signin' as never)}
+          onPress={() => navigation.navigate('Signin')}
         >
           Already have an account?{' '}
           <Text style={{ fontWeight: 'bold' }}>Sign In</Text>
         </Text>
+        <Text onPress={() => navigation.navigate('Main')}>press me</Text>
       </View>
     </View>
   );

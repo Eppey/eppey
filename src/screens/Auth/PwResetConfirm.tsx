@@ -26,7 +26,7 @@ type profile = {
 };
 
 const PwResetConfirm = () => {
-  const navigation = useNavigation();
+  const navigation: any = useNavigation();
   const email = useSelector(selectResetEmail);
   const [password, setPassword] = useState('');
   const [code, setCode] = useState('');
@@ -38,7 +38,7 @@ const PwResetConfirm = () => {
         profile.code,
         profile.newPassword
       );
-      navigation.navigate('PwResetDone' as never);
+      navigation.navigate('PwResetDone');
     } catch (err: any) {
       Alert.alert('Error', err.message);
     }

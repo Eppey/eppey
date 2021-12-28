@@ -28,7 +28,7 @@ type User = {
 };
 
 const Signup = () => {
-  const navigation = useNavigation();
+  const navigation: any = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [major, setMajor] = useState('-');
@@ -56,7 +56,7 @@ const Signup = () => {
             'custom:school': user.school,
           },
         });
-        navigation.navigate('SignupComplete' as never);
+        navigation.navigate('SignupComplete');
       } catch (err: any) {
         Alert.alert('Error', err.message);
       }
