@@ -31,7 +31,7 @@ const Signin = () => {
     try {
       await Auth.signIn(user.email, user.password);
       saveUserInfo(user);
-      navigation.navigate('Home');
+      navigation.navigate('Main');
     } catch (err: any) {
       Alert.alert('Error', err.message);
     }

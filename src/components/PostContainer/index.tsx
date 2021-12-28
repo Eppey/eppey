@@ -7,12 +7,16 @@ import * as customQueries from '../../request/customQueries';
 import { PostObject } from '../Post';
 
 import Post from '../Post';
+import { useScrollToTop } from '@react-navigation/native';
 
 const PostContainer = () => {
   const loadLimit = 20;
   const [nextToken, setNextToken] = useState('');
   const [postData, setPostData] = useState(Array());
   let endReached = false;
+
+  const ref = React.useRef(null);
+  useScrollToTop(ref);
 
   useEffect(() => {
     if (!postData.length) {
@@ -56,6 +60,7 @@ const PostContainer = () => {
     } else {
       return (
         <FlatList
+          ref={ref}
           data={postData}
           renderItem={({ item }) => <Post post={item} key={item.id} />}
           keyExtractor={(item) => item.id}
