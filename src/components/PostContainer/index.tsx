@@ -1,53 +1,82 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 
 import { API } from 'aws-amplify';
 import * as customQueries from '../../request/customQueries';
 
+import { PostObject } from '../Post';
+
 import Post from '../Post';
 
 const PostContainer = () => {
-  const loadLimit = 30;
+  const loadLimit = 20;
   const [nextToken, setNextToken] = useState('');
-  const [postData, setPostData] = useState(null);
+  const [postData, setPostData] = useState(Array());
+  let endReached = false;
 
   useEffect(() => {
-    if (!postData) {
-      getPosts(loadLimit);
+    if (!postData.length) {
+      getPosts();
     }
   }, [postData]);
 
-  async function getPosts(count: number) {
+  async function getPosts(token?: string) {
+    if (token === null) {
+      endReached = true;
+      return;
+    }
+    let params = {
+      type: 'Post',
+      limit: loadLimit,
+      sortDirection: 'DESC',
+    };
+
     try {
+      if (typeof token !== 'undefined') {
+        params = { ...params, ...{ nextToken: nextToken } };
+      }
       const posts: any = await API.graphql({
-        query: customQueries.listPosts,
-        variables: { limit: count },
+        query: customQueries.getLatestPost,
+        variables: params,
       });
-      setPostData(posts.data.listPosts.items);
-      setNextToken(posts.data.listPosts.nextToken);
+      setPostData([...postData, ...posts.data.getLatestPost.items]);
+      setNextToken(posts.data.getLatestPost.nextToken);
     } catch (err: any) {
-      setPostData(err.data.listPosts.items);
+      setPostData(err.data.getLatestPost.items);
     }
   }
 
-  const render = (postData: any) => {
-    let i = 0;
+  const renderPosts = (postData: PostObject[]) => {
     if (!postData) {
-      return <Text>Loading</Text>;
+      return (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#272F40" />
+        </View>
+      );
     } else {
       return (
         <FlatList
           data={postData}
-          renderItem={({ item }) => <Post post={item} key={i++} />}
+          renderItem={({ item }) => <Post post={item} key={item.id} />}
           keyExtractor={(item) => item.id}
+          onEndReachedThreshold={0.5}
+          onEndReached={() => {
+            if (!endReached) {
+              getPosts(nextToken);
+            }
+          }}
         />
       );
     }
   };
-
-  return <View>{render(postData)}</View>;
+  return <View>{renderPosts(postData)}</View>;
 };
 
 export default PostContainer;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  loadingContainer: {
+    justifyContent: 'center',
+    paddingTop: '70%',
+  },
+});

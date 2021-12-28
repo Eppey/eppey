@@ -9,16 +9,14 @@ export type PostProps = {
 };
 
 export type PostObject = {
-  bookmarks: number;
-  comments?: any;
-  content: string;
-  createdAt: string;
   id: string;
+  userNickname: string;
   title: string;
   topic: string;
-  updatedAt: string;
-  userNickname: string;
   views: number;
+  bookmarks: number;
+  comments?: any;
+  createdAt: string;
 };
 
 const colors: { [topic: string]: string } = {
