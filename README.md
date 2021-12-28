@@ -210,7 +210,7 @@ Distributed under the CC BY-NC-ND 4.0 License. See `LICENSE.txt` for more inform
 [issues-shield]: https://img.shields.io/github/issues/Eppey/eppey?style=for-the-badge
 [issues-url]: https://github.com/Eppey/eppey/issues
 [license-shield]: https://img.shields.io/badge/license-CC%20BY--NC--ND%204.0-green?style=for-the-badge
-[license-url]: https://github.com/Eppey/eppey/blob/master/LICENSE.txt
+[license-url]: https://github.com/Eppey/eppey/blob/main/LICENSE.md
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/company/eppey/
 [product-screenshot]: assets/images/workflow.png
