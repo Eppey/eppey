@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Image } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { store } from './src/redux/store';
@@ -22,14 +22,14 @@ import PwResetDone from './src/screens/Auth/PwResetDone';
 import Home from './src/screens/Main/Home';
 import Search from './src/screens/Main/Search';
 import Write from './src/screens/Main/Write';
-import Post from './src/screens/Main/Post';
 import Notification from './src/screens/Main/Notification';
-import MyPage from './src/screens/MyPage/MyPage';
+import MyPage from './src/screens/Main/MyPage';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function Main() {
+  const navigation: any = useNavigation();
   return (
     <Tab.Navigator
       screenOptions={{
@@ -82,6 +82,12 @@ function Main() {
                 source={require('./assets/icons/write.png')}
               />
             );
+          },
+        }}
+        listeners={{
+          tabPress: (e) => {
+            e.preventDefault();
+            navigation.navigate('Write');
           },
         }}
       />
@@ -145,7 +151,7 @@ export default function App() {
               component={Main}
               options={{ gestureEnabled: false }}
             />
-            <Stack.Screen name="Post" component={Post} />
+            <Stack.Screen name="Write" component={Write} />
           </Stack.Navigator>
         </SafeAreaProvider>
       </NavigationContainer>

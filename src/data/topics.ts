@@ -1,0 +1,15 @@
+export const topics: Array<string> = [
+  'General',
+  'Career',
+  'COVID-19',
+  'Dating',
+  'Grad School',
+  'Information',
+  'Investment',
+  'Socialize',
+  'Sublease / Roommate',
+  'Subscription',
+  'Travel',
+  'Visa',
+  '19+',
+];
