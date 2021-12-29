@@ -3,6 +3,7 @@ import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { fonts } from '../../styles/fonts';
 import { components } from '../../styles/components';
+import { topicColors } from '../../data/topics';
 
 export type PostProps = {
   post: PostObject;
@@ -19,13 +20,6 @@ export type PostObject = {
   createdAt: string;
 };
 
-const colors: { [topic: string]: string } = {
-  'Georgia Tech': '#FFE1BD',
-  Engineering: '#98C4EC',
-  Networking: '#FE9E8F',
-  Market: '#D1CAF2',
-};
-
 const Post = ({ post }: PostProps) => {
   const today = new Date();
   const dateCreated = new Date(Date.parse(post.createdAt));
@@ -33,7 +27,7 @@ const Post = ({ post }: PostProps) => {
     (((today.valueOf() - dateCreated.valueOf()) % 86400000) % 3600000) / 60000
   );
 
-  const topicColor = colors[post.topic];
+  const topicColor = topicColors[post.topic];
 
   return (
     <Pressable

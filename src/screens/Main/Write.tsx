@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -8,6 +8,12 @@ import {
   Alert,
   Button,
 } from 'react-native';
+
+import { useSelector } from 'react-redux';
+import { selectUserID, selectUserNickname } from '../../redux/slices/userSlice';
+
+import { API } from 'aws-amplify';
+import * as customMutations from '../../request/customMutations';
 
 import { fonts } from '../../styles/fonts';
 import { topics } from '../../data/topics';
@@ -18,22 +24,44 @@ const Write = () => {
   const [title, setTitle] = useState('');
   const [topic, setTopic] = useState('General');
   const [content, setContent] = useState('');
+  const userID = useSelector(selectUserID);
+  const userNickname = useSelector(selectUserNickname);
 
-  navigation.setOptions({
-    headerShown: true,
-    headerStyle: {
-      backgroundColor: '#272F40',
-    },
-    headerTintColor: '#FFFFFF',
-    headerTitle: 'New Post',
-    headerRight: () => (
-      <Button
-        onPress={() => Alert.alert('pressed')}
-        title="Post"
-        color="#FFFFFF"
-      />
-    ),
+  useEffect(() => {
+    navigation.setOptions({
+      headerShown: true,
+      headerStyle: {
+        backgroundColor: '#272F40',
+      },
+      headerTintColor: '#FFFFFF',
+      headerTitle: 'New Post',
+      headerRight: () => (
+        <Button onPress={() => writePost()} title="Post" color="#FFFFFF" />
+      ),
+    });
   });
+
+  async function writePost() {
+    const postDetails = {
+      title: title,
+      topic: topic,
+      content: content,
+      userID: userID,
+      userNickname: userNickname,
+      views: 0,
+      bookmarks: 0,
+    };
+    try {
+      await API.graphql({
+        query: customMutations.createPost,
+        variables: { input: postDetails },
+      });
+      navigation.navigate('Main');
+    } catch (err: any) {
+      console.log(err);
+      Alert.alert('Error', err.message);
+    }
+  }
 
   return (
     <View>

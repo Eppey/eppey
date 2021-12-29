@@ -2,14 +2,16 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
 
 interface UserState {
-  id: string;
+  userID: string;
+  userNickname: string;
   school: string;
   major: string;
   resetEmail: string;
 }
 
 const initialState: UserState = {
-  id: '',
+  userID: '',
+  userNickname: '',
   school: '',
   major: '',
   resetEmail: '',
@@ -20,9 +22,13 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.id = action.payload.id;
+      state.userID = action.payload.userID;
+      state.userNickname = action.payload.userNickname;
       state.school = action.payload.school;
       state.major = action.payload.major;
+    },
+    setUserNickname: (state, action: PayloadAction<string>) => {
+      state.userNickname = action.payload;
     },
     setResetEmail: (state, action: PayloadAction<string>) => {
       state.resetEmail = action.payload;
@@ -32,8 +38,8 @@ export const userSlice = createSlice({
 
 export const { setUser, setResetEmail } = userSlice.actions;
 
-export const selectUser = (state: RootState) => state.user;
-export const selectId = (state: RootState) => state.user.id;
+export const selectUserID = (state: RootState) => state.user.userID;
+export const selectUserNickname = (state: RootState) => state.user.userNickname;
 export const selectSchool = (state: RootState) => state.user.school;
 export const selectMajor = (state: RootState) => state.user.major;
 export const selectResetEmail = (state: RootState) => state.user.resetEmail;
