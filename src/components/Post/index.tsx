@@ -13,6 +13,7 @@ export type PostObject = {
   id: string;
   userNickname: string;
   title: string;
+  content: string;
   topic: string;
   views: number;
   bookmarks: number;

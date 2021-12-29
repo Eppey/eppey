@@ -7,6 +7,7 @@ import {
   TextInput,
   Alert,
   Button,
+  SafeAreaView,
 } from 'react-native';
 
 import { useSelector } from 'react-redux';
@@ -64,7 +65,7 @@ const Write = () => {
   }
 
   return (
-    <View>
+    <SafeAreaView>
       <StatusBar barStyle={'light-content'} />
       <View style={{ marginHorizontal: '5%' }}>
         <TextInput
@@ -101,7 +102,7 @@ const Write = () => {
           }}
         ></TextInput>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
