@@ -1,9 +1,10 @@
 import React from 'react';
-import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { fonts } from '../../styles/fonts';
 import { components } from '../../styles/components';
 import { topicColors } from '../../data/topics';
+import { useNavigation } from '@react-navigation/native';
 
 export type PostProps = {
   post: PostObject;
@@ -21,6 +22,7 @@ export type PostObject = {
 };
 
 const Post = ({ post }: PostProps) => {
+  const navigation: any = useNavigation();
   const today = new Date();
   const dateCreated = new Date(Date.parse(post.createdAt));
   var diffMins = Math.round(
@@ -32,7 +34,7 @@ const Post = ({ post }: PostProps) => {
   return (
     <Pressable
       style={{ marginHorizontal: '5%' }}
-      onPress={() => Alert.alert('PostID', post.id)}
+      onPress={() => navigation.navigate('PostDetail', { postID: post.id })}
     >
       <View
         style={{

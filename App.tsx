@@ -22,6 +22,7 @@ import PwResetDone from './src/screens/Auth/PwResetDone';
 import Home from './src/screens/Main/Home';
 import Search from './src/screens/Main/Search';
 import Write from './src/screens/Main/Write';
+import PostDetail from './src/screens/Main/PostDetail';
 import Notification from './src/screens/Main/Notification';
 import MyPage from './src/screens/Main/MyPage';
 
@@ -152,6 +153,7 @@ export default function App() {
               options={{ gestureEnabled: false }}
             />
             <Stack.Screen name="Write" component={Write} />
+            <Stack.Screen name="PostDetail" component={PostDetail} />
           </Stack.Navigator>
         </SafeAreaProvider>
       </NavigationContainer>
