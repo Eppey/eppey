@@ -165,23 +165,6 @@ export const onCreatePost = /* GraphQL */ `
         }
         nextToken
       }
-      user {
-        id
-        nickname
-        email
-        school
-        major
-        posts {
-          nextToken
-        }
-        comments {
-          nextToken
-        }
-        points
-        createdAt
-        updatedAt
-        owner
-      }
       createdAt
       type
       updatedAt
@@ -213,23 +196,6 @@ export const onUpdatePost = /* GraphQL */ `
           owner
         }
         nextToken
-      }
-      user {
-        id
-        nickname
-        email
-        school
-        major
-        posts {
-          nextToken
-        }
-        comments {
-          nextToken
-        }
-        points
-        createdAt
-        updatedAt
-        owner
       }
       createdAt
       type
@@ -263,23 +229,6 @@ export const onDeletePost = /* GraphQL */ `
         }
         nextToken
       }
-      user {
-        id
-        nickname
-        email
-        school
-        major
-        posts {
-          nextToken
-        }
-        comments {
-          nextToken
-        }
-        points
-        createdAt
-        updatedAt
-        owner
-      }
       createdAt
       type
       updatedAt
@@ -296,23 +245,6 @@ export const onCreateComment = /* GraphQL */ `
       likes
       content
       userNickname
-      user {
-        id
-        nickname
-        email
-        school
-        major
-        posts {
-          nextToken
-        }
-        comments {
-          nextToken
-        }
-        points
-        createdAt
-        updatedAt
-        owner
-      }
       post {
         id
         userID
@@ -324,17 +256,6 @@ export const onCreateComment = /* GraphQL */ `
         bookmarks
         comments {
           nextToken
-        }
-        user {
-          id
-          nickname
-          email
-          school
-          major
-          points
-          createdAt
-          updatedAt
-          owner
         }
         createdAt
         type
@@ -356,23 +277,6 @@ export const onUpdateComment = /* GraphQL */ `
       likes
       content
       userNickname
-      user {
-        id
-        nickname
-        email
-        school
-        major
-        posts {
-          nextToken
-        }
-        comments {
-          nextToken
-        }
-        points
-        createdAt
-        updatedAt
-        owner
-      }
       post {
         id
         userID
@@ -384,17 +288,6 @@ export const onUpdateComment = /* GraphQL */ `
         bookmarks
         comments {
           nextToken
-        }
-        user {
-          id
-          nickname
-          email
-          school
-          major
-          points
-          createdAt
-          updatedAt
-          owner
         }
         createdAt
         type
@@ -416,23 +309,6 @@ export const onDeleteComment = /* GraphQL */ `
       likes
       content
       userNickname
-      user {
-        id
-        nickname
-        email
-        school
-        major
-        posts {
-          nextToken
-        }
-        comments {
-          nextToken
-        }
-        points
-        createdAt
-        updatedAt
-        owner
-      }
       post {
         id
         userID
@@ -444,17 +320,6 @@ export const onDeleteComment = /* GraphQL */ `
         bookmarks
         comments {
           nextToken
-        }
-        user {
-          id
-          nickname
-          email
-          school
-          major
-          points
-          createdAt
-          updatedAt
-          owner
         }
         createdAt
         type

@@ -101,23 +101,6 @@ export const getPost = /* GraphQL */ `
         }
         nextToken
       }
-      user {
-        id
-        nickname
-        email
-        school
-        major
-        posts {
-          nextToken
-        }
-        comments {
-          nextToken
-        }
-        points
-        createdAt
-        updatedAt
-        owner
-      }
       createdAt
       type
       updatedAt
@@ -144,17 +127,6 @@ export const listPosts = /* GraphQL */ `
         comments {
           nextToken
         }
-        user {
-          id
-          nickname
-          email
-          school
-          major
-          points
-          createdAt
-          updatedAt
-          owner
-        }
         createdAt
         type
         updatedAt
@@ -173,23 +145,6 @@ export const getComment = /* GraphQL */ `
       likes
       content
       userNickname
-      user {
-        id
-        nickname
-        email
-        school
-        major
-        posts {
-          nextToken
-        }
-        comments {
-          nextToken
-        }
-        points
-        createdAt
-        updatedAt
-        owner
-      }
       post {
         id
         userID
@@ -201,17 +156,6 @@ export const getComment = /* GraphQL */ `
         bookmarks
         comments {
           nextToken
-        }
-        user {
-          id
-          nickname
-          email
-          school
-          major
-          points
-          createdAt
-          updatedAt
-          owner
         }
         createdAt
         type
@@ -238,17 +182,6 @@ export const listComments = /* GraphQL */ `
         likes
         content
         userNickname
-        user {
-          id
-          nickname
-          email
-          school
-          major
-          points
-          createdAt
-          updatedAt
-          owner
-        }
         post {
           id
           userID
@@ -300,17 +233,6 @@ export const getLatestPost = /* GraphQL */ `
         comments {
           nextToken
         }
-        user {
-          id
-          nickname
-          email
-          school
-          major
-          points
-          createdAt
-          updatedAt
-          owner
-        }
         createdAt
         type
         updatedAt
@@ -344,17 +266,6 @@ export const getUserComment = /* GraphQL */ `
         likes
         content
         userNickname
-        user {
-          id
-          nickname
-          email
-          school
-          major
-          points
-          createdAt
-          updatedAt
-          owner
-        }
         post {
           id
           userID
@@ -401,17 +312,6 @@ export const getPostComment = /* GraphQL */ `
         likes
         content
         userNickname
-        user {
-          id
-          nickname
-          email
-          school
-          major
-          points
-          createdAt
-          updatedAt
-          owner
-        }
         post {
           id
           userID

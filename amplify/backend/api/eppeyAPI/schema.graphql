@@ -32,7 +32,6 @@ type Post
   views: Int!
   bookmarks: Int!
   comments: [Comment] @hasMany(indexName: "commentByPost", fields: ["id"])
-  user: User @belongsTo(fields: ["userID"])
   createdAt: AWSDateTime!
   type: String
     @index(
@@ -67,7 +66,6 @@ type Comment
   likes: Int!
   content: String!
   userNickname: String!
-  user: User @belongsTo(fields: ["userID"])
   post: Post @belongsTo(fields: ["postID"])
   createdAt: AWSDateTime!
 }
