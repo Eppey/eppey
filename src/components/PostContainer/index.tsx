@@ -4,9 +4,7 @@ import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 import { API } from 'aws-amplify';
 import * as customQueries from '../../request/customQueries';
 
-import { PostObject } from '../Post';
-
-import Post from '../Post';
+import Post, { PostObject } from '../Post';
 import { useScrollToTop } from '@react-navigation/native';
 
 const PostContainer = () => {
@@ -29,15 +27,15 @@ const PostContainer = () => {
       endReached = true;
       return;
     }
-    let params = {
+    let params: { [key: string]: string } = {
       type: 'Post',
-      limit: loadLimit,
+      limit: loadLimit.toString(),
       sortDirection: 'DESC',
     };
 
     try {
       if (typeof token !== 'undefined') {
-        params = { ...params, ...{ nextToken: nextToken } };
+        params = { ...params, nextToken };
       }
       const posts: any = await API.graphql({
         query: customQueries.getLatestPost,

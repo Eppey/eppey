@@ -24,7 +24,8 @@ const Welcome = () => {
         const data = await Auth.currentUserInfo();
         dispatch(
           setUser({
-            id: data.username,
+            userID: data.username,
+            userNickname: data.attributes['nickname'],
             school: data.attributes['custom:school'],
             major: data.attributes['custom:major'],
           })
