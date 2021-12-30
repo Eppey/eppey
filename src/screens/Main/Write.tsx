@@ -66,7 +66,7 @@ const Write = () => {
 
   return (
     <SafeAreaView>
-      <StatusBar barStyle={'light-content'} />
+      <StatusBar barStyle="light-content" />
       <View style={{ marginHorizontal: '5%' }}>
         <TextInput
           style={styles.titleField}

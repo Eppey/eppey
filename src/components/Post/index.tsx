@@ -1,11 +1,12 @@
 import React from 'react';
-import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { calculateTime } from '../../tools/calculateTime';
 
 import { fonts } from '../../styles/fonts';
 import { components } from '../../styles/components';
 import { topicColors } from '../../data/topics';
+import { useNavigation } from '@react-navigation/native';
 
 export type PostProps = {
   post: PostObject;
@@ -27,7 +28,7 @@ const Post = ({ post }: PostProps) => {
   return (
     <Pressable
       style={{ marginHorizontal: '5%' }}
-      onPress={() => Alert.alert('PostID', post.id)}
+      onPress={() => navigation.navigate('PostDetail', { postID: post.id })}
     >
       <View
         style={{
