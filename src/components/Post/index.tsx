@@ -1,6 +1,8 @@
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
+import { calculateTime } from '../../tools/calculateTime';
+
 import { fonts } from '../../styles/fonts';
 import { components } from '../../styles/components';
 import { topicColors } from '../../data/topics';
@@ -14,6 +16,7 @@ export type PostObject = {
   id: string;
   userNickname: string;
   title: string;
+  content: string;
   topic: string;
   views: number;
   bookmarks: number;
@@ -22,15 +25,6 @@ export type PostObject = {
 };
 
 const Post = ({ post }: PostProps) => {
-  const navigation: any = useNavigation();
-  const today = new Date();
-  const dateCreated = new Date(Date.parse(post.createdAt));
-  var diffMins = Math.round(
-    (((today.valueOf() - dateCreated.valueOf()) % 86400000) % 3600000) / 60000
-  );
-
-  const topicColor = topicColors[post.topic];
-
   return (
     <Pressable
       style={{ marginHorizontal: '5%' }}
@@ -44,13 +38,18 @@ const Post = ({ post }: PostProps) => {
           marginHorizontal: '-100%',
         }}
       />
-      <View style={[components.postTopicBox, { backgroundColor: topicColor }]}>
+      <View
+        style={[
+          components.postTopicBox,
+          { backgroundColor: topicColors[post.topic] },
+        ]}
+      >
         <Text style={fonts.body1Black}>{post.topic}</Text>
       </View>
       <Text style={styles.header2}>{post.title}</Text>
       <View style={{ flexDirection: 'row' }}>
         <Text style={styles.body1}>{post.userNickname} | </Text>
-        <Text style={styles.body1}>{diffMins}m</Text>
+        <Text style={styles.body1}>{calculateTime(post.createdAt)}</Text>
       </View>
       <View style={{ flexDirection: 'row' }}>
         <Text style={styles.body1Custom}>{post.views} views | </Text>

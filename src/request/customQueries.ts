@@ -19,6 +19,7 @@ export const getLatestPost = /* GraphQL */ `
         id
         userNickname
         title
+        content
         topic
         views
         bookmarks
