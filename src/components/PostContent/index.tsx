@@ -7,7 +7,7 @@ import { calculateTime } from '../../tools/calculateTime';
 
 import { fonts } from '../../styles/fonts';
 
-const PostDetails = ({ post }: PostProps) => {
+const PostContent = ({ post }: PostProps) => {
   return (
     <View style={{ paddingHorizontal: '5%' }}>
       <Text style={styles.title}>{post.title}</Text>
@@ -47,7 +47,7 @@ const PostDetails = ({ post }: PostProps) => {
   );
 };
 
-export default PostDetails;
+export default PostContent;
 
 const styles = StyleSheet.create({
   title: {

@@ -8,11 +8,17 @@ import { Comment as CommentType } from '../../API';
 export type CommentProps = { commentData: (CommentType | null)[] | undefined };
 
 const CommentContainer = ({ commentData }: CommentProps) => {
-  return (
-    <View>
-      <Text>CommentContainer</Text>
-    </View>
-  );
+  if (!commentData?.length) {
+    return <View></View>;
+  } else {
+    return (
+      <View>
+        {commentData.map((comment) => (
+          <Comment comment={comment} key={comment?.id} />
+        ))}
+      </View>
+    );
+  }
 };
 
 export default CommentContainer;
