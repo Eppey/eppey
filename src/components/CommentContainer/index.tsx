@@ -1,10 +1,16 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-const CommentContainer = () => {
+import Comment from '../Comment';
+
+import { Comment as CommentTpye } from '../../API';
+
+export type CommentProps = { commentData: CommentTpye[] };
+
+const CommentContainer = ({ commentData }: CommentProps) => {
   return (
     <View>
-      <Text></Text>
+      <Text>CommentContainer</Text>
     </View>
   );
 };

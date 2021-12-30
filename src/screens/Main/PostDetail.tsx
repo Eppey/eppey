@@ -2,18 +2,20 @@ import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   SafeAreaView,
+  ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import * as queries from '../../graphql/queries';
 
 import { API } from 'aws-amplify';
 import { Post, GetPostQuery, GetPostQueryVariables } from '../../API';
-import { fonts } from '../../styles/fonts';
 
-import { calculateTime } from '../../tools/calculateTime';
+import PostDetails from '../../components/PostDetails';
+import CommentContainer from '../../components/CommentContainer';
+
+// https://reactnative.dev/docs/refreshcontrol
 
 const PostDetail = ({ route }: any) => {
   const [post, setPost] = useState({} as Post);
@@ -30,24 +32,16 @@ const PostDetail = ({ route }: any) => {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView>
       <StatusBar barStyle="light-content" />
       <View>
         {Object.keys(post).length === 0 ? (
           <ActivityIndicator size="large" color="#272F40" />
         ) : (
-          <View>
-            <Text style={styles.title}>{post.title}</Text>
-            <Text style={fonts.body1Light}>{post.topic}</Text>
-            <Text style={fonts.body1Light}>
-              {post.userNickname} | {calculateTime(post.createdAt)}
-            </Text>
-            <View style={styles.contentContainer}>
-              <Text style={styles.content}>
-                {post.content.replace(/\r?\n|\r/g, ' ')}
-              </Text>
-            </View>
-          </View>
+          <ScrollView style={styles.scrollView}>
+            <PostDetails post={post} />
+            {/* <CommentContainer commentData={post.comments?.items}/> */}
+          </ScrollView>
         )}
       </View>
     </SafeAreaView>
@@ -55,25 +49,7 @@ const PostDetail = ({ route }: any) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: '5%',
-    marginTop: '5%',
-  },
-  title: {
-    ...fonts.header2,
-    marginBottom: 10,
-  },
-  contentContainer: {
-    borderStyle: 'solid',
-    borderTopColor: '#272F4026',
-    borderTopWidth: 1,
-    marginTop: 15,
-    paddingTop: 15,
-  },
-  content: {
-    ...fonts.body1,
-    fontWeight: 'normal',
-  },
+  scrollView: {},
 });
 
 export default PostDetail;

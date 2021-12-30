@@ -3,6 +3,8 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { calculateTime } from '../../tools/calculateTime';
 
+import { Post as PostObject } from '../../API';
+
 import { fonts } from '../../styles/fonts';
 import { components } from '../../styles/components';
 import { topicColors } from '../../data/topics';
@@ -12,18 +14,6 @@ export type PostProps = {
   post: PostObject;
 };
 
-export type PostObject = {
-  id: string;
-  userNickname: string;
-  title: string;
-  content: string;
-  topic: string;
-  views: number;
-  bookmarks: number;
-  comments?: any;
-  createdAt: string;
-};
-
 const Post = ({ post }: PostProps) => {
   const navigation: any = useNavigation();
   return (
@@ -31,14 +21,7 @@ const Post = ({ post }: PostProps) => {
       style={{ marginHorizontal: '5%' }}
       onPress={() => navigation.navigate('PostDetail', { postID: post.id })}
     >
-      <View
-        style={{
-          borderBottomColor: '#272F4026',
-          borderBottomWidth: 1,
-          marginBottom: 10,
-          marginHorizontal: '-100%',
-        }}
-      />
+      <View style={styles.divider} />
       <View
         style={[
           components.postTopicBox,
@@ -73,5 +56,11 @@ const styles = StyleSheet.create({
   body1Custom: {
     ...fonts.body1,
     ...{ fontWeight: 'normal', marginTop: 10, color: '#283244B2' },
+  },
+  divider: {
+    borderBottomColor: '#272F4026',
+    borderBottomWidth: 1,
+    marginBottom: 10,
+    marginHorizontal: '-100%',
   },
 });
