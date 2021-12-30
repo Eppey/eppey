@@ -138,7 +138,7 @@ export default function App() {
         onPress={() => console.log('hi')}
       >
         <Image
-          style={styles.icon}
+          style={styles.postIcon}
           source={require('./assets/icons/notification.png')}
         />
       </Pressable>
@@ -147,7 +147,7 @@ export default function App() {
         onPress={() => console.log('hi')}
       >
         <Image
-          style={styles.icon}
+          style={styles.postIcon}
           source={require('./assets/icons/bookmark_off.png')}
         />
       </Pressable>
@@ -156,7 +156,7 @@ export default function App() {
         onPress={() => console.log('hi')}
       >
         <Image
-          style={styles.icon}
+          style={styles.postIcon}
           source={require('./assets/icons/flag.png')}
         />
       </Pressable>
@@ -210,6 +210,12 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     resizeMode: 'contain',
+  },
+  postIcon: {
+    width: 25,
+    height: 25,
+    resizeMode: 'contain',
+    marginLeft: 5,
   },
   detailMenus: {
     flexDirection: 'row',

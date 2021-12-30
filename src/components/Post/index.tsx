@@ -25,6 +25,7 @@ export type PostObject = {
 };
 
 const Post = ({ post }: PostProps) => {
+  const navigation: any = useNavigation();
   return (
     <Pressable
       style={{ marginHorizontal: '5%' }}
