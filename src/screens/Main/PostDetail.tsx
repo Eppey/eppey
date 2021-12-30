@@ -40,7 +40,7 @@ const PostDetail = ({ route }: any) => {
         ) : (
           <ScrollView style={styles.scrollView}>
             <PostDetails post={post} />
-            {/* <CommentContainer commentData={post.comments?.items}/> */}
+            <CommentContainer commentData={post.comments?.items} />
           </ScrollView>
         )}
       </View>

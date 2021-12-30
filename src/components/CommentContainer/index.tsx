@@ -3,9 +3,9 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import Comment from '../Comment';
 
-import { Comment as CommentTpye } from '../../API';
+import { Comment as CommentType } from '../../API';
 
-export type CommentProps = { commentData: CommentTpye[] };
+export type CommentProps = { commentData: (CommentType | null)[] | undefined };
 
 const CommentContainer = ({ commentData }: CommentProps) => {
   return (
