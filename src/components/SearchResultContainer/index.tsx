@@ -1,6 +1,6 @@
 import { useScrollToTop } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native';
 
 import { API } from 'aws-amplify';
 import * as customQueries from '../../request/customQueries';
@@ -46,29 +46,19 @@ const SearchResultContainer = ({ keyword }: SearchProps) => {
     setLoading(false);
   };
 
-  const resultSeparator = () => (
-    <View
-      style={{
-        backgroundColor: 'rgba(39, 47, 64, 0.15)',
-        height: 2,
-      }}
-    />
-  );
-
   return (
-    <View style={{ height: '100%' }}>
+    <SafeAreaView style={{ height: '100%' }}>
       <FlatList
         ref={ref}
         data={searchData}
         renderItem={({ item }) => <SearchResult post={item} key={item.id} />}
-        ItemSeparatorComponent={resultSeparator}
         keyExtractor={(item) => item.id}
         onEndReachedThreshold={0.5}
         onEndReached={() => nextToken && updateSearchResult(true)}
         onRefresh={() => updateSearchResult()}
         refreshing={loading}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

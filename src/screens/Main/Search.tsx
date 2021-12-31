@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import {
   Image,
   Keyboard,
-  SafeAreaView,
   StyleSheet,
   TextInput,
   TouchableWithoutFeedback,
+  View,
 } from 'react-native';
 
 import SearchResultContainer from '../../components/SearchResultContainer';
@@ -17,7 +17,7 @@ const Search = () => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <SafeAreaView style={{ marginHorizontal: '5%', flex: 1 }}>
+      <View style={{ flex: 1 }}>
         <Image
           style={styles.searchIcon}
           source={require('../../../assets/icons/search_black.png')}
@@ -32,7 +32,7 @@ const Search = () => {
           clearButtonMode="always"
         ></TextInput>
         <SearchResultContainer keyword={keyword} />
-      </SafeAreaView>
+      </View>
     </TouchableWithoutFeedback>
   );
 };
@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
   titleField: {
     ...fonts.body1Black,
     ...{
+      marginHorizontal: '5%',
       fontWeight: 'normal',
       height: 50,
       borderBottomWidth: 1,
@@ -55,6 +56,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     resizeMode: 'contain',
+    marginHorizontal: '3.5%',
     marginTop: 17,
     marginEnd: 10,
   },
