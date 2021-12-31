@@ -10,7 +10,7 @@ import { PostProps } from '../Post';
 const SearchResult = ({ post }: PostProps) => {
   return (
     <Pressable
-      style={{ marginHorizontal: '5%' }}
+      style={{ marginHorizontal: '5%', paddingVertical: 15 }}
       onPress={() => Alert.alert('PostID', post.id)}
     >
       <Text style={styles.header2}>{post.title}</Text>
