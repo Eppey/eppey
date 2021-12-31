@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image } from 'react-native';
+import { StyleSheet, Image, View, Pressable, Text } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -22,6 +22,7 @@ import PwResetDone from './src/screens/Auth/PwResetDone';
 import Home from './src/screens/Main/Home';
 import Search from './src/screens/Main/Search';
 import Write from './src/screens/Main/Write';
+import PostDetail from './src/screens/Main/PostDetail';
 import Notification from './src/screens/Main/Notification';
 import MyPage from './src/screens/Main/MyPage';
 
@@ -130,6 +131,38 @@ function Main() {
 }
 
 export default function App() {
+  const postDetailMenus = () => (
+    <View style={styles.detailMenus}>
+      <Pressable
+        style={styles.detailMenuItem}
+        onPress={() => console.log('hi')}
+      >
+        <Image
+          style={styles.postIcon}
+          source={require('./assets/icons/notification.png')}
+        />
+      </Pressable>
+      <Pressable
+        style={styles.detailMenuItem}
+        onPress={() => console.log('hi')}
+      >
+        <Image
+          style={styles.postIcon}
+          source={require('./assets/icons/bookmark_off.png')}
+        />
+      </Pressable>
+      <Pressable
+        style={styles.detailMenuItem}
+        onPress={() => console.log('hi')}
+      >
+        <Image
+          style={styles.postIcon}
+          source={require('./assets/icons/flag.png')}
+        />
+      </Pressable>
+    </View>
+  );
+
   return (
     <Provider store={store}>
       <NavigationContainer>
@@ -152,6 +185,19 @@ export default function App() {
               options={{ gestureEnabled: false }}
             />
             <Stack.Screen name="Write" component={Write} />
+            <Stack.Screen
+              name="PostDetail"
+              component={PostDetail}
+              options={{
+                headerShown: true,
+                headerTitle: '',
+                headerTintColor: '#FFFFFF',
+                headerRight: () => postDetailMenus(),
+                headerStyle: {
+                  backgroundColor: '#272F40',
+                },
+              }}
+            />
           </Stack.Navigator>
         </SafeAreaProvider>
       </NavigationContainer>
@@ -164,5 +210,17 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     resizeMode: 'contain',
+  },
+  postIcon: {
+    width: 25,
+    height: 25,
+    resizeMode: 'contain',
+    marginLeft: 5,
+  },
+  detailMenus: {
+    flexDirection: 'row',
+  },
+  detailMenuItem: {
+    paddingHorizontal: 5,
   },
 });

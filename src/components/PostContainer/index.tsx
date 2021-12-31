@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
+import { useScrollToTop } from '@react-navigation/native';
 
 import { API } from 'aws-amplify';
 import * as customQueries from '../../request/customQueries';
 
-import Post, { PostObject } from '../Post';
-import { useScrollToTop } from '@react-navigation/native';
+import Post from '../Post';
 
 const PostContainer = () => {
-  const loadLimit = 20;
   const [nextToken, setNextToken] = useState('');
   const [postData, setPostData] = useState(Array());
-  let endReached = false;
-
   const ref = React.useRef(null);
   useScrollToTop(ref);
 
@@ -22,19 +19,15 @@ const PostContainer = () => {
     }
   }, [postData]);
 
-  async function getPosts(token?: string) {
-    if (token === null) {
-      endReached = true;
-      return;
-    }
+  async function getPosts() {
     let params: { [key: string]: string } = {
       type: 'Post',
-      limit: loadLimit.toString(),
+      limit: '20',
       sortDirection: 'DESC',
     };
 
     try {
-      if (typeof token !== 'undefined') {
+      if (nextToken !== '') {
         params = { ...params, nextToken };
       }
       const posts: any = await API.graphql({
@@ -44,19 +37,17 @@ const PostContainer = () => {
       setPostData([...postData, ...posts.data.getLatestPost.items]);
       setNextToken(posts.data.getLatestPost.nextToken);
     } catch (err: any) {
-      setPostData(err.data.getLatestPost.items);
+      setPostData([...postData, ...err.data.getLatestPost.items]);
     }
   }
 
-  const renderPosts = (postData: PostObject[]) => {
-    if (!postData) {
-      return (
+  return (
+    <>
+      {!postData ? (
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color="#272F40" />
         </View>
-      );
-    } else {
-      return (
+      ) : (
         <FlatList
           ref={ref}
           data={postData}
@@ -64,15 +55,14 @@ const PostContainer = () => {
           keyExtractor={(item) => item.id}
           onEndReachedThreshold={0.5}
           onEndReached={() => {
-            if (!endReached) {
-              getPosts(nextToken);
+            if (nextToken !== null) {
+              getPosts();
             }
           }}
         />
-      );
-    }
-  };
-  return <View>{renderPosts(postData)}</View>;
+      )}
+    </>
+  );
 };
 
 export default PostContainer;
