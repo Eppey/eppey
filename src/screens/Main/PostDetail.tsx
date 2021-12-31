@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
+  RefreshControl,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -20,22 +21,25 @@ import CommentContainer from '../../components/CommentContainer';
 
 import { fonts } from '../../styles/fonts';
 
-// https://reactnative.dev/docs/refreshcontrol
-
 const PostDetail = ({ route }: any) => {
   const [post, setPost] = useState({} as Post);
   const [commentHeight, setCommentHeight] = useState(0);
+  const [refreshing, setRefreshing] = useState(false);
   const { postID } = route.params;
 
   useEffect(() => {
-    (async () => {
-      const response = await (API.graphql({
-        query: queries.getPost,
-        variables: { id: postID } as GetPostQueryVariables,
-      }) as Promise<{ data: GetPostQuery }>);
-      setPost(response.data.getPost as Post);
-    })();
+    getPostDetail();
   }, []);
+
+  const getPostDetail = async () => {
+    setRefreshing(true);
+    const response = await (API.graphql({
+      query: queries.getPost,
+      variables: { id: postID } as GetPostQueryVariables,
+    }) as Promise<{ data: GetPostQuery }>);
+    setPost(response.data.getPost as Post);
+    setRefreshing(false);
+  };
 
   return (
     <KeyboardAvoidingView
@@ -49,7 +53,15 @@ const PostDetail = ({ route }: any) => {
           {Object.keys(post).length === 0 ? (
             <ActivityIndicator size="large" color="#272F40" />
           ) : (
-            <ScrollView style={styles.scrollView}>
+            <ScrollView
+              style={styles.scrollView}
+              refreshControl={
+                <RefreshControl
+                  refreshing={refreshing}
+                  onRefresh={() => getPostDetail()}
+                />
+              }
+            >
               <PostContent post={post} />
               <CommentContainer commentData={post.comments?.items} />
             </ScrollView>
