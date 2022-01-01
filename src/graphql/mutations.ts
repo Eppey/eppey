@@ -29,7 +29,6 @@ export const createUser = /* GraphQL */ `
           owner
         }
         nextToken
-        count
       }
       comments {
         items {
@@ -44,7 +43,6 @@ export const createUser = /* GraphQL */ `
           owner
         }
         nextToken
-        count
       }
       points
       createdAt
@@ -80,7 +78,6 @@ export const updateUser = /* GraphQL */ `
           owner
         }
         nextToken
-        count
       }
       comments {
         items {
@@ -95,7 +92,6 @@ export const updateUser = /* GraphQL */ `
           owner
         }
         nextToken
-        count
       }
       points
       createdAt
@@ -131,7 +127,6 @@ export const deleteUser = /* GraphQL */ `
           owner
         }
         nextToken
-        count
       }
       comments {
         items {
@@ -146,7 +141,6 @@ export const deleteUser = /* GraphQL */ `
           owner
         }
         nextToken
-        count
       }
       points
       createdAt
@@ -182,7 +176,6 @@ export const createPost = /* GraphQL */ `
           owner
         }
         nextToken
-        count
       }
       createdAt
       type
@@ -218,7 +211,6 @@ export const updatePost = /* GraphQL */ `
           owner
         }
         nextToken
-        count
       }
       createdAt
       type
@@ -254,7 +246,6 @@ export const deletePost = /* GraphQL */ `
           owner
         }
         nextToken
-        count
       }
       createdAt
       type
@@ -286,7 +277,6 @@ export const createComment = /* GraphQL */ `
         bookmarks
         comments {
           nextToken
-          count
         }
         createdAt
         type
@@ -322,7 +312,6 @@ export const updateComment = /* GraphQL */ `
         bookmarks
         comments {
           nextToken
-          count
         }
         createdAt
         type
@@ -358,7 +347,6 @@ export const deleteComment = /* GraphQL */ `
         bookmarks
         comments {
           nextToken
-          count
         }
         createdAt
         type

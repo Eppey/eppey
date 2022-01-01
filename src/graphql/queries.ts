@@ -26,7 +26,6 @@ export const getUser = /* GraphQL */ `
           owner
         }
         nextToken
-        count
       }
       comments {
         items {
@@ -41,7 +40,6 @@ export const getUser = /* GraphQL */ `
           owner
         }
         nextToken
-        count
       }
       points
       createdAt
@@ -65,11 +63,9 @@ export const listUsers = /* GraphQL */ `
         major
         posts {
           nextToken
-          count
         }
         comments {
           nextToken
-          count
         }
         points
         createdAt
@@ -104,7 +100,6 @@ export const getPost = /* GraphQL */ `
           owner
         }
         nextToken
-        count
       }
       createdAt
       type
@@ -131,7 +126,6 @@ export const listPosts = /* GraphQL */ `
         bookmarks
         comments {
           nextToken
-          count
         }
         createdAt
         type
@@ -139,7 +133,6 @@ export const listPosts = /* GraphQL */ `
         owner
       }
       nextToken
-      count
     }
   }
 `;
@@ -163,7 +156,6 @@ export const getComment = /* GraphQL */ `
         bookmarks
         comments {
           nextToken
-          count
         }
         createdAt
         type
@@ -209,7 +201,6 @@ export const listComments = /* GraphQL */ `
         owner
       }
       nextToken
-      count
     }
   }
 `;
@@ -241,7 +232,6 @@ export const getLatestPost = /* GraphQL */ `
         bookmarks
         comments {
           nextToken
-          count
         }
         createdAt
         type
@@ -249,7 +239,6 @@ export const getLatestPost = /* GraphQL */ `
         owner
       }
       nextToken
-      count
     }
   }
 `;
@@ -296,7 +285,6 @@ export const getUserComment = /* GraphQL */ `
         owner
       }
       nextToken
-      count
     }
   }
 `;
@@ -343,7 +331,6 @@ export const getPostComment = /* GraphQL */ `
         owner
       }
       nextToken
-      count
     }
   }
 `;

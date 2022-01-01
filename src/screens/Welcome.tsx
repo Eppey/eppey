@@ -66,7 +66,6 @@ const Welcome = () => {
           Already have an account?{' '}
           <Text style={{ fontWeight: 'bold' }}>Sign In</Text>
         </Text>
-        <Text onPress={() => navigation.navigate('Main')}>press me</Text>
       </View>
     </View>
   );

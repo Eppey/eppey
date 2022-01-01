@@ -26,7 +26,6 @@ export const onCreateUser = /* GraphQL */ `
           owner
         }
         nextToken
-        count
       }
       comments {
         items {
@@ -41,7 +40,6 @@ export const onCreateUser = /* GraphQL */ `
           owner
         }
         nextToken
-        count
       }
       points
       createdAt
@@ -74,7 +72,6 @@ export const onUpdateUser = /* GraphQL */ `
           owner
         }
         nextToken
-        count
       }
       comments {
         items {
@@ -89,7 +86,6 @@ export const onUpdateUser = /* GraphQL */ `
           owner
         }
         nextToken
-        count
       }
       points
       createdAt
@@ -122,7 +118,6 @@ export const onDeleteUser = /* GraphQL */ `
           owner
         }
         nextToken
-        count
       }
       comments {
         items {
@@ -137,7 +132,6 @@ export const onDeleteUser = /* GraphQL */ `
           owner
         }
         nextToken
-        count
       }
       points
       createdAt
@@ -170,7 +164,6 @@ export const onCreatePost = /* GraphQL */ `
           owner
         }
         nextToken
-        count
       }
       createdAt
       type
@@ -203,7 +196,6 @@ export const onUpdatePost = /* GraphQL */ `
           owner
         }
         nextToken
-        count
       }
       createdAt
       type
@@ -236,7 +228,6 @@ export const onDeletePost = /* GraphQL */ `
           owner
         }
         nextToken
-        count
       }
       createdAt
       type
@@ -265,7 +256,6 @@ export const onCreateComment = /* GraphQL */ `
         bookmarks
         comments {
           nextToken
-          count
         }
         createdAt
         type
@@ -298,7 +288,6 @@ export const onUpdateComment = /* GraphQL */ `
         bookmarks
         comments {
           nextToken
-          count
         }
         createdAt
         type
@@ -331,7 +320,6 @@ export const onDeleteComment = /* GraphQL */ `
         bookmarks
         comments {
           nextToken
-          count
         }
         createdAt
         type

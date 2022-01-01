@@ -3,7 +3,7 @@
 
 type User
   @model
-  @auth(rules: [ { allow: owner }, { allow: groups, groups: ["admin"] } ]) {
+  @auth(rules: [{ allow: owner }, { allow: groups, groups: ["admin"] }]) {
   id: ID!
   nickname: String!
   email: String!
