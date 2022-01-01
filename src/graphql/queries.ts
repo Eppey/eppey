@@ -41,6 +41,18 @@ export const getUser = /* GraphQL */ `
         }
         nextToken
       }
+      bookmarks {
+        items {
+          postID
+          postTitle
+          postCreatedAt
+          createdAt
+          id
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       points
       createdAt
       updatedAt
@@ -65,6 +77,9 @@ export const listUsers = /* GraphQL */ `
           nextToken
         }
         comments {
+          nextToken
+        }
+        bookmarks {
           nextToken
         }
         points
@@ -162,6 +177,20 @@ export const getComment = /* GraphQL */ `
         updatedAt
         owner
       }
+      replies {
+        items {
+          id
+          userID
+          commentID
+          likes
+          content
+          userNickname
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       createdAt
       updatedAt
       owner
@@ -196,7 +225,119 @@ export const listComments = /* GraphQL */ `
           updatedAt
           owner
         }
+        replies {
+          nextToken
+        }
         createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getReply = /* GraphQL */ `
+  query GetReply($id: ID!) {
+    getReply(id: $id) {
+      id
+      userID
+      commentID
+      likes
+      content
+      userNickname
+      comment {
+        id
+        userID
+        postID
+        likes
+        content
+        userNickname
+        post {
+          id
+          userID
+          userNickname
+          title
+          topic
+          content
+          views
+          bookmarks
+          createdAt
+          type
+          updatedAt
+          owner
+        }
+        replies {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listReplies = /* GraphQL */ `
+  query ListReplies(
+    $filter: ModelReplyFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listReplies(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        userID
+        commentID
+        likes
+        content
+        userNickname
+        comment {
+          id
+          userID
+          postID
+          likes
+          content
+          userNickname
+          createdAt
+          updatedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getBookmark = /* GraphQL */ `
+  query GetBookmark($id: ID!) {
+    getBookmark(id: $id) {
+      postID
+      postTitle
+      postCreatedAt
+      createdAt
+      id
+      updatedAt
+      owner
+    }
+  }
+`;
+export const listBookmarks = /* GraphQL */ `
+  query ListBookmarks(
+    $filter: ModelBookmarkFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listBookmarks(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        postID
+        postTitle
+        postCreatedAt
+        createdAt
+        id
         updatedAt
         owner
       }
@@ -280,6 +421,9 @@ export const getUserComment = /* GraphQL */ `
           updatedAt
           owner
         }
+        replies {
+          nextToken
+        }
         createdAt
         updatedAt
         owner
@@ -326,7 +470,83 @@ export const getPostComment = /* GraphQL */ `
           updatedAt
           owner
         }
+        replies {
+          nextToken
+        }
         createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getCommentReply = /* GraphQL */ `
+  query GetCommentReply(
+    $commentID: ID
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelReplyFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    getCommentReply(
+      commentID: $commentID
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userID
+        commentID
+        likes
+        content
+        userNickname
+        comment {
+          id
+          userID
+          postID
+          likes
+          content
+          userNickname
+          createdAt
+          updatedAt
+          owner
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
+export const getUserBookmark = /* GraphQL */ `
+  query GetUserBookmark(
+    $postID: ID
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelBookmarkFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    getUserBookmark(
+      postID: $postID
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        postID
+        postTitle
+        postCreatedAt
+        createdAt
+        id
         updatedAt
         owner
       }

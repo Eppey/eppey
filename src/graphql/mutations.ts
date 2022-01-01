@@ -44,6 +44,18 @@ export const createUser = /* GraphQL */ `
         }
         nextToken
       }
+      bookmarks {
+        items {
+          postID
+          postTitle
+          postCreatedAt
+          createdAt
+          id
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       points
       createdAt
       updatedAt
@@ -93,6 +105,18 @@ export const updateUser = /* GraphQL */ `
         }
         nextToken
       }
+      bookmarks {
+        items {
+          postID
+          postTitle
+          postCreatedAt
+          createdAt
+          id
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       points
       createdAt
       updatedAt
@@ -137,6 +161,18 @@ export const deleteUser = /* GraphQL */ `
           content
           userNickname
           createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      bookmarks {
+        items {
+          postID
+          postTitle
+          postCreatedAt
+          createdAt
+          id
           updatedAt
           owner
         }
@@ -283,6 +319,20 @@ export const createComment = /* GraphQL */ `
         updatedAt
         owner
       }
+      replies {
+        items {
+          id
+          userID
+          commentID
+          likes
+          content
+          userNickname
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       createdAt
       updatedAt
       owner
@@ -317,6 +367,20 @@ export const updateComment = /* GraphQL */ `
         type
         updatedAt
         owner
+      }
+      replies {
+        items {
+          id
+          userID
+          commentID
+          likes
+          content
+          userNickname
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -353,7 +417,207 @@ export const deleteComment = /* GraphQL */ `
         updatedAt
         owner
       }
+      replies {
+        items {
+          id
+          userID
+          commentID
+          likes
+          content
+          userNickname
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const createReply = /* GraphQL */ `
+  mutation CreateReply(
+    $input: CreateReplyInput!
+    $condition: ModelReplyConditionInput
+  ) {
+    createReply(input: $input, condition: $condition) {
+      id
+      userID
+      commentID
+      likes
+      content
+      userNickname
+      comment {
+        id
+        userID
+        postID
+        likes
+        content
+        userNickname
+        post {
+          id
+          userID
+          userNickname
+          title
+          topic
+          content
+          views
+          bookmarks
+          createdAt
+          type
+          updatedAt
+          owner
+        }
+        replies {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateReply = /* GraphQL */ `
+  mutation UpdateReply(
+    $input: UpdateReplyInput!
+    $condition: ModelReplyConditionInput
+  ) {
+    updateReply(input: $input, condition: $condition) {
+      id
+      userID
+      commentID
+      likes
+      content
+      userNickname
+      comment {
+        id
+        userID
+        postID
+        likes
+        content
+        userNickname
+        post {
+          id
+          userID
+          userNickname
+          title
+          topic
+          content
+          views
+          bookmarks
+          createdAt
+          type
+          updatedAt
+          owner
+        }
+        replies {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteReply = /* GraphQL */ `
+  mutation DeleteReply(
+    $input: DeleteReplyInput!
+    $condition: ModelReplyConditionInput
+  ) {
+    deleteReply(input: $input, condition: $condition) {
+      id
+      userID
+      commentID
+      likes
+      content
+      userNickname
+      comment {
+        id
+        userID
+        postID
+        likes
+        content
+        userNickname
+        post {
+          id
+          userID
+          userNickname
+          title
+          topic
+          content
+          views
+          bookmarks
+          createdAt
+          type
+          updatedAt
+          owner
+        }
+        replies {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const createBookmark = /* GraphQL */ `
+  mutation CreateBookmark(
+    $input: CreateBookmarkInput!
+    $condition: ModelBookmarkConditionInput
+  ) {
+    createBookmark(input: $input, condition: $condition) {
+      postID
+      postTitle
+      postCreatedAt
+      createdAt
+      id
+      updatedAt
+      owner
+    }
+  }
+`;
+export const updateBookmark = /* GraphQL */ `
+  mutation UpdateBookmark(
+    $input: UpdateBookmarkInput!
+    $condition: ModelBookmarkConditionInput
+  ) {
+    updateBookmark(input: $input, condition: $condition) {
+      postID
+      postTitle
+      postCreatedAt
+      createdAt
+      id
+      updatedAt
+      owner
+    }
+  }
+`;
+export const deleteBookmark = /* GraphQL */ `
+  mutation DeleteBookmark(
+    $input: DeleteBookmarkInput!
+    $condition: ModelBookmarkConditionInput
+  ) {
+    deleteBookmark(input: $input, condition: $condition) {
+      postID
+      postTitle
+      postCreatedAt
+      createdAt
+      id
       updatedAt
       owner
     }

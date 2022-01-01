@@ -14,32 +14,25 @@ const PostContainer = () => {
   useScrollToTop(ref);
 
   useEffect(() => {
-    if (!postData.length) {
-      getPosts();
-    }
+    getPosts();
   }, []);
 
-  async function getPosts() {
+  const getPosts = async () => {
     let params: { [key: string]: string } = {
       type: 'Post',
       limit: '20',
       sortDirection: 'DESC',
     };
-
-    try {
-      if (nextToken !== '') {
-        params = { ...params, nextToken };
-      }
-      const posts: any = await API.graphql({
-        query: customQueries.getLatestPost,
-        variables: params,
-      });
-      setPostData([...postData, ...posts.data.getLatestPost.items]);
-      setNextToken(posts.data.getLatestPost.nextToken);
-    } catch (err: any) {
-      setPostData([...postData, ...err.data.getLatestPost.items]);
+    if (nextToken !== '') {
+      params = { ...params, nextToken };
     }
-  }
+    const posts: any = await API.graphql({
+      query: customQueries.getLatestPost,
+      variables: params,
+    });
+    setPostData([...postData, ...posts.data.getLatestPost.items]);
+    setNextToken(posts.data.getLatestPost.nextToken);
+  };
 
   return (
     <>
