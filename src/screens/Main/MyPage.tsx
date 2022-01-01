@@ -2,6 +2,7 @@ import { API, Auth } from 'aws-amplify';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+// import * as queries from '../../graphql/queries';
 import * as queries from '../../request/customQueries';
 
 const MyPage = () => {
@@ -12,13 +13,20 @@ const MyPage = () => {
   }, []);
 
   const getUserInfo = async () => {
-    const info = await Auth.currentUserInfo();
-    const userId = info.username;
-    const response = await API.graphql({
-      query: queries.getUser,
-      variables: { id: userId },
-    });
-    console.log(response);
+    {
+      /*
+       *     const info = await Auth.currentUserInfo();
+       *     const userId = info.username;
+       *     console.log(userId);
+       *     const response = await API.graphql({
+       *       // query: queries.getUserPost,
+       *       query: queries.getUser,
+       *       variables: { id: userId },
+       *     });
+       *
+       *     console.log(response);
+       */
+    }
   };
 
   return (

@@ -1528,6 +1528,41 @@ export type ListBookmarksQuery = {
   } | null,
 };
 
+export type GetUserPostQueryVariables = {
+  userID?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelPostFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type GetUserPostQuery = {
+  getUserPost?:  {
+    __typename: "ModelPostConnection",
+    items:  Array< {
+      __typename: "Post",
+      id: string,
+      userID: string,
+      userNickname: string,
+      title: string,
+      topic: string,
+      content: string,
+      views: number,
+      bookmarks: number,
+      comments?:  {
+        __typename: "ModelCommentConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      type?: string | null,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type GetLatestPostQueryVariables = {
   type?: string | null,
   createdAt?: ModelStringKeyConditionInput | null,

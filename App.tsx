@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image, View, Pressable, Text } from 'react-native';
+import { StyleSheet, Image, View, Pressable, Text, Alert } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -7,7 +7,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { store } from './src/redux/store';
 import { Provider } from 'react-redux';
 
-import Amplify from 'aws-amplify';
+import Amplify, { Auth } from 'aws-amplify';
 import config from './src/aws-exports';
 Amplify.configure({ ...config, Analytics: { disabled: true } });
 
@@ -29,8 +29,16 @@ import MyPage from './src/screens/Main/MyPage';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-function Main() {
-  const navigation: any = useNavigation();
+function Main({ navigation }: any) {
+  const logOut = async () => {
+    try {
+      await Auth.signOut();
+      navigation.navigate('Signin');
+    } catch (e) {
+      Alert.alert(e);
+    }
+  };
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -124,6 +132,14 @@ function Main() {
           headerStyle: {
             backgroundColor: '#D1CAF2',
           },
+          headerRight: () => (
+            <Pressable onPress={() => logOut()}>
+              <Image
+                style={styles.icon}
+                source={require('./assets/icons/logout.png')}
+              />
+            </Pressable>
+          ),
         }}
       />
     </Tab.Navigator>
