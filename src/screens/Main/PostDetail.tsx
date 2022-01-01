@@ -16,6 +16,9 @@ import * as queries from '../../graphql/queries';
 import { API } from 'aws-amplify';
 import { Post, GetPostQuery, GetPostQueryVariables } from '../../API';
 
+import { useDispatch } from 'react-redux';
+import { setPostOwnerID } from '../../redux/slices/sessionSlice';
+
 import PostContent from '../../components/PostContent';
 import CommentContainer from '../../components/CommentContainer';
 
@@ -26,6 +29,8 @@ const PostDetail = ({ route }: any) => {
   const [commentHeight, setCommentHeight] = useState(0);
   const [refreshing, setRefreshing] = useState(false);
   const { postID } = route.params;
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getPostDetail();
@@ -38,6 +43,7 @@ const PostDetail = ({ route }: any) => {
       variables: { id: postID } as GetPostQueryVariables,
     }) as Promise<{ data: GetPostQuery }>);
     setPost(response.data.getPost as Post);
+    dispatch(setPostOwnerID(post.userID));
     setRefreshing(false);
   };
 

@@ -1,22 +1,40 @@
 import React from 'react';
 import { Alert, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 
+import { useSelector } from 'react-redux';
+import { selectUserID } from '../../redux/slices/userSlice';
+import { selectPostOwnerID } from '../../redux/slices/sessionSlice';
+
 import { Comment as CommentType } from '../../API';
 
 import { calculateTime } from '../../tools/calculateTime';
 
 import { fonts } from '../../styles/fonts';
 
+// https://github.com/jacklam718/react-native-modals
+
 export type commentItemProp = {
   comment: CommentType | null;
 };
 
 const Comment = ({ comment }: commentItemProp) => {
+  const userID = useSelector(selectUserID);
+  const postOwnerID = useSelector(selectPostOwnerID);
+
   return (
     <>
       {comment !== null ? (
         <View style={{ paddingHorizontal: '5%' }}>
-          <Text style={styles.nickname}>{comment.userNickname}</Text>
+          <View style={{ flexDirection: 'row' }}>
+            {comment.userID === postOwnerID ? (
+              <>
+                <Text style={styles.nickname}>{comment.userNickname}</Text>
+                <Text style={styles.op}> OP</Text>
+              </>
+            ) : (
+              <Text style={styles.nickname}>{comment.userNickname}</Text>
+            )}
+          </View>
           <Text style={styles.content}>{comment.content}</Text>
           <View style={[styles.statContainer, { marginTop: 6 }]}>
             <Text style={styles.stats}>{calculateTime(comment.createdAt)}</Text>
@@ -40,15 +58,22 @@ const Comment = ({ comment }: commentItemProp) => {
               />
               <Text style={styles.stats}>Reply</Text>
             </Pressable>
-            <Pressable
-              style={[styles.statContainer, { position: 'absolute', right: 0 }]}
-              onPress={() => Alert.alert('Edit options clicked', comment.id)}
-            >
-              <Image
-                style={styles.editIcon}
-                source={require('../../../assets/icons/more_grey.png')}
-              />
-            </Pressable>
+            {comment.userID === userID ? (
+              <Pressable
+                style={[
+                  styles.statContainer,
+                  { position: 'absolute', right: 0 },
+                ]}
+                onPress={() => Alert.alert('Edit pressed', comment.id)}
+              >
+                <Image
+                  style={styles.editIcon}
+                  source={require('../../../assets/icons/more_grey.png')}
+                />
+              </Pressable>
+            ) : (
+              <View></View>
+            )}
           </View>
           <View style={styles.divider} />
         </View>
@@ -77,6 +102,12 @@ const styles = StyleSheet.create({
   nickname: {
     ...fonts.body1,
     marginTop: 12,
+  },
+  op: {
+    ...fonts.body2,
+    marginTop: 12,
+    color: 'red',
+    fontWeight: 'bold',
   },
   content: {
     ...fonts.body1,

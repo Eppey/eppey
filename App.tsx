@@ -1,11 +1,14 @@
 import React from 'react';
-import { StyleSheet, Image, View, Pressable, Text } from 'react-native';
+import { StyleSheet, Image, View, Pressable } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { store } from './src/redux/store';
 import { Provider } from 'react-redux';
+
+// @ts-ignore
+import { ModalPortal } from 'react-native-modals';
 
 import Amplify from 'aws-amplify';
 import config from './src/aws-exports';
@@ -201,6 +204,7 @@ export default function App() {
           </Stack.Navigator>
         </SafeAreaProvider>
       </NavigationContainer>
+      <ModalPortal />
     </Provider>
   );
 }

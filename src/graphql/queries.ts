@@ -345,6 +345,44 @@ export const listBookmarks = /* GraphQL */ `
     }
   }
 `;
+export const getUserPost = /* GraphQL */ `
+  query GetUserPost(
+    $userID: ID
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelPostFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    getUserPost(
+      userID: $userID
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userID
+        userNickname
+        title
+        topic
+        content
+        views
+        bookmarks
+        comments {
+          nextToken
+        }
+        createdAt
+        type
+        updatedAt
+        owner
+      }
+      nextToken
+    }
+  }
+`;
 export const getLatestPost = /* GraphQL */ `
   query GetLatestPost(
     $type: String
