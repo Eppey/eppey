@@ -34,7 +34,6 @@ export const getLatestPost = /* GraphQL */ `
     }
   }
 `;
-
 export const listPosts = /* GraphQL */ `
   query ListPosts(
     $filter: ModelPostFilterInput
@@ -60,6 +59,55 @@ export const listPosts = /* GraphQL */ `
         updatedAt
       }
       nextToken
+    }
+  }
+`;
+
+export const getUser = /* GraphQL */ `
+  query GetUser($id: ID!) {
+    getUser(id: $id) {
+      id
+      nickname
+      email
+      school
+      major
+      posts {
+        items {
+          id
+          userID
+          userNickname
+          title
+          topic
+          content
+          views
+          bookmarks
+          createdAt
+          type
+          updatedAt
+          owner
+        }
+        nextToken
+        count
+      }
+      comments {
+        items {
+          id
+          userID
+          postID
+          likes
+          content
+          userNickname
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+        count
+      }
+      points
+      createdAt
+      updatedAt
+      owner
     }
   }
 `;

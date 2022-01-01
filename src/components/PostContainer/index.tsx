@@ -17,7 +17,7 @@ const PostContainer = () => {
     if (!postData.length) {
       getPosts();
     }
-  }, [postData]);
+  }, []);
 
   async function getPosts() {
     let params: { [key: string]: string } = {
