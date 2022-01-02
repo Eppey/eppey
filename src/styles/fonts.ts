@@ -25,6 +25,13 @@ export const fonts = StyleSheet.create({
     letterSpacing: -0.24,
     color: '#283244',
   },
+  body1Regular: {
+    fontFamily: 'System',
+    fontSize: 14,
+    lineHeight: 25,
+    letterSpacing: -0.24,
+    color: '#283244',
+  },
   body1Light: {
     fontFamily: 'System',
     fontSize: 14,

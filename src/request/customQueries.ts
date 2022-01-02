@@ -34,7 +34,6 @@ export const getLatestPost = /* GraphQL */ `
     }
   }
 `;
-
 export const listPosts = /* GraphQL */ `
   query ListPosts(
     $filter: ModelPostFilterInput

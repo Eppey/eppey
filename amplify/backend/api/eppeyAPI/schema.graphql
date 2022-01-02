@@ -11,6 +11,7 @@ type User
   major: String!
   posts: [Post] @hasMany(indexName: "postByUser", fields: ["id"])
   comments: [Comment] @hasMany(indexName: "commentByUser", fields: ["id"])
+  bookmarks: [Bookmark] @hasMany(indexName: "bookmarkByUser", fields: ["id"])
   points: Int!
 }
 
@@ -20,11 +21,16 @@ type Post
     rules: [
       { allow: owner }
       { allow: groups, groups: ["admin"] }
-      { allow: groups, groups: ["user"], operations: [read] }
+      { allow: private, operations: [read] }
     ]
   ) {
   id: ID!
-  userID: ID! @index(name: "postByUser", sortKeyFields: ["createdAt"])
+  userID: ID!
+    @index(
+      name: "postByUser"
+      queryField: "getUserPost"
+      sortKeyFields: ["createdAt"]
+    )
   userNickname: String!
   title: String!
   topic: String!
@@ -47,7 +53,7 @@ type Comment
     rules: [
       { allow: owner }
       { allow: groups, groups: ["admin"] }
-      { allow: groups, groups: ["user"], operations: [read] }
+      { allow: private, operations: [read] }
     ]
   ) {
   id: ID!
@@ -67,5 +73,41 @@ type Comment
   content: String!
   userNickname: String!
   post: Post @belongsTo(fields: ["postID"])
+  replies: [Reply] @hasMany(indexName: "replyByComment", fields: ["id"])
+  createdAt: AWSDateTime!
+}
+
+type Reply
+  @model
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: groups, groups: ["admin"] }
+      { allow: private, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  userID: ID!
+  commentID: ID!
+    @index(
+      name: "replyByComment"
+      queryField: "getCommentReply"
+      sortKeyFields: ["createdAt"]
+    )
+  content: String!
+  userNickname: String!
+  comment: Comment @belongsTo(fields: ["commentID"])
+  createdAt: AWSDateTime!
+}
+
+type Bookmark @model @auth(rules: [{ allow: owner }]) {
+  postID: ID!
+    @index(
+      name: "bookmarkByUser"
+      queryField: "getUserBookmark"
+      sortKeyFields: ["createdAt"]
+    )
+  postTitle: String!
+  postCreatedAt: AWSDateTime!
   createdAt: AWSDateTime!
 }

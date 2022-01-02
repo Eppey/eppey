@@ -83,6 +83,7 @@ export type User = {
   major: string,
   posts?: ModelPostConnection | null,
   comments?: ModelCommentConnection | null,
+  bookmarks?: ModelBookmarkConnection | null,
   points: number,
   createdAt: string,
   updatedAt: string,
@@ -127,7 +128,44 @@ export type Comment = {
   content: string,
   userNickname: string,
   post?: Post | null,
+  replies?: ModelReplyConnection | null,
   createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type ModelReplyConnection = {
+  __typename: "ModelReplyConnection",
+  items:  Array<Reply | null >,
+  nextToken?: string | null,
+};
+
+export type Reply = {
+  __typename: "Reply",
+  id: string,
+  userID: string,
+  commentID: string,
+  content: string,
+  userNickname: string,
+  comment?: Comment | null,
+  createdAt: string,
+  updatedAt: string,
+  owner?: string | null,
+};
+
+export type ModelBookmarkConnection = {
+  __typename: "ModelBookmarkConnection",
+  items:  Array<Bookmark | null >,
+  nextToken?: string | null,
+};
+
+export type Bookmark = {
+  __typename: "Bookmark",
+  postID: string,
+  postTitle: string,
+  postCreatedAt: string,
+  createdAt: string,
+  id: string,
   updatedAt: string,
   owner?: string | null,
 };
@@ -242,6 +280,68 @@ export type DeleteCommentInput = {
   id: string,
 };
 
+export type CreateReplyInput = {
+  id?: string | null,
+  userID: string,
+  commentID: string,
+  content: string,
+  userNickname: string,
+  createdAt?: string | null,
+};
+
+export type ModelReplyConditionInput = {
+  userID?: ModelIDInput | null,
+  commentID?: ModelIDInput | null,
+  content?: ModelStringInput | null,
+  userNickname?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelReplyConditionInput | null > | null,
+  or?: Array< ModelReplyConditionInput | null > | null,
+  not?: ModelReplyConditionInput | null,
+};
+
+export type UpdateReplyInput = {
+  id: string,
+  userID?: string | null,
+  commentID?: string | null,
+  content?: string | null,
+  userNickname?: string | null,
+  createdAt?: string | null,
+};
+
+export type DeleteReplyInput = {
+  id: string,
+};
+
+export type CreateBookmarkInput = {
+  postID: string,
+  postTitle: string,
+  postCreatedAt: string,
+  createdAt?: string | null,
+  id?: string | null,
+};
+
+export type ModelBookmarkConditionInput = {
+  postID?: ModelIDInput | null,
+  postTitle?: ModelStringInput | null,
+  postCreatedAt?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelBookmarkConditionInput | null > | null,
+  or?: Array< ModelBookmarkConditionInput | null > | null,
+  not?: ModelBookmarkConditionInput | null,
+};
+
+export type UpdateBookmarkInput = {
+  postID?: string | null,
+  postTitle?: string | null,
+  postCreatedAt?: string | null,
+  createdAt?: string | null,
+};
+
+export type DeleteBookmarkInput = {
+  id: string,
+};
+
 export type ModelUserFilterInput = {
   id?: ModelIDInput | null,
   nickname?: ModelStringInput | null,
@@ -287,6 +387,28 @@ export type ModelCommentFilterInput = {
   and?: Array< ModelCommentFilterInput | null > | null,
   or?: Array< ModelCommentFilterInput | null > | null,
   not?: ModelCommentFilterInput | null,
+};
+
+export type ModelReplyFilterInput = {
+  id?: ModelIDInput | null,
+  userID?: ModelIDInput | null,
+  commentID?: ModelIDInput | null,
+  content?: ModelStringInput | null,
+  userNickname?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelReplyFilterInput | null > | null,
+  or?: Array< ModelReplyFilterInput | null > | null,
+  not?: ModelReplyFilterInput | null,
+};
+
+export type ModelBookmarkFilterInput = {
+  postID?: ModelIDInput | null,
+  postTitle?: ModelStringInput | null,
+  postCreatedAt?: ModelStringInput | null,
+  createdAt?: ModelStringInput | null,
+  and?: Array< ModelBookmarkFilterInput | null > | null,
+  or?: Array< ModelBookmarkFilterInput | null > | null,
+  not?: ModelBookmarkFilterInput | null,
 };
 
 export type ModelStringKeyConditionInput = {
@@ -353,6 +475,20 @@ export type CreateUserMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    bookmarks?:  {
+      __typename: "ModelBookmarkConnection",
+      items:  Array< {
+        __typename: "Bookmark",
+        postID: string,
+        postTitle: string,
+        postCreatedAt: string,
+        createdAt: string,
+        id: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     points: number,
     createdAt: string,
     updatedAt: string,
@@ -408,6 +544,20 @@ export type UpdateUserMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    bookmarks?:  {
+      __typename: "ModelBookmarkConnection",
+      items:  Array< {
+        __typename: "Bookmark",
+        postID: string,
+        postTitle: string,
+        postCreatedAt: string,
+        createdAt: string,
+        id: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     points: number,
     createdAt: string,
     updatedAt: string,
@@ -458,6 +608,20 @@ export type DeleteUserMutation = {
         content: string,
         userNickname: string,
         createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    bookmarks?:  {
+      __typename: "ModelBookmarkConnection",
+      items:  Array< {
+        __typename: "Bookmark",
+        postID: string,
+        postTitle: string,
+        postCreatedAt: string,
+        createdAt: string,
+        id: string,
         updatedAt: string,
         owner?: string | null,
       } | null >,
@@ -620,6 +784,21 @@ export type CreateCommentMutation = {
       updatedAt: string,
       owner?: string | null,
     } | null,
+    replies?:  {
+      __typename: "ModelReplyConnection",
+      items:  Array< {
+        __typename: "Reply",
+        id: string,
+        userID: string,
+        commentID: string,
+        content: string,
+        userNickname: string,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -658,6 +837,21 @@ export type UpdateCommentMutation = {
       type?: string | null,
       updatedAt: string,
       owner?: string | null,
+    } | null,
+    replies?:  {
+      __typename: "ModelReplyConnection",
+      items:  Array< {
+        __typename: "Reply",
+        id: string,
+        userID: string,
+        commentID: string,
+        content: string,
+        userNickname: string,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -698,7 +892,226 @@ export type DeleteCommentMutation = {
       updatedAt: string,
       owner?: string | null,
     } | null,
+    replies?:  {
+      __typename: "ModelReplyConnection",
+      items:  Array< {
+        __typename: "Reply",
+        id: string,
+        userID: string,
+        commentID: string,
+        content: string,
+        userNickname: string,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type CreateReplyMutationVariables = {
+  input: CreateReplyInput,
+  condition?: ModelReplyConditionInput | null,
+};
+
+export type CreateReplyMutation = {
+  createReply?:  {
+    __typename: "Reply",
+    id: string,
+    userID: string,
+    commentID: string,
+    content: string,
+    userNickname: string,
+    comment?:  {
+      __typename: "Comment",
+      id: string,
+      userID: string,
+      postID: string,
+      likes: number,
+      content: string,
+      userNickname: string,
+      post?:  {
+        __typename: "Post",
+        id: string,
+        userID: string,
+        userNickname: string,
+        title: string,
+        topic: string,
+        content: string,
+        views: number,
+        bookmarks: number,
+        createdAt: string,
+        type?: string | null,
+        updatedAt: string,
+        owner?: string | null,
+      } | null,
+      replies?:  {
+        __typename: "ModelReplyConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateReplyMutationVariables = {
+  input: UpdateReplyInput,
+  condition?: ModelReplyConditionInput | null,
+};
+
+export type UpdateReplyMutation = {
+  updateReply?:  {
+    __typename: "Reply",
+    id: string,
+    userID: string,
+    commentID: string,
+    content: string,
+    userNickname: string,
+    comment?:  {
+      __typename: "Comment",
+      id: string,
+      userID: string,
+      postID: string,
+      likes: number,
+      content: string,
+      userNickname: string,
+      post?:  {
+        __typename: "Post",
+        id: string,
+        userID: string,
+        userNickname: string,
+        title: string,
+        topic: string,
+        content: string,
+        views: number,
+        bookmarks: number,
+        createdAt: string,
+        type?: string | null,
+        updatedAt: string,
+        owner?: string | null,
+      } | null,
+      replies?:  {
+        __typename: "ModelReplyConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteReplyMutationVariables = {
+  input: DeleteReplyInput,
+  condition?: ModelReplyConditionInput | null,
+};
+
+export type DeleteReplyMutation = {
+  deleteReply?:  {
+    __typename: "Reply",
+    id: string,
+    userID: string,
+    commentID: string,
+    content: string,
+    userNickname: string,
+    comment?:  {
+      __typename: "Comment",
+      id: string,
+      userID: string,
+      postID: string,
+      likes: number,
+      content: string,
+      userNickname: string,
+      post?:  {
+        __typename: "Post",
+        id: string,
+        userID: string,
+        userNickname: string,
+        title: string,
+        topic: string,
+        content: string,
+        views: number,
+        bookmarks: number,
+        createdAt: string,
+        type?: string | null,
+        updatedAt: string,
+        owner?: string | null,
+      } | null,
+      replies?:  {
+        __typename: "ModelReplyConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type CreateBookmarkMutationVariables = {
+  input: CreateBookmarkInput,
+  condition?: ModelBookmarkConditionInput | null,
+};
+
+export type CreateBookmarkMutation = {
+  createBookmark?:  {
+    __typename: "Bookmark",
+    postID: string,
+    postTitle: string,
+    postCreatedAt: string,
+    createdAt: string,
+    id: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type UpdateBookmarkMutationVariables = {
+  input: UpdateBookmarkInput,
+  condition?: ModelBookmarkConditionInput | null,
+};
+
+export type UpdateBookmarkMutation = {
+  updateBookmark?:  {
+    __typename: "Bookmark",
+    postID: string,
+    postTitle: string,
+    postCreatedAt: string,
+    createdAt: string,
+    id: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type DeleteBookmarkMutationVariables = {
+  input: DeleteBookmarkInput,
+  condition?: ModelBookmarkConditionInput | null,
+};
+
+export type DeleteBookmarkMutation = {
+  deleteBookmark?:  {
+    __typename: "Bookmark",
+    postID: string,
+    postTitle: string,
+    postCreatedAt: string,
+    createdAt: string,
+    id: string,
     updatedAt: string,
     owner?: string | null,
   } | null,
@@ -751,6 +1164,20 @@ export type GetUserQuery = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    bookmarks?:  {
+      __typename: "ModelBookmarkConnection",
+      items:  Array< {
+        __typename: "Bookmark",
+        postID: string,
+        postTitle: string,
+        postCreatedAt: string,
+        createdAt: string,
+        id: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     points: number,
     createdAt: string,
     updatedAt: string,
@@ -780,6 +1207,10 @@ export type ListUsersQuery = {
       } | null,
       comments?:  {
         __typename: "ModelCommentConnection",
+        nextToken?: string | null,
+      } | null,
+      bookmarks?:  {
+        __typename: "ModelBookmarkConnection",
         nextToken?: string | null,
       } | null,
       points: number,
@@ -893,6 +1324,21 @@ export type GetCommentQuery = {
       updatedAt: string,
       owner?: string | null,
     } | null,
+    replies?:  {
+      __typename: "ModelReplyConnection",
+      items:  Array< {
+        __typename: "Reply",
+        id: string,
+        userID: string,
+        commentID: string,
+        content: string,
+        userNickname: string,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -931,7 +1377,171 @@ export type ListCommentsQuery = {
         updatedAt: string,
         owner?: string | null,
       } | null,
+      replies?:  {
+        __typename: "ModelReplyConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetReplyQueryVariables = {
+  id: string,
+};
+
+export type GetReplyQuery = {
+  getReply?:  {
+    __typename: "Reply",
+    id: string,
+    userID: string,
+    commentID: string,
+    content: string,
+    userNickname: string,
+    comment?:  {
+      __typename: "Comment",
+      id: string,
+      userID: string,
+      postID: string,
+      likes: number,
+      content: string,
+      userNickname: string,
+      post?:  {
+        __typename: "Post",
+        id: string,
+        userID: string,
+        userNickname: string,
+        title: string,
+        topic: string,
+        content: string,
+        views: number,
+        bookmarks: number,
+        createdAt: string,
+        type?: string | null,
+        updatedAt: string,
+        owner?: string | null,
+      } | null,
+      replies?:  {
+        __typename: "ModelReplyConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListRepliesQueryVariables = {
+  filter?: ModelReplyFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListRepliesQuery = {
+  listReplies?:  {
+    __typename: "ModelReplyConnection",
+    items:  Array< {
+      __typename: "Reply",
+      id: string,
+      userID: string,
+      commentID: string,
+      content: string,
+      userNickname: string,
+      comment?:  {
+        __typename: "Comment",
+        id: string,
+        userID: string,
+        postID: string,
+        likes: number,
+        content: string,
+        userNickname: string,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetBookmarkQueryVariables = {
+  id: string,
+};
+
+export type GetBookmarkQuery = {
+  getBookmark?:  {
+    __typename: "Bookmark",
+    postID: string,
+    postTitle: string,
+    postCreatedAt: string,
+    createdAt: string,
+    id: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type ListBookmarksQueryVariables = {
+  filter?: ModelBookmarkFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListBookmarksQuery = {
+  listBookmarks?:  {
+    __typename: "ModelBookmarkConnection",
+    items:  Array< {
+      __typename: "Bookmark",
+      postID: string,
+      postTitle: string,
+      postCreatedAt: string,
+      createdAt: string,
+      id: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetUserPostQueryVariables = {
+  userID?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelPostFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type GetUserPostQuery = {
+  getUserPost?:  {
+    __typename: "ModelPostConnection",
+    items:  Array< {
+      __typename: "Post",
+      id: string,
+      userID: string,
+      userNickname: string,
+      title: string,
+      topic: string,
+      content: string,
+      views: number,
+      bookmarks: number,
+      comments?:  {
+        __typename: "ModelCommentConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      type?: string | null,
       updatedAt: string,
       owner?: string | null,
     } | null >,
@@ -1009,6 +1619,10 @@ export type GetUserCommentQuery = {
         updatedAt: string,
         owner?: string | null,
       } | null,
+      replies?:  {
+        __typename: "ModelReplyConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
@@ -1052,7 +1666,76 @@ export type GetPostCommentQuery = {
         updatedAt: string,
         owner?: string | null,
       } | null,
+      replies?:  {
+        __typename: "ModelReplyConnection",
+        nextToken?: string | null,
+      } | null,
       createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetCommentReplyQueryVariables = {
+  commentID?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelReplyFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type GetCommentReplyQuery = {
+  getCommentReply?:  {
+    __typename: "ModelReplyConnection",
+    items:  Array< {
+      __typename: "Reply",
+      id: string,
+      userID: string,
+      commentID: string,
+      content: string,
+      userNickname: string,
+      comment?:  {
+        __typename: "Comment",
+        id: string,
+        userID: string,
+        postID: string,
+        likes: number,
+        content: string,
+        userNickname: string,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetUserBookmarkQueryVariables = {
+  postID?: string | null,
+  createdAt?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelBookmarkFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type GetUserBookmarkQuery = {
+  getUserBookmark?:  {
+    __typename: "ModelBookmarkConnection",
+    items:  Array< {
+      __typename: "Bookmark",
+      postID: string,
+      postTitle: string,
+      postCreatedAt: string,
+      createdAt: string,
+      id: string,
       updatedAt: string,
       owner?: string | null,
     } | null >,
@@ -1102,6 +1785,20 @@ export type OnCreateUserSubscription = {
         content: string,
         userNickname: string,
         createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    bookmarks?:  {
+      __typename: "ModelBookmarkConnection",
+      items:  Array< {
+        __typename: "Bookmark",
+        postID: string,
+        postTitle: string,
+        postCreatedAt: string,
+        createdAt: string,
+        id: string,
         updatedAt: string,
         owner?: string | null,
       } | null >,
@@ -1161,6 +1858,20 @@ export type OnUpdateUserSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    bookmarks?:  {
+      __typename: "ModelBookmarkConnection",
+      items:  Array< {
+        __typename: "Bookmark",
+        postID: string,
+        postTitle: string,
+        postCreatedAt: string,
+        createdAt: string,
+        id: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     points: number,
     createdAt: string,
     updatedAt: string,
@@ -1210,6 +1921,20 @@ export type OnDeleteUserSubscription = {
         content: string,
         userNickname: string,
         createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    bookmarks?:  {
+      __typename: "ModelBookmarkConnection",
+      items:  Array< {
+        __typename: "Bookmark",
+        postID: string,
+        postTitle: string,
+        postCreatedAt: string,
+        createdAt: string,
+        id: string,
         updatedAt: string,
         owner?: string | null,
       } | null >,
@@ -1368,6 +2093,21 @@ export type OnCreateCommentSubscription = {
       updatedAt: string,
       owner?: string | null,
     } | null,
+    replies?:  {
+      __typename: "ModelReplyConnection",
+      items:  Array< {
+        __typename: "Reply",
+        id: string,
+        userID: string,
+        commentID: string,
+        content: string,
+        userNickname: string,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
     owner?: string | null,
@@ -1405,6 +2145,21 @@ export type OnUpdateCommentSubscription = {
       type?: string | null,
       updatedAt: string,
       owner?: string | null,
+    } | null,
+    replies?:  {
+      __typename: "ModelReplyConnection",
+      items:  Array< {
+        __typename: "Reply",
+        id: string,
+        userID: string,
+        commentID: string,
+        content: string,
+        userNickname: string,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     createdAt: string,
     updatedAt: string,
@@ -1444,7 +2199,220 @@ export type OnDeleteCommentSubscription = {
       updatedAt: string,
       owner?: string | null,
     } | null,
+    replies?:  {
+      __typename: "ModelReplyConnection",
+      items:  Array< {
+        __typename: "Reply",
+        id: string,
+        userID: string,
+        commentID: string,
+        content: string,
+        userNickname: string,
+        createdAt: string,
+        updatedAt: string,
+        owner?: string | null,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateReplySubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreateReplySubscription = {
+  onCreateReply?:  {
+    __typename: "Reply",
+    id: string,
+    userID: string,
+    commentID: string,
+    content: string,
+    userNickname: string,
+    comment?:  {
+      __typename: "Comment",
+      id: string,
+      userID: string,
+      postID: string,
+      likes: number,
+      content: string,
+      userNickname: string,
+      post?:  {
+        __typename: "Post",
+        id: string,
+        userID: string,
+        userNickname: string,
+        title: string,
+        topic: string,
+        content: string,
+        views: number,
+        bookmarks: number,
+        createdAt: string,
+        type?: string | null,
+        updatedAt: string,
+        owner?: string | null,
+      } | null,
+      replies?:  {
+        __typename: "ModelReplyConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateReplySubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdateReplySubscription = {
+  onUpdateReply?:  {
+    __typename: "Reply",
+    id: string,
+    userID: string,
+    commentID: string,
+    content: string,
+    userNickname: string,
+    comment?:  {
+      __typename: "Comment",
+      id: string,
+      userID: string,
+      postID: string,
+      likes: number,
+      content: string,
+      userNickname: string,
+      post?:  {
+        __typename: "Post",
+        id: string,
+        userID: string,
+        userNickname: string,
+        title: string,
+        topic: string,
+        content: string,
+        views: number,
+        bookmarks: number,
+        createdAt: string,
+        type?: string | null,
+        updatedAt: string,
+        owner?: string | null,
+      } | null,
+      replies?:  {
+        __typename: "ModelReplyConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteReplySubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeleteReplySubscription = {
+  onDeleteReply?:  {
+    __typename: "Reply",
+    id: string,
+    userID: string,
+    commentID: string,
+    content: string,
+    userNickname: string,
+    comment?:  {
+      __typename: "Comment",
+      id: string,
+      userID: string,
+      postID: string,
+      likes: number,
+      content: string,
+      userNickname: string,
+      post?:  {
+        __typename: "Post",
+        id: string,
+        userID: string,
+        userNickname: string,
+        title: string,
+        topic: string,
+        content: string,
+        views: number,
+        bookmarks: number,
+        createdAt: string,
+        type?: string | null,
+        updatedAt: string,
+        owner?: string | null,
+      } | null,
+      replies?:  {
+        __typename: "ModelReplyConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      owner?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnCreateBookmarkSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnCreateBookmarkSubscription = {
+  onCreateBookmark?:  {
+    __typename: "Bookmark",
+    postID: string,
+    postTitle: string,
+    postCreatedAt: string,
+    createdAt: string,
+    id: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnUpdateBookmarkSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnUpdateBookmarkSubscription = {
+  onUpdateBookmark?:  {
+    __typename: "Bookmark",
+    postID: string,
+    postTitle: string,
+    postCreatedAt: string,
+    createdAt: string,
+    id: string,
+    updatedAt: string,
+    owner?: string | null,
+  } | null,
+};
+
+export type OnDeleteBookmarkSubscriptionVariables = {
+  owner?: string | null,
+};
+
+export type OnDeleteBookmarkSubscription = {
+  onDeleteBookmark?:  {
+    __typename: "Bookmark",
+    postID: string,
+    postTitle: string,
+    postCreatedAt: string,
+    createdAt: string,
+    id: string,
     updatedAt: string,
     owner?: string | null,
   } | null,

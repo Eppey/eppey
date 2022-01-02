@@ -41,6 +41,18 @@ export const onCreateUser = /* GraphQL */ `
         }
         nextToken
       }
+      bookmarks {
+        items {
+          postID
+          postTitle
+          postCreatedAt
+          createdAt
+          id
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       points
       createdAt
       updatedAt
@@ -87,6 +99,18 @@ export const onUpdateUser = /* GraphQL */ `
         }
         nextToken
       }
+      bookmarks {
+        items {
+          postID
+          postTitle
+          postCreatedAt
+          createdAt
+          id
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       points
       createdAt
       updatedAt
@@ -128,6 +152,18 @@ export const onDeleteUser = /* GraphQL */ `
           content
           userNickname
           createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      bookmarks {
+        items {
+          postID
+          postTitle
+          postCreatedAt
+          createdAt
+          id
           updatedAt
           owner
         }
@@ -262,6 +298,19 @@ export const onCreateComment = /* GraphQL */ `
         updatedAt
         owner
       }
+      replies {
+        items {
+          id
+          userID
+          commentID
+          content
+          userNickname
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       createdAt
       updatedAt
       owner
@@ -293,6 +342,19 @@ export const onUpdateComment = /* GraphQL */ `
         type
         updatedAt
         owner
+      }
+      replies {
+        items {
+          id
+          userID
+          commentID
+          content
+          userNickname
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
       }
       createdAt
       updatedAt
@@ -326,7 +388,185 @@ export const onDeleteComment = /* GraphQL */ `
         updatedAt
         owner
       }
+      replies {
+        items {
+          id
+          userID
+          commentID
+          content
+          userNickname
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
       createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onCreateReply = /* GraphQL */ `
+  subscription OnCreateReply($owner: String) {
+    onCreateReply(owner: $owner) {
+      id
+      userID
+      commentID
+      content
+      userNickname
+      comment {
+        id
+        userID
+        postID
+        likes
+        content
+        userNickname
+        post {
+          id
+          userID
+          userNickname
+          title
+          topic
+          content
+          views
+          bookmarks
+          createdAt
+          type
+          updatedAt
+          owner
+        }
+        replies {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateReply = /* GraphQL */ `
+  subscription OnUpdateReply($owner: String) {
+    onUpdateReply(owner: $owner) {
+      id
+      userID
+      commentID
+      content
+      userNickname
+      comment {
+        id
+        userID
+        postID
+        likes
+        content
+        userNickname
+        post {
+          id
+          userID
+          userNickname
+          title
+          topic
+          content
+          views
+          bookmarks
+          createdAt
+          type
+          updatedAt
+          owner
+        }
+        replies {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteReply = /* GraphQL */ `
+  subscription OnDeleteReply($owner: String) {
+    onDeleteReply(owner: $owner) {
+      id
+      userID
+      commentID
+      content
+      userNickname
+      comment {
+        id
+        userID
+        postID
+        likes
+        content
+        userNickname
+        post {
+          id
+          userID
+          userNickname
+          title
+          topic
+          content
+          views
+          bookmarks
+          createdAt
+          type
+          updatedAt
+          owner
+        }
+        replies {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onCreateBookmark = /* GraphQL */ `
+  subscription OnCreateBookmark($owner: String) {
+    onCreateBookmark(owner: $owner) {
+      postID
+      postTitle
+      postCreatedAt
+      createdAt
+      id
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onUpdateBookmark = /* GraphQL */ `
+  subscription OnUpdateBookmark($owner: String) {
+    onUpdateBookmark(owner: $owner) {
+      postID
+      postTitle
+      postCreatedAt
+      createdAt
+      id
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onDeleteBookmark = /* GraphQL */ `
+  subscription OnDeleteBookmark($owner: String) {
+    onDeleteBookmark(owner: $owner) {
+      postID
+      postTitle
+      postCreatedAt
+      createdAt
+      id
       updatedAt
       owner
     }
