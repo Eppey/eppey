@@ -24,9 +24,10 @@ import { fonts } from '../../styles/fonts';
 
 export type commentItemProp = {
   comment: CommentType | null;
+  updatePostDetail: Function;
 };
 
-const Comment = ({ comment }: commentItemProp) => {
+const Comment = ({ comment, updatePostDetail }: commentItemProp) => {
   const [showModal, setShowModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [liked, setLiked] = useState(false);

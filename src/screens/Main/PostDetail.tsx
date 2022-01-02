@@ -93,7 +93,10 @@ const PostDetail = ({ route }: any) => {
               }
             >
               <PostContent post={post} />
-              <CommentContainer commentData={post.comments?.items} />
+              <CommentContainer
+                commentData={post.comments?.items}
+                updatePostDetail={getPostDetail}
+              />
             </ScrollView>
           )}
         </View>

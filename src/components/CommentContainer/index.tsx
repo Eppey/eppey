@@ -5,16 +5,23 @@ import Comment from '../Comment';
 
 import { Comment as CommentType } from '../../API';
 
-export type CommentProps = { commentData: (CommentType | null)[] | undefined };
+export type CommentProps = {
+  commentData: (CommentType | null)[] | undefined;
+  updatePostDetail: Function;
+};
 
-const CommentContainer = ({ commentData }: CommentProps) => {
+const CommentContainer = ({ commentData, updatePostDetail }: CommentProps) => {
   if (!commentData?.length) {
     return <View></View>;
   } else {
     return (
       <View>
         {commentData.map((comment) => (
-          <Comment comment={comment} key={comment?.id} />
+          <Comment
+            comment={comment}
+            key={comment?.id}
+            updatePostDetail={updatePostDetail}
+          />
         ))}
       </View>
     );
