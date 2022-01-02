@@ -139,7 +139,7 @@ function Main({ navigation }: any) {
           headerRight: () => (
             <Pressable onPress={() => logOut()}>
               <Image
-                style={[styles.icon, { marginEnd: '10%' }]}
+                style={[styles.icon, { marginRight: '10%' }]}
                 source={require('./assets/icons/logout.png')}
               />
             </Pressable>

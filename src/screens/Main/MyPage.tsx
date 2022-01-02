@@ -1,12 +1,18 @@
 import { API, Auth } from 'aws-amplify';
 import React, { useEffect, useState } from 'react';
-import { Button, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { GetUserCommentQuery, GetUserPostQuery, Post } from '../../API';
+
+import * as queries from '../../graphql/queries';
 
 import { fonts } from '../../styles/fonts';
 
 type UserInfo = {
   nickname: string;
   email: string;
+  sub: string;
+  postCnt: number;
+  commentCnt: number;
 };
 
 const MyPage = () => {
@@ -18,15 +24,27 @@ const MyPage = () => {
 
   const getUserInfo = async () => {
     const { attributes } = await Auth.currentUserInfo();
-    const { nickname, email } = attributes;
-    setUser({ nickname, email });
-    // const response = await API.graphql({
-    // // query: queries.getUserPost,
-    // query: queries.getUser,
-    // variables: { id: userId },
-    // });
+    const { nickname, email, sub } = attributes;
 
-    // console.log(response);
+    const postRes = await (API.graphql({
+      query: queries.getUserPost,
+      variables: { userID: sub },
+    }) as Promise<{ data: GetUserPostQuery }>);
+    const userPosts = postRes?.data?.getUserPost?.items as Array<any>;
+
+    const commentRes = await (API.graphql({
+      query: queries.getUserComment,
+      variables: { userID: sub },
+    }) as Promise<{ data: GetUserCommentQuery }>);
+    const userComments = commentRes?.data?.getUserComment?.items as Array<any>;
+
+    setUser({
+      nickname,
+      email,
+      sub,
+      postCnt: userPosts.length,
+      commentCnt: userComments.length,
+    });
   };
 
   return (
@@ -51,11 +69,11 @@ const MyPage = () => {
         <View style={styles.userStat}>
           <View>
             <Text style={fonts.body1}>Posts</Text>
-            <Text>19</Text>
+            <Text>{user.postCnt}</Text>
           </View>
           <View style={styles.userStatItem}>
             <Text style={fonts.body1}>Comments</Text>
-            <Text>99</Text>
+            <Text>{user.commentCnt}</Text>
           </View>
           <View style={styles.userStatItem}>
             <Text style={fonts.body1}>Points</Text>
