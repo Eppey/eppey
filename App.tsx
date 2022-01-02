@@ -37,8 +37,8 @@ function Main({ navigation }: any) {
     try {
       await Auth.signOut();
       navigation.navigate('Signin');
-    } catch (e) {
-      Alert.alert(e);
+    } catch (err: any) {
+      Alert.alert('Error', err);
     }
   };
 
@@ -124,6 +124,7 @@ function Main({ navigation }: any) {
         name="MyPage"
         component={MyPage}
         options={{
+          title: 'My Page',
           tabBarIcon: () => {
             return (
               <Image
@@ -138,7 +139,7 @@ function Main({ navigation }: any) {
           headerRight: () => (
             <Pressable onPress={() => logOut()}>
               <Image
-                style={styles.icon}
+                style={[styles.icon, { marginEnd: '10%' }]}
                 source={require('./assets/icons/logout.png')}
               />
             </Pressable>
