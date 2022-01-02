@@ -21,11 +21,16 @@ type Post
     rules: [
       { allow: owner }
       { allow: groups, groups: ["admin"] }
-      { allow: groups, groups: ["user"], operations: [read] }
+      { allow: private, operations: [read] }
     ]
   ) {
   id: ID!
-  userID: ID! @index(name: "postByUser", sortKeyFields: ["createdAt"])
+  userID: ID!
+    @index(
+      name: "postByUser"
+      queryField: "getUserPost"
+      sortKeyFields: ["createdAt"]
+    )
   userNickname: String!
   title: String!
   topic: String!
@@ -48,7 +53,7 @@ type Comment
     rules: [
       { allow: owner }
       { allow: groups, groups: ["admin"] }
-      { allow: groups, groups: ["user"], operations: [read] }
+      { allow: private, operations: [read] }
     ]
   ) {
   id: ID!
@@ -78,7 +83,7 @@ type Reply
     rules: [
       { allow: owner }
       { allow: groups, groups: ["admin"] }
-      { allow: groups, groups: ["user"], operations: [read] }
+      { allow: private, operations: [read] }
     ]
   ) {
   id: ID!
@@ -89,7 +94,6 @@ type Reply
       queryField: "getCommentReply"
       sortKeyFields: ["createdAt"]
     )
-  likes: Int!
   content: String!
   userNickname: String!
   comment: Comment @belongsTo(fields: ["commentID"])

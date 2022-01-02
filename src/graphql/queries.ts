@@ -182,7 +182,6 @@ export const getComment = /* GraphQL */ `
           id
           userID
           commentID
-          likes
           content
           userNickname
           createdAt
@@ -242,7 +241,6 @@ export const getReply = /* GraphQL */ `
       id
       userID
       commentID
-      likes
       content
       userNickname
       comment {
@@ -290,7 +288,6 @@ export const listReplies = /* GraphQL */ `
         id
         userID
         commentID
-        likes
         content
         userNickname
         comment {
@@ -540,7 +537,6 @@ export const getCommentReply = /* GraphQL */ `
         id
         userID
         commentID
-        likes
         content
         userNickname
         comment {
