@@ -21,7 +21,7 @@ type Post
     rules: [
       { allow: owner }
       { allow: groups, groups: ["admin"] }
-      { allow: groups, groups: ["user"], operations: [read] }
+      { allow: private, operations: [read] }
     ]
   ) {
   id: ID!
@@ -53,7 +53,7 @@ type Comment
     rules: [
       { allow: owner }
       { allow: groups, groups: ["admin"] }
-      { allow: groups, groups: ["user"], operations: [read] }
+      { allow: private, operations: [read] }
     ]
   ) {
   id: ID!
@@ -83,7 +83,7 @@ type Reply
     rules: [
       { allow: owner }
       { allow: groups, groups: ["admin"] }
-      { allow: groups, groups: ["user"], operations: [read] }
+      { allow: private, operations: [read] }
     ]
   ) {
   id: ID!
@@ -94,7 +94,6 @@ type Reply
       queryField: "getCommentReply"
       sortKeyFields: ["createdAt"]
     )
-  likes: Int!
   content: String!
   userNickname: String!
   comment: Comment @belongsTo(fields: ["commentID"])

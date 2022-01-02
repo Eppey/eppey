@@ -170,5 +170,11 @@
         }
       ]
     }
+  },
+  "analytics": {
+    "eppey": {
+      "service": "Pinpoint",
+      "providerPlugin": "awscloudformation"
+    }
   }
 }

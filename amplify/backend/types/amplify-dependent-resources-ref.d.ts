@@ -68,5 +68,12 @@ export type AmplifyDependentResourcesAttributes = {
             "BucketName": "string",
             "Region": "string"
         }
+    },
+    "analytics": {
+        "eppey": {
+            "Region": "string",
+            "Id": "string",
+            "appName": "string"
+        }
     }
 }

@@ -79,7 +79,8 @@
       },
       "auth": {
         "userPoolGroups": {},
-        "eppeyauth": {}
+        "eppeyauth": {},
+        "true": {}
       }
     }
   }

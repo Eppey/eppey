@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Alert, Image, Pressable, StyleSheet, Text, View } from 'react-native';
+
+import {
+  ModalTitle,
+  ModalContent,
+  BottomModal,
+  // @ts-ignore
+} from 'react-native-modals';
 
 import { useSelector } from 'react-redux';
 import { selectUserID } from '../../redux/slices/userSlice';
 import { selectPostOwnerID } from '../../redux/slices/sessionSlice';
 
+import { API } from 'aws-amplify';
 import { Comment as CommentType } from '../../API';
+import * as mutations from '../../graphql/mutations';
 
 import { calculateTime } from '../../tools/calculateTime';
 
@@ -18,8 +27,40 @@ export type commentItemProp = {
 };
 
 const Comment = ({ comment }: commentItemProp) => {
+  const [showModal, setShowModal] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [liked, setLiked] = useState(false);
   const userID = useSelector(selectUserID);
   const postOwnerID = useSelector(selectPostOwnerID);
+
+  const deleteComment = async () => {
+    let params: { [key: string]: string | undefined } = {
+      id: comment?.id,
+      content: 'Deleted comment',
+      userNickname: '-deleted-',
+      likes: '0',
+      userID: 'DELETED_COMMENT',
+    };
+    await API.graphql({
+      query: mutations.updateComment,
+      variables: { input: params },
+    });
+  };
+
+  // TODO: auth users to alter likes
+  const likeComment = async () => {
+    let curLikes = comment?.likes === undefined ? 0 : comment.likes;
+    liked ? (curLikes -= 1) : (curLikes += 1);
+    let params: { [key: string]: string | undefined } = {
+      id: comment?.id,
+      likes: curLikes.toString(),
+    };
+    await API.graphql({
+      query: mutations.updateComment,
+      variables: { input: params },
+    });
+    setLiked(!liked);
+  };
 
   return (
     <>
@@ -40,7 +81,7 @@ const Comment = ({ comment }: commentItemProp) => {
             <Text style={styles.stats}>{calculateTime(comment.createdAt)}</Text>
             <Pressable
               style={styles.statContainer}
-              onPress={() => Alert.alert('Like clicked', comment.id)}
+              onPress={() => likeComment()}
             >
               <Image
                 style={styles.icon}
@@ -64,7 +105,7 @@ const Comment = ({ comment }: commentItemProp) => {
                   styles.statContainer,
                   { position: 'absolute', right: 0 },
                 ]}
-                onPress={() => Alert.alert('Edit pressed', comment.id)}
+                onPress={() => setShowModal(true)}
               >
                 <Image
                   style={styles.editIcon}
@@ -75,11 +116,59 @@ const Comment = ({ comment }: commentItemProp) => {
               <View></View>
             )}
           </View>
-          <View style={styles.divider} />
+          <View style={[styles.divider, { marginTop: 12 }]} />
         </View>
       ) : (
         <View></View>
       )}
+      <BottomModal
+        visible={showModal}
+        onTouchOutside={() => setShowModal(false)}
+        onSwipeOut={() => setShowModal(false)}
+        height={170}
+        width={1}
+        modalTitle={
+          <ModalTitle
+            title="Options"
+            hasTitleBar
+            style={{ backgroundColor: '#272F40' }}
+            textStyle={{ color: '#FFFFFF' }}
+          />
+        }
+      >
+        <ModalContent>
+          <Pressable style={styles.modalButton}>
+            <Text>Edit comment</Text>
+          </Pressable>
+          <View style={styles.divider} />
+          <Pressable
+            style={styles.modalButton}
+            onPress={() =>
+              Alert.alert(
+                'Alert',
+                'Do you really want to delete your comment?',
+                [
+                  {
+                    text: 'Cancel',
+                    onPress: () => setShowModal(false),
+                    style: 'cancel',
+                  },
+                  {
+                    text: 'Yes',
+                    onPress: () => {
+                      deleteComment();
+                      setShowModal(false);
+                    },
+                    style: 'default',
+                  },
+                ]
+              )
+            }
+          >
+            <Text>Delete comment</Text>
+          </Pressable>
+        </ModalContent>
+      </BottomModal>
     </>
   );
 };
@@ -123,7 +212,12 @@ const styles = StyleSheet.create({
   divider: {
     borderBottomColor: '#272F4026',
     borderBottomWidth: 1,
-    marginTop: 12,
     marginHorizontal: '-100%',
+  },
+  modalButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+    width: '100%',
   },
 });

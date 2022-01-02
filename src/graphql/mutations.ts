@@ -324,7 +324,6 @@ export const createComment = /* GraphQL */ `
           id
           userID
           commentID
-          likes
           content
           userNickname
           createdAt
@@ -373,7 +372,6 @@ export const updateComment = /* GraphQL */ `
           id
           userID
           commentID
-          likes
           content
           userNickname
           createdAt
@@ -422,7 +420,6 @@ export const deleteComment = /* GraphQL */ `
           id
           userID
           commentID
-          likes
           content
           userNickname
           createdAt
@@ -446,7 +443,6 @@ export const createReply = /* GraphQL */ `
       id
       userID
       commentID
-      likes
       content
       userNickname
       comment {
@@ -492,7 +488,6 @@ export const updateReply = /* GraphQL */ `
       id
       userID
       commentID
-      likes
       content
       userNickname
       comment {
@@ -538,7 +533,6 @@ export const deleteReply = /* GraphQL */ `
       id
       userID
       commentID
-      likes
       content
       userNickname
       comment {
