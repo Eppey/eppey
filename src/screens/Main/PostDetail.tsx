@@ -115,6 +115,7 @@ const PostDetail = ({ route }: any) => {
             </Pressable>
             <TextInput
               style={styles.commentField}
+              autoFocus={true}
               placeholder="Add a comment"
               placeholderTextColor="#272F40B2"
               multiline={true}
@@ -122,13 +123,15 @@ const PostDetail = ({ route }: any) => {
               onChangeText={(value) => {
                 setCommentContent(value);
               }}
-              autoFocus={true}
+              onBlur={() => setShowCommentForm(false)}
             />
             <View style={styles.divider} />
             <Pressable
               onPress={() => {
                 writeComment();
                 setCommentContent('');
+                setShowCommentForm(false);
+                Keyboard.dismiss();
               }}
               style={styles.postButton}
             >
