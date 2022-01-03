@@ -1,11 +1,11 @@
 {
     "appName": "eppey",
-    "roleName": "pinpointLambdaRole2bce6c23",
-    "cloudformationPolicyName": "cloudformationPolicy2bce6c23",
-    "cloudWatchPolicyName": "cloudWatchPolicy2bce6c23",
-    "pinpointPolicyName": "pinpointPolicy2bce6c23",
-    "authPolicyName": "pinpoint_amplify_2bce6c23",
-    "unauthPolicyName": "pinpoint_amplify_2bce6c23",
+    "roleName": "pinpointLambdaRolebcfe72d7",
+    "cloudformationPolicyName": "cloudformationPolicybcfe72d7",
+    "cloudWatchPolicyName": "cloudWatchPolicybcfe72d7",
+    "pinpointPolicyName": "pinpointPolicybcfe72d7",
+    "authPolicyName": "pinpoint_amplify_bcfe72d7",
+    "unauthPolicyName": "pinpoint_amplify_bcfe72d7",
     "authRoleName": {
         "Ref": "AuthRoleName"
     },

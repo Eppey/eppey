@@ -1,0 +1,26 @@
+{
+  "trigger": true,
+  "modules": [
+    "verification-link"
+  ],
+  "parentResource": "eppey",
+  "functionName": "eppeyCustomMessage",
+  "resourceName": "eppeyCustomMessage",
+  "parentStack": "auth",
+  "triggerEnvs": [
+    {
+      "key": "RESOURCENAME",
+      "value": "resourceName"
+    }
+  ],
+  "triggerDir": "/Users/hueyk/.nvm/versions/node/v16.3.0/lib/node_modules/@aws-amplify/cli/node_modules/@aws-amplify/amplify-category-auth/provider-utils/awscloudformation/triggers/CustomMessage",
+  "triggerTemplate": "CustomMessage.json.ejs",
+  "triggerEventPath": "CustomMessage.event.json",
+  "roleName": "eppeyCustomMessage",
+  "skipEdit": true,
+  "REDIRECTURL": "https://www.google.com/",
+  "EMAILSUBJECT": "[EPPEY] Account confirmation",
+  "EMAILMESSAGE": "Please click the link below to verify your email address.",
+  "RESOURCENAME": "resourceName",
+  "enableCors": false
+}

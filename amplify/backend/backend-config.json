@@ -1,84 +1,4 @@
 {
-  "api": {
-    "AdminQueries": {
-      "service": "API Gateway",
-      "providerPlugin": "awscloudformation",
-      "authorizationType": "AMAZON_COGNITO_USER_POOLS",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "eppeyauth",
-          "attributes": [
-            "UserPoolId"
-          ]
-        },
-        {
-          "category": "function",
-          "resourceName": "AdminQueriesa1cec51c",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        }
-      ]
-    },
-    "eppeyAPI": {
-      "service": "AppSync",
-      "providerPlugin": "awscloudformation",
-      "output": {
-        "authConfig": {
-          "defaultAuthentication": {
-            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
-            "userPoolConfig": {
-              "userPoolId": "autheppeyauth"
-            }
-          },
-          "additionalAuthenticationProviders": []
-        }
-      }
-    }
-  },
-  "function": {
-    "eppeyauthCustomMessage": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "eppeyauthPostConfirmation": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "eppeyauthPreSignup": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "AdminQueriesa1cec51c": {
-      "service": "Lambda",
-      "providerPlugin": "awscloudformation",
-      "build": true,
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "eppeyauth",
-          "attributes": [
-            "UserPoolId"
-          ]
-        }
-      ]
-    },
-    "S3Trigger1f7740c5": {
-      "service": "Lambda",
-      "providerPlugin": "awscloudformation",
-      "build": true
-    },
-    "S3Triggere298b1d3": {
-      "service": "Lambda",
-      "providerPlugin": "awscloudformation",
-      "build": true
-    }
-  },
   "auth": {
     "userPoolGroups": {
       "service": "Cognito-UserPool-Groups",
@@ -86,7 +6,7 @@
       "dependsOn": [
         {
           "category": "auth",
-          "resourceName": "eppeyauth",
+          "resourceName": "eppey",
           "attributes": [
             "UserPoolId",
             "AppClientIDWeb",
@@ -96,13 +16,13 @@
         }
       ]
     },
-    "eppeyauth": {
+    "eppey": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "eppeyauthCustomMessage",
+          "resourceName": "eppeyCustomMessage",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
@@ -111,7 +31,7 @@
         },
         {
           "category": "function",
-          "resourceName": "eppeyauthPostConfirmation",
+          "resourceName": "eppeyPostConfirmation",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
@@ -120,7 +40,7 @@
         },
         {
           "category": "function",
-          "resourceName": "eppeyauthPreSignup",
+          "resourceName": "eppeyPreSignup",
           "triggerProvider": "Cognito",
           "attributes": [
             "Arn",
@@ -141,7 +61,8 @@
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": "8",
           "passwordPolicyCharacters": [
-            "REQUIRES_NUMBERS"
+            "REQUIRES_UPPERCASE",
+            "REQUIRES_SYMBOLS"
           ]
         },
         "mfaConfiguration": "OFF",
@@ -154,14 +75,94 @@
       }
     }
   },
-  "storage": {
+  "function": {
+    "eppeyCustomMessage": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "eppeyPostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "eppeyPreSignup": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "AdminQueries168e0614": {
+      "service": "Lambda",
+      "providerPlugin": "awscloudformation",
+      "build": true,
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "eppey",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ]
+    },
+    "S3Triggera1871994": {
+      "service": "Lambda",
+      "providerPlugin": "awscloudformation",
+      "build": true
+    },
+    "S3Triggerb0517bb4": {
+      "service": "Lambda",
+      "providerPlugin": "awscloudformation",
+      "build": true
+    }
+  },
+  "api": {
+    "AdminQueries": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "authorizationType": "AMAZON_COGNITO_USER_POOLS",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "eppey",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "AdminQueries168e0614",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        }
+      ]
+    },
     "eppey": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "autheppey"
+            }
+          },
+          "additionalAuthenticationProviders": []
+        }
+      }
+    }
+  },
+  "storage": {
+    "eppeybucket": {
       "service": "S3",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "S3Triggere298b1d3",
+          "resourceName": "S3Triggerb0517bb4",
           "attributes": [
             "Name",
             "Arn",
@@ -175,6 +176,13 @@
     "eppey": {
       "service": "Pinpoint",
       "providerPlugin": "awscloudformation"
+    }
+  },
+  "hosting": {
+    "amplifyhosting": {
+      "service": "amplifyhosting",
+      "type": "cicd",
+      "lastPushTimeStamp": "2022-01-03T18:43:12.111Z"
     }
   }
 }

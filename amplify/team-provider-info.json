@@ -1,86 +1,115 @@
 {
-  "dev": {
+  "eppey": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-eppey-dev-120210-authRole",
-      "UnauthRoleArn": "arn:aws:iam::282395963244:role/amplify-eppey-dev-120210-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::282395963244:role/amplify-eppey-dev-120210-authRole",
-      "Region": "us-east-2",
-      "DeploymentBucketName": "amplify-eppey-dev-120210-deployment",
-      "UnauthRoleName": "amplify-eppey-dev-120210-unauthRole",
-      "StackName": "amplify-eppey-dev-120210",
-      "StackId": "arn:aws:cloudformation:us-east-2:282395963244:stack/amplify-eppey-dev-120210/6a50c3b0-5c36-11ec-9931-027c7d81d0dc",
-      "AmplifyAppId": "d2ybapj9v8gfkg",
-      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-eppey-dev-120210-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+      "AuthRoleName": "amplify-eppey-eppey-131912-authRole",
+      "UnauthRoleArn": "arn:aws:iam::282395963244:role/amplify-eppey-eppey-131912-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::282395963244:role/amplify-eppey-eppey-131912-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-eppey-eppey-131912-deployment",
+      "UnauthRoleName": "amplify-eppey-eppey-131912-unauthRole",
+      "StackName": "amplify-eppey-eppey-131912",
+      "StackId": "arn:aws:cloudformation:us-east-1:282395963244:stack/amplify-eppey-eppey-131912/a82cf7d0-6cc1-11ec-8e6f-125e98e8dfc1",
+      "AmplifyAppId": "d2k9fbiknyq85q",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-eppey-eppey-131912-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
-        "eppeyauth": {},
+        "eppey": {},
         "true": {}
       },
       "function": {
-        "eppeyauthCustomMessage": {
+        "eppeyCustomMessage": {
           "REDIRECTURL": "https://www.google.com/",
           "EMAILSUBJECT": "[EPPEY] Account confirmation",
-          "EMAILMESSAGE": "Confirm your account by clicking the link."
+          "EMAILMESSAGE": "Please click the link below to verify your email address.",
+          "deploymentBucketName": "amplify-eppey-eppey-131912-deployment",
+          "s3Key": "amplify-builds/eppeyCustomMessage-6e4e374d757155475468-build.zip"
         },
-        "eppeyauthPostConfirmation": {
-          "GROUP": "user"
+        "eppeyPostConfirmation": {
+          "GROUP": "user",
+          "deploymentBucketName": "amplify-eppey-eppey-131912-deployment",
+          "s3Key": "amplify-builds/eppeyPostConfirmation-4b625655656d414a496d-build.zip"
         },
-        "eppeyauthPreSignup": {
-          "DOMAINALLOWLIST": "gatech.edu, virginia.edu"
+        "eppeyPreSignup": {
+          "DOMAINALLOWLIST": "gatech.edu, virginia.edu",
+          "deploymentBucketName": "amplify-eppey-eppey-131912-deployment",
+          "s3Key": "amplify-builds/eppeyPreSignup-4549724d555975415873-build.zip"
+        },
+        "S3Triggera1871994": {
+          "deploymentBucketName": "amplify-eppey-eppey-131912-deployment",
+          "s3Key": "amplify-builds/S3Triggera1871994-392f494e737867622f43-build.zip"
+        },
+        "AdminQueries168e0614": {
+          "deploymentBucketName": "amplify-eppey-eppey-131912-deployment",
+          "s3Key": "amplify-builds/AdminQueries168e0614-6a434950316a35776e65-build.zip"
+        },
+        "S3Triggerb0517bb4": {
+          "deploymentBucketName": "amplify-eppey-eppey-131912-deployment",
+          "s3Key": "amplify-builds/S3Triggerb0517bb4-6f466a75483669475350-build.zip"
+        }
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d2k9fbiknyq85q",
+          "type": "cicd"
         }
       }
     }
   },
-  "eppey": {
+  "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-eppey-eppey-224004-authRole",
-      "UnauthRoleArn": "arn:aws:iam::282395963244:role/amplify-eppey-eppey-224004-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::282395963244:role/amplify-eppey-eppey-224004-authRole",
-      "Region": "us-east-2",
-      "DeploymentBucketName": "amplify-eppey-eppey-224004-deployment",
-      "UnauthRoleName": "amplify-eppey-eppey-224004-unauthRole",
-      "StackName": "amplify-eppey-eppey-224004",
-      "StackId": "arn:aws:cloudformation:us-east-2:282395963244:stack/amplify-eppey-eppey-224004/2f8b7670-646b-11ec-974a-023ebe32615c",
-      "AmplifyAppId": "d2ybapj9v8gfkg",
-      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-eppey-eppey-224004-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+      "AuthRoleName": "amplify-eppey-dev-141102-authRole",
+      "UnauthRoleArn": "arn:aws:iam::282395963244:role/amplify-eppey-dev-141102-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::282395963244:role/amplify-eppey-dev-141102-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-eppey-dev-141102-deployment",
+      "UnauthRoleName": "amplify-eppey-dev-141102-unauthRole",
+      "StackName": "amplify-eppey-dev-141102",
+      "StackId": "arn:aws:cloudformation:us-east-1:282395963244:stack/amplify-eppey-dev-141102/e4dfe460-6cc8-11ec-9ef5-0a829481a42d",
+      "AmplifyAppId": "d2k9fbiknyq85q",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-eppey-dev-141102-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "function": {
-        "eppeyauthPostConfirmation": {
+        "eppeyPostConfirmation": {
           "GROUP": "user",
-          "deploymentBucketName": "amplify-eppey-eppey-224004-deployment",
-          "s3Key": "amplify-builds/eppeyauthPostConfirmation-75462b5a42576271396f-build.zip"
+          "deploymentBucketName": "amplify-eppey-dev-141102-deployment",
+          "s3Key": "amplify-builds/eppeyPostConfirmation-4b625655656d414a496d-build.zip"
         },
-        "eppeyauthCustomMessage": {
+        "eppeyCustomMessage": {
           "REDIRECTURL": "https://www.google.com/",
           "EMAILSUBJECT": "[EPPEY] Account confirmation",
-          "EMAILMESSAGE": "Confirm your account by clicking the link.",
-          "deploymentBucketName": "amplify-eppey-eppey-224004-deployment",
-          "s3Key": "amplify-builds/eppeyauthCustomMessage-47397875736770313952-build.zip"
+          "EMAILMESSAGE": "Please click the link below to verify your email address.",
+          "deploymentBucketName": "amplify-eppey-dev-141102-deployment",
+          "s3Key": "amplify-builds/eppeyCustomMessage-6e4e374d757155475468-build.zip"
         },
-        "eppeyauthPreSignup": {
+        "eppeyPreSignup": {
           "DOMAINALLOWLIST": "gatech.edu, virginia.edu",
-          "deploymentBucketName": "amplify-eppey-eppey-224004-deployment",
-          "s3Key": "amplify-builds/eppeyauthPreSignup-372b514a305566483662-build.zip"
+          "deploymentBucketName": "amplify-eppey-dev-141102-deployment",
+          "s3Key": "amplify-builds/eppeyPreSignup-4549724d555975415873-build.zip"
         },
-        "AdminQueriesa1cec51c": {
-          "deploymentBucketName": "amplify-eppey-eppey-224004-deployment",
-          "s3Key": "amplify-builds/AdminQueriesa1cec51c-6a434950316a35776e65-build.zip"
+        "AdminQueries168e0614": {
+          "deploymentBucketName": "amplify-eppey-dev-141102-deployment",
+          "s3Key": "amplify-builds/AdminQueries168e0614-6a434950316a35776e65-build.zip"
         },
-        "S3Trigger1f7740c5": {
-          "deploymentBucketName": "amplify-eppey-eppey-224004-deployment",
-          "s3Key": "amplify-builds/S3Trigger1f7740c5-644e37412b3641504644-build.zip"
+        "S3Triggera1871994": {
+          "deploymentBucketName": "amplify-eppey-dev-141102-deployment",
+          "s3Key": "amplify-builds/S3Triggera1871994-392f494e737867622f43-build.zip"
         },
-        "S3Triggere298b1d3": {
-          "deploymentBucketName": "amplify-eppey-eppey-224004-deployment",
-          "s3Key": "amplify-builds/S3Triggere298b1d3-696f68506866654c4a54-build.zip"
+        "S3Triggerb0517bb4": {
+          "deploymentBucketName": "amplify-eppey-dev-141102-deployment",
+          "s3Key": "amplify-builds/S3Triggerb0517bb4-6f466a75483669475350-build.zip"
+        }
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d2k9fbiknyq85q",
+          "type": "cicd"
         }
       },
       "auth": {
         "userPoolGroups": {},
-        "eppeyauth": {},
-        "true": {}
+        "eppey": {}
       }
     }
   }

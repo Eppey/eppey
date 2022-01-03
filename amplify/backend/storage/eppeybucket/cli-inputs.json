@@ -1,0 +1,13 @@
+{
+  "resourceName": "eppeybucket",
+  "policyUUID": "98841df2",
+  "bucketName": "eppeybucket",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "S3Triggerb0517bb4"
+}

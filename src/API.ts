@@ -92,7 +92,7 @@ export type User = {
 
 export type ModelPostConnection = {
   __typename: "ModelPostConnection",
-  items:  Array<Post >,
+  items:  Array<Post | null >,
   nextToken?: string | null,
 };
 
@@ -115,7 +115,7 @@ export type Post = {
 
 export type ModelCommentConnection = {
   __typename: "ModelCommentConnection",
-  items:  Array<Comment >,
+  items:  Array<Comment | null >,
   nextToken?: string | null,
 };
 
@@ -136,7 +136,7 @@ export type Comment = {
 
 export type ModelReplyConnection = {
   __typename: "ModelReplyConnection",
-  items:  Array<Reply >,
+  items:  Array<Reply | null >,
   nextToken?: string | null,
 };
 
@@ -155,7 +155,7 @@ export type Reply = {
 
 export type ModelBookmarkConnection = {
   __typename: "ModelBookmarkConnection",
-  items:  Array<Bookmark >,
+  items:  Array<Bookmark | null >,
   nextToken?: string | null,
 };
 
@@ -353,7 +353,7 @@ export type ModelUserFilterInput = {
 
 export type ModelUserConnection = {
   __typename: "ModelUserConnection",
-  items:  Array<User >,
+  items:  Array<User | null >,
   nextToken?: string | null,
 };
 
@@ -452,7 +452,7 @@ export type CreateUserMutation = {
         type?: string | null,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     comments?:  {
@@ -468,7 +468,7 @@ export type CreateUserMutation = {
         createdAt: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     bookmarks?:  {
@@ -481,7 +481,7 @@ export type CreateUserMutation = {
         id: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     points: number,
@@ -520,7 +520,7 @@ export type UpdateUserMutation = {
         type?: string | null,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     comments?:  {
@@ -536,7 +536,7 @@ export type UpdateUserMutation = {
         createdAt: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     bookmarks?:  {
@@ -549,7 +549,7 @@ export type UpdateUserMutation = {
         id: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     points: number,
@@ -588,7 +588,7 @@ export type DeleteUserMutation = {
         type?: string | null,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     comments?:  {
@@ -604,7 +604,7 @@ export type DeleteUserMutation = {
         createdAt: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     bookmarks?:  {
@@ -617,7 +617,7 @@ export type DeleteUserMutation = {
         id: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     points: number,
@@ -656,7 +656,7 @@ export type CreatePostMutation = {
         createdAt: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -695,7 +695,7 @@ export type UpdatePostMutation = {
         createdAt: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -734,7 +734,7 @@ export type DeletePostMutation = {
         createdAt: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -789,7 +789,7 @@ export type CreateCommentMutation = {
         createdAt: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -843,7 +843,7 @@ export type UpdateCommentMutation = {
         createdAt: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -897,7 +897,7 @@ export type DeleteCommentMutation = {
         createdAt: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -1192,7 +1192,7 @@ export type GetUserQuery = {
         type?: string | null,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     comments?:  {
@@ -1208,7 +1208,7 @@ export type GetUserQuery = {
         createdAt: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     bookmarks?:  {
@@ -1221,7 +1221,7 @@ export type GetUserQuery = {
         id: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     points: number,
@@ -1263,7 +1263,7 @@ export type ListUsersQuery = {
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -1296,7 +1296,7 @@ export type GetPostQuery = {
         createdAt: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -1333,7 +1333,7 @@ export type ListPostsQuery = {
       type?: string | null,
       updatedAt: string,
       owner?: string | null,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -1382,7 +1382,7 @@ export type GetCommentQuery = {
         createdAt: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -1430,7 +1430,7 @@ export type ListCommentsQuery = {
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -1515,7 +1515,7 @@ export type ListRepliesQuery = {
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -1587,7 +1587,7 @@ export type ListBookmarksQuery = {
       id: string,
       updatedAt: string,
       owner?: string | null,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -1622,7 +1622,7 @@ export type GetUserPostQuery = {
       type?: string | null,
       updatedAt: string,
       owner?: string | null,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -1657,7 +1657,7 @@ export type GetLatestPostQuery = {
       type?: string | null,
       updatedAt: string,
       owner?: string | null,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -1704,7 +1704,7 @@ export type GetUserCommentQuery = {
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -1751,7 +1751,7 @@ export type GetPostCommentQuery = {
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -1790,7 +1790,7 @@ export type GetCommentReplyQuery = {
       createdAt: string,
       updatedAt: string,
       owner?: string | null,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -1830,7 +1830,7 @@ export type GetUserBookmarkQuery = {
       id: string,
       updatedAt: string,
       owner?: string | null,
-    } >,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -1859,7 +1859,7 @@ export type OnCreateUserSubscription = {
         type?: string | null,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     comments?:  {
@@ -1875,7 +1875,7 @@ export type OnCreateUserSubscription = {
         createdAt: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     bookmarks?:  {
@@ -1888,7 +1888,7 @@ export type OnCreateUserSubscription = {
         id: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     points: number,
@@ -1922,7 +1922,7 @@ export type OnUpdateUserSubscription = {
         type?: string | null,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     comments?:  {
@@ -1938,7 +1938,7 @@ export type OnUpdateUserSubscription = {
         createdAt: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     bookmarks?:  {
@@ -1951,7 +1951,7 @@ export type OnUpdateUserSubscription = {
         id: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     points: number,
@@ -1985,7 +1985,7 @@ export type OnDeleteUserSubscription = {
         type?: string | null,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     comments?:  {
@@ -2001,7 +2001,7 @@ export type OnDeleteUserSubscription = {
         createdAt: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     bookmarks?:  {
@@ -2014,7 +2014,7 @@ export type OnDeleteUserSubscription = {
         id: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     points: number,
@@ -2052,7 +2052,7 @@ export type OnCreatePostSubscription = {
         createdAt: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -2090,7 +2090,7 @@ export type OnUpdatePostSubscription = {
         createdAt: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -2128,7 +2128,7 @@ export type OnDeletePostSubscription = {
         createdAt: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -2182,7 +2182,7 @@ export type OnCreateCommentSubscription = {
         createdAt: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -2235,7 +2235,7 @@ export type OnUpdateCommentSubscription = {
         createdAt: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
@@ -2288,7 +2288,7 @@ export type OnDeleteCommentSubscription = {
         createdAt: string,
         updatedAt: string,
         owner?: string | null,
-      } >,
+      } | null >,
       nextToken?: string | null,
     } | null,
     createdAt: string,
