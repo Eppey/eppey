@@ -50,6 +50,11 @@ const Write = ({ route }: any) => {
   });
 
   async function writePost() {
+    if (content.length == 0) {
+      Alert.alert('Error', "Content can't be empty!");
+      return;
+    }
+
     const postDetails = {
       title: title,
       topic: topic,

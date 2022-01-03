@@ -73,6 +73,11 @@ const Comment = ({ comment, updatePostDetail }: commentItemProp) => {
   };
 
   const editComment = async () => {
+    if (editedComment?.length == 0) {
+      Alert.alert('Error', "Comment can't be empty!");
+      return;
+    }
+
     let params: { [key: string]: string | undefined } = {
       id: comment?.id,
       content: editedComment,

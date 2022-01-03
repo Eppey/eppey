@@ -115,6 +115,11 @@ const PostDetail = ({ route }: any) => {
   };
 
   const updateComment = async () => {
+    if (commentContent.length == 0) {
+      Alert.alert('Error', "Comment can't be empty!");
+      return;
+    }
+
     let params: { [key: string]: string | undefined } = {
       postID: postID,
       userID: userID,
