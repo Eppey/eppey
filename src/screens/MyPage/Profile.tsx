@@ -1,7 +1,7 @@
 import { API, Auth } from 'aws-amplify';
 import React, { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { GetUserCommentQuery, GetUserPostQuery, Post } from '../../API';
+import { GetUserCommentQuery, GetUserPostQuery } from '../../API';
 
 import * as queries from '../../graphql/queries';
 
@@ -83,29 +83,29 @@ const Profile = ({ navigation }: any) => {
       </View>
       <View style={styles.mainDivider} />
       <View>
-        <Pressable>
+        <Pressable onPress={() => navigation.navigate('MyPosts')}>
           <Text style={styles.pageMenuItem}>My Posts</Text>
         </Pressable>
         <View style={styles.subDivider} />
-        <Pressable>
+        <Pressable onPress={() => navigation.navigate('MyComments')}>
           <Text style={styles.pageMenuItem}>My Comments</Text>
         </Pressable>
         <View style={styles.subDivider} />
-        <Pressable>
+        <Pressable onPress={() => navigation.navigate('MyBookmarks')}>
           <Text style={styles.pageMenuItem}>Bookmarks</Text>
         </Pressable>
       </View>
       <View style={styles.mainDivider} />
       <View>
-        <Pressable>
+        <Pressable onPress={() => navigation.navigate('Settings')}>
           <Text style={styles.pageMenuItem}>Settings</Text>
         </Pressable>
         <View style={styles.subDivider} />
-        <Pressable>
+        <Pressable onPress={() => navigation.navigate('Updates')}>
           <Text style={styles.pageMenuItem}>Updates</Text>
         </Pressable>
         <View style={styles.subDivider} />
-        <Pressable>
+        <Pressable onPress={() => navigation.navigate('Feedback')}>
           <Text style={styles.pageMenuItem}>Send Feedback</Text>
         </Pressable>
       </View>
