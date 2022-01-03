@@ -3,7 +3,12 @@
 
 type User
   @model
-  @auth(rules: [{ allow: owner }, { allow: groups, groups: ["admin"] }]) {
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, update, delete] }
+      { allow: groups, groups: ["admin"] }
+    ]
+  ) {
   id: ID!
   nickname: String!
   email: String!
@@ -101,13 +106,13 @@ type Reply
 }
 
 type Bookmark @model @auth(rules: [{ allow: owner }]) {
-  postID: ID!
+  userID: ID!
     @index(
       name: "bookmarkByUser"
       queryField: "getUserBookmark"
       sortKeyFields: ["createdAt"]
     )
-  postTitle: String!
-  postCreatedAt: AWSDateTime!
+  postID: ID!
+  post: Post @hasOne(fields: ["postID"])
   createdAt: AWSDateTime!
 }
