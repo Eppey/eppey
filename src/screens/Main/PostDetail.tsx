@@ -71,6 +71,13 @@ const PostDetail = ({ route }: any) => {
     getPostDetail();
   }, []);
 
+  useEffect(() => {
+    const editFinished = navigation.addListener('focus', () => {
+      getPostDetail();
+    });
+    return editFinished;
+  }, [navigation]);
+
   const postDetailMenus = () => (
     <View style={styles.detailMenus}>
       <Pressable
@@ -91,15 +98,19 @@ const PostDetail = ({ route }: any) => {
           source={require('../../../assets/icons/bookmark_off.png')}
         />
       </Pressable>
-      <Pressable
-        style={styles.detailMenuItem}
-        onPress={() => setShowModal(true)}
-      >
-        <Image
-          style={styles.postIcon}
-          source={require('../../../assets/icons/more.png')}
-        />
-      </Pressable>
+      {post.userID === userID ? (
+        <Pressable
+          style={styles.detailMenuItem}
+          onPress={() => setShowModal(true)}
+        >
+          <Image
+            style={styles.postIcon}
+            source={require('../../../assets/icons/more.png')}
+          />
+        </Pressable>
+      ) : (
+        <View></View>
+      )}
     </View>
   );
 
@@ -241,7 +252,7 @@ const PostDetail = ({ route }: any) => {
             <Pressable
               style={styles.modalButton}
               onPress={() => {
-                navigation.navigate('Write', { postID: postID });
+                navigation.navigate('Write', { postData: post });
                 setShowModal(false);
               }}
             >

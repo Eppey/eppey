@@ -12,9 +12,11 @@ import {
 
 import { useSelector } from 'react-redux';
 import { selectUserID, selectUserNickname } from '../../redux/slices/userSlice';
+import { Post } from '../../API';
 
 import { API } from 'aws-amplify';
 import * as customMutations from '../../request/customMutations';
+import * as mutations from '../../graphql/mutations';
 
 import { fonts } from '../../styles/fonts';
 import { topics } from '../../data/topics';
@@ -27,13 +29,9 @@ const Write = ({ route }: any) => {
   const [topic, setTopic] = useState('General');
   const [content, setContent] = useState('');
 
-  const [postID, setPostID] = useState('');
+  const [postData, setPostData] = useState({} as Post);
   const userID = useSelector(selectUserID);
   const userNickname = useSelector(selectUserNickname);
-
-  if (typeof route.params !== 'undefined') {
-    setPostID(route.params.postID);
-  }
 
   useEffect(() => {
     navigation.setOptions({
@@ -42,20 +40,34 @@ const Write = ({ route }: any) => {
         backgroundColor: '#272F40',
       },
       headerTintColor: '#FFFFFF',
-      headerTitle: 'New Post',
+      headerTitle: Object.keys(postData).length ? 'Edit Post' : 'New Post',
       headerRight: () => (
-        <Button onPress={() => writePost()} title="Post" color="#FFFFFF" />
+        <Button
+          onPress={() =>
+            Object.keys(postData).length ? editPost() : writePost()
+          }
+          title="Post"
+          color="#FFFFFF"
+        />
       ),
     });
-  });
+  }, [navigation, content]);
 
-  async function writePost() {
-    if (content.length == 0) {
-      Alert.alert('Error', "Content can't be empty!");
+  useEffect(() => {
+    if (typeof route.params !== 'undefined') {
+      setPostData(route.params.postData);
+      setTitle(postData.title);
+      setTopic(postData.topic);
+      setContent(postData.content);
+    }
+  }, [postData]);
+
+  const writePost = async () => {
+    if (!title.length || !content.length) {
+      Alert.alert('Error', "Title or content can't be empty!");
       return;
     }
-
-    const postDetails = {
+    const params = {
       title: title,
       topic: topic,
       content: content,
@@ -67,20 +79,39 @@ const Write = ({ route }: any) => {
     try {
       await API.graphql({
         query: customMutations.createPost,
-        variables: { input: postDetails },
+        variables: { input: params },
       });
       navigation.navigate('Main');
     } catch (err: any) {
       console.log(err);
       Alert.alert('Error', err.message);
     }
-  }
+  };
+
+  const editPost = async () => {
+    if (!title.length || !content.length) {
+      Alert.alert('Error', "Title or content can't be empty!");
+      return;
+    }
+    let params: { [key: string]: string } = {
+      id: postData.id,
+      title: title,
+      topic: topic,
+      content: content,
+    };
+    await API.graphql({
+      query: mutations.updatePost,
+      variables: { input: params },
+    });
+    navigation.goBack();
+  };
 
   return (
     <SafeAreaView>
       <StatusBar barStyle="light-content" />
       <View style={{ marginHorizontal: '5%' }}>
         <TextInput
+          value={title}
           style={styles.titleField}
           placeholder="Write a title"
           placeholderTextColor="#272F40B2"
@@ -101,6 +132,7 @@ const Write = ({ route }: any) => {
           ))}
         </Picker>
         <TextInput
+          value={content}
           style={styles.bodyField}
           placeholder={
             'Start a conversation!\n\nMake sure you are not writing ' +
