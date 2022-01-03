@@ -39,7 +39,7 @@ const Post = ({ post }: PostProps) => {
       <View style={{ flexDirection: 'row' }}>
         <Text style={styles.body1Custom}>{post.views} views | </Text>
         <Text style={styles.body1Custom}>
-          {post.comments?.items.length} comments |{' '}
+          {post.comments?.items?.length} comments |{' '}
         </Text>
         <Text style={styles.body1Custom}>{post.bookmarks} bookmarks</Text>
       </View>

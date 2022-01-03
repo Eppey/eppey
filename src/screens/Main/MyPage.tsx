@@ -9,14 +9,6 @@ import Profile from '../MyPage/Profile';
 import Settings from '../MyPage/Settings';
 import Updates from '../MyPage/Updates';
 
-type UserInfo = {
-  nickname: string;
-  email: string;
-  sub: string;
-  postCnt: number;
-  commentCnt: number;
-};
-
 const MyPage = () => {
   const Stack = createNativeStackNavigator();
 

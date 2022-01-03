@@ -20,7 +20,7 @@ const Profile = ({ navigation }: any) => {
 
   useEffect(() => {
     getUserInfo();
-  }, []);
+  });
 
   const getUserInfo = async () => {
     const { attributes } = await Auth.currentUserInfo();
