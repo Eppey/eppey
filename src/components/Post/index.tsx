@@ -16,6 +16,7 @@ export type PostProps = {
 
 const Post = ({ post }: PostProps) => {
   const navigation: any = useNavigation();
+
   return (
     <Pressable
       style={{ marginHorizontal: '5%' }}
@@ -37,7 +38,9 @@ const Post = ({ post }: PostProps) => {
       </View>
       <View style={{ flexDirection: 'row' }}>
         <Text style={styles.body1Custom}>{post.views} views | </Text>
-        <Text style={styles.body1Custom}>0 comments | </Text>
+        <Text style={styles.body1Custom}>
+          {post.comments?.items.length} comments |{' '}
+        </Text>
         <Text style={styles.body1Custom}>{post.bookmarks} bookmarks</Text>
       </View>
       <Text></Text>

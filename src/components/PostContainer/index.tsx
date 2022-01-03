@@ -1,38 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
-import { useScrollToTop } from '@react-navigation/native';
-
-import { API } from 'aws-amplify';
-import * as customQueries from '../../request/customQueries';
 
 import Post from '../Post';
+import { useScrollToTop } from '@react-navigation/native';
 
-const PostContainer = () => {
-  const [nextToken, setNextToken] = useState('');
-  const [postData, setPostData] = useState(Array());
+const PostContainer = ({ postData, getPosts, nextToken, loading }: any) => {
   const ref = React.useRef(null);
   useScrollToTop(ref);
-
-  useEffect(() => {
-    getPosts();
-  }, []);
-
-  const getPosts = async () => {
-    let params: { [key: string]: string } = {
-      type: 'Post',
-      limit: '20',
-      sortDirection: 'DESC',
-    };
-    if (nextToken !== '') {
-      params = { ...params, nextToken };
-    }
-    const posts: any = await API.graphql({
-      query: customQueries.getLatestPost,
-      variables: params,
-    });
-    setPostData([...postData, ...posts.data.getLatestPost.items]);
-    setNextToken(posts.data.getLatestPost.nextToken);
-  };
 
   return (
     <>
@@ -49,9 +23,11 @@ const PostContainer = () => {
           onEndReachedThreshold={0.5}
           onEndReached={() => {
             if (nextToken !== null) {
-              getPosts();
+              getPosts(true);
             }
           }}
+          onRefresh={() => getPosts()}
+          refreshing={loading}
         />
       )}
     </>

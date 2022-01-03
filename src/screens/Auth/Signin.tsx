@@ -17,36 +17,31 @@ import { Auth } from 'aws-amplify';
 import { fonts } from '../../styles/fonts';
 import { components } from '../../styles/components';
 
-type User = {
-  email: string;
-  password: string;
-};
-
 const Signin = () => {
   const navigation: any = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  async function userSignIn(user: User): Promise<void> {
+  const userSignIn = async () => {
     try {
-      await Auth.signIn(user.email, user.password);
-      saveUserInfo(user);
+      await Auth.signIn(email, password);
+      saveUserInfo();
       navigation.navigate('Main');
     } catch (err: any) {
       Alert.alert('Error', err.message);
     }
-  }
+  };
 
-  async function saveUserInfo(user: User): Promise<void> {
+  const saveUserInfo = async () => {
     try {
       await AsyncStorage.multiSet([
-        ['@userEmail', user.email],
-        ['@userPassword', user.password],
+        ['@userEmail', email],
+        ['@userPassword', password],
       ]);
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   return (
     <SafeAreaView>
@@ -91,10 +86,7 @@ const Signin = () => {
         >
           Forgot password? |<Text style={{ fontWeight: 'bold' }}> Reset</Text>
         </Text>
-        <Pressable
-          style={styles.button}
-          onPress={() => userSignIn({ email: email, password: password })}
-        >
+        <Pressable style={styles.button} onPress={() => userSignIn()}>
           <Text style={fonts.fButton}>SIGN IN</Text>
         </Pressable>
       </View>

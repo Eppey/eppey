@@ -19,30 +19,20 @@ import { Auth } from 'aws-amplify';
 import { fonts } from '../../styles/fonts';
 import { components } from '../../styles/components';
 
-type profile = {
-  email: string;
-  newPassword: string;
-  code: string;
-};
-
 const PwResetConfirm = () => {
   const navigation: any = useNavigation();
   const email = useSelector(selectResetEmail);
   const [password, setPassword] = useState('');
   const [code, setCode] = useState('');
 
-  async function userChangePw(profile: profile): Promise<void> {
+  const userChangePW = async () => {
     try {
-      await Auth.forgotPasswordSubmit(
-        profile.email,
-        profile.code,
-        profile.newPassword
-      );
+      await Auth.forgotPasswordSubmit(email, password, code);
       navigation.navigate('PwResetDone');
     } catch (err: any) {
       Alert.alert('Error', err.message);
     }
-  }
+  };
 
   return (
     <SafeAreaView>
@@ -82,12 +72,7 @@ const PwResetConfirm = () => {
         />
       </View>
       <View style={{ alignItems: 'center' }}>
-        <Pressable
-          style={styles.button}
-          onPress={() =>
-            userChangePw({ email: email, newPassword: password, code: code })
-          }
-        >
+        <Pressable style={styles.button} onPress={() => userChangePW()}>
           <Text style={fonts.fButton}>RESET PASSWORD</Text>
         </Pressable>
       </View>

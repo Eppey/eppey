@@ -3,8 +3,8 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser($owner: String) {
-    onCreateUser(owner: $owner) {
+  subscription OnCreateUser {
+    onCreateUser {
       id
       nickname
       email
@@ -43,9 +43,8 @@ export const onCreateUser = /* GraphQL */ `
       }
       bookmarks {
         items {
+          userID
           postID
-          postTitle
-          postCreatedAt
           createdAt
           id
           updatedAt
@@ -61,8 +60,8 @@ export const onCreateUser = /* GraphQL */ `
   }
 `;
 export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser($owner: String) {
-    onUpdateUser(owner: $owner) {
+  subscription OnUpdateUser {
+    onUpdateUser {
       id
       nickname
       email
@@ -101,9 +100,8 @@ export const onUpdateUser = /* GraphQL */ `
       }
       bookmarks {
         items {
+          userID
           postID
-          postTitle
-          postCreatedAt
           createdAt
           id
           updatedAt
@@ -119,8 +117,8 @@ export const onUpdateUser = /* GraphQL */ `
   }
 `;
 export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser($owner: String) {
-    onDeleteUser(owner: $owner) {
+  subscription OnDeleteUser {
+    onDeleteUser {
       id
       nickname
       email
@@ -159,9 +157,8 @@ export const onDeleteUser = /* GraphQL */ `
       }
       bookmarks {
         items {
+          userID
           postID
-          postTitle
-          postCreatedAt
           createdAt
           id
           updatedAt
@@ -536,9 +533,25 @@ export const onDeleteReply = /* GraphQL */ `
 export const onCreateBookmark = /* GraphQL */ `
   subscription OnCreateBookmark($owner: String) {
     onCreateBookmark(owner: $owner) {
+      userID
       postID
-      postTitle
-      postCreatedAt
+      post {
+        id
+        userID
+        userNickname
+        title
+        topic
+        content
+        views
+        bookmarks
+        comments {
+          nextToken
+        }
+        createdAt
+        type
+        updatedAt
+        owner
+      }
       createdAt
       id
       updatedAt
@@ -549,9 +562,25 @@ export const onCreateBookmark = /* GraphQL */ `
 export const onUpdateBookmark = /* GraphQL */ `
   subscription OnUpdateBookmark($owner: String) {
     onUpdateBookmark(owner: $owner) {
+      userID
       postID
-      postTitle
-      postCreatedAt
+      post {
+        id
+        userID
+        userNickname
+        title
+        topic
+        content
+        views
+        bookmarks
+        comments {
+          nextToken
+        }
+        createdAt
+        type
+        updatedAt
+        owner
+      }
       createdAt
       id
       updatedAt
@@ -562,9 +591,25 @@ export const onUpdateBookmark = /* GraphQL */ `
 export const onDeleteBookmark = /* GraphQL */ `
   subscription OnDeleteBookmark($owner: String) {
     onDeleteBookmark(owner: $owner) {
+      userID
       postID
-      postTitle
-      postCreatedAt
+      post {
+        id
+        userID
+        userNickname
+        title
+        topic
+        content
+        views
+        bookmarks
+        comments {
+          nextToken
+        }
+        createdAt
+        type
+        updatedAt
+        owner
+      }
       createdAt
       id
       updatedAt

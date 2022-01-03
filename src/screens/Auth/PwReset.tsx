@@ -24,7 +24,7 @@ const PwReset = () => {
   const navigation: any = useNavigation();
   const [email, setEmail] = useState('');
 
-  async function userFindPw(email: string): Promise<void> {
+  const userFindPW = async () => {
     if (email.length != 0 && email.includes('.edu')) {
       try {
         await Auth.forgotPassword(email);
@@ -44,7 +44,7 @@ const PwReset = () => {
         Alert.alert('Error', 'Email should end with .edu');
       }
     }
-  }
+  };
 
   return (
     <SafeAreaView>
@@ -76,7 +76,7 @@ const PwReset = () => {
         <Pressable
           style={styles.button}
           onPress={() => {
-            userFindPw(email);
+            userFindPW();
           }}
         >
           <Text style={fonts.fButton}>SEND</Text>
