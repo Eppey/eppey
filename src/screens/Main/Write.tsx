@@ -15,7 +15,6 @@ import { selectUserID, selectUserNickname } from '../../redux/slices/userSlice';
 import { Post } from '../../API';
 
 import { API } from 'aws-amplify';
-import * as customMutations from '../../request/customMutations';
 import * as mutations from '../../graphql/mutations';
 
 import { fonts } from '../../styles/fonts';
@@ -78,7 +77,7 @@ const Write = ({ route }: any) => {
     };
     try {
       await API.graphql({
-        query: customMutations.createPost,
+        query: mutations.createPost,
         variables: { input: params },
       });
       navigation.navigate('Main');
