@@ -43,9 +43,8 @@ export const getUser = /* GraphQL */ `
       }
       bookmarks {
         items {
+          userID
           postID
-          postTitle
-          postCreatedAt
           createdAt
           id
           updatedAt
@@ -312,9 +311,25 @@ export const listReplies = /* GraphQL */ `
 export const getBookmark = /* GraphQL */ `
   query GetBookmark($id: ID!) {
     getBookmark(id: $id) {
+      userID
       postID
-      postTitle
-      postCreatedAt
+      post {
+        id
+        userID
+        userNickname
+        title
+        topic
+        content
+        views
+        bookmarks
+        comments {
+          nextToken
+        }
+        createdAt
+        type
+        updatedAt
+        owner
+      }
       createdAt
       id
       updatedAt
@@ -330,9 +345,22 @@ export const listBookmarks = /* GraphQL */ `
   ) {
     listBookmarks(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
+        userID
         postID
-        postTitle
-        postCreatedAt
+        post {
+          id
+          userID
+          userNickname
+          title
+          topic
+          content
+          views
+          bookmarks
+          createdAt
+          type
+          updatedAt
+          owner
+        }
         createdAt
         id
         updatedAt
@@ -560,7 +588,7 @@ export const getCommentReply = /* GraphQL */ `
 `;
 export const getUserBookmark = /* GraphQL */ `
   query GetUserBookmark(
-    $postID: ID
+    $userID: ID
     $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelBookmarkFilterInput
@@ -568,7 +596,7 @@ export const getUserBookmark = /* GraphQL */ `
     $nextToken: String
   ) {
     getUserBookmark(
-      postID: $postID
+      userID: $userID
       createdAt: $createdAt
       sortDirection: $sortDirection
       filter: $filter
@@ -576,9 +604,22 @@ export const getUserBookmark = /* GraphQL */ `
       nextToken: $nextToken
     ) {
       items {
+        userID
         postID
-        postTitle
-        postCreatedAt
+        post {
+          id
+          userID
+          userNickname
+          title
+          topic
+          content
+          views
+          bookmarks
+          createdAt
+          type
+          updatedAt
+          owner
+        }
         createdAt
         id
         updatedAt

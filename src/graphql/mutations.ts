@@ -46,9 +46,8 @@ export const createUser = /* GraphQL */ `
       }
       bookmarks {
         items {
+          userID
           postID
-          postTitle
-          postCreatedAt
           createdAt
           id
           updatedAt
@@ -107,9 +106,8 @@ export const updateUser = /* GraphQL */ `
       }
       bookmarks {
         items {
+          userID
           postID
-          postTitle
-          postCreatedAt
           createdAt
           id
           updatedAt
@@ -168,9 +166,8 @@ export const deleteUser = /* GraphQL */ `
       }
       bookmarks {
         items {
+          userID
           postID
-          postTitle
-          postCreatedAt
           createdAt
           id
           updatedAt
@@ -575,9 +572,25 @@ export const createBookmark = /* GraphQL */ `
     $condition: ModelBookmarkConditionInput
   ) {
     createBookmark(input: $input, condition: $condition) {
+      userID
       postID
-      postTitle
-      postCreatedAt
+      post {
+        id
+        userID
+        userNickname
+        title
+        topic
+        content
+        views
+        bookmarks
+        comments {
+          nextToken
+        }
+        createdAt
+        type
+        updatedAt
+        owner
+      }
       createdAt
       id
       updatedAt
@@ -591,9 +604,25 @@ export const updateBookmark = /* GraphQL */ `
     $condition: ModelBookmarkConditionInput
   ) {
     updateBookmark(input: $input, condition: $condition) {
+      userID
       postID
-      postTitle
-      postCreatedAt
+      post {
+        id
+        userID
+        userNickname
+        title
+        topic
+        content
+        views
+        bookmarks
+        comments {
+          nextToken
+        }
+        createdAt
+        type
+        updatedAt
+        owner
+      }
       createdAt
       id
       updatedAt
@@ -607,9 +636,25 @@ export const deleteBookmark = /* GraphQL */ `
     $condition: ModelBookmarkConditionInput
   ) {
     deleteBookmark(input: $input, condition: $condition) {
+      userID
       postID
-      postTitle
-      postCreatedAt
+      post {
+        id
+        userID
+        userNickname
+        title
+        topic
+        content
+        views
+        bookmarks
+        comments {
+          nextToken
+        }
+        createdAt
+        type
+        updatedAt
+        owner
+      }
       createdAt
       id
       updatedAt
