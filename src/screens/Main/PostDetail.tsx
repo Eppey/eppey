@@ -46,7 +46,7 @@ const PostDetail = ({ route }: any) => {
 
   const [post, setPost] = useState({} as Post);
   const [commentContent, setCommentContent] = useState('');
-  const [editingComment, seteditingComment] = useState(false);
+  const [editingComment, setEditingComment] = useState(false);
 
   const [showModal, setShowModal] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -133,7 +133,7 @@ const PostDetail = ({ route }: any) => {
     });
     Keyboard.dismiss();
     setCommentContent('');
-    seteditingComment(false);
+    setEditingComment(false);
     getPostDetail();
   };
 
@@ -183,7 +183,7 @@ const PostDetail = ({ route }: any) => {
               style={styles.closeButton}
               onPress={() => {
                 setCommentContent('');
-                seteditingComment(false);
+                setEditingComment(false);
                 Keyboard.dismiss();
               }}
             >
@@ -202,7 +202,7 @@ const PostDetail = ({ route }: any) => {
               onChangeText={(value) => {
                 setCommentContent(value);
               }}
-              onBlur={() => seteditingComment(false)}
+              onBlur={() => setEditingComment(false)}
             />
             <View style={styles.divider} />
             <Pressable
@@ -217,7 +217,7 @@ const PostDetail = ({ route }: any) => {
         ) : (
           <Pressable
             style={{ height: 40, paddingStart: '5%', justifyContent: 'center' }}
-            onPress={() => seteditingComment(true)}
+            onPress={() => setEditingComment(true)}
           >
             <Text style={fonts.body1Light}>Add a comment</Text>
           </Pressable>

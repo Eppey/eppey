@@ -17,14 +17,13 @@ const Home = () => {
 
   const getPosts = async (loadMore?: boolean) => {
     setLoading(true);
-    let params: { [key: string]: string } = {
+    let params = {
       type: 'Post',
       limit: '20',
       sortDirection: 'DESC',
+      nextToken: loadMore ? nextToken : null,
     };
-    if (nextToken !== '') {
-      params = { ...params, nextToken };
-    }
+
     const posts: any = await API.graphql({
       query: customQueries.getLatestPost,
       variables: params,
