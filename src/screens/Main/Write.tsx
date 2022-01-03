@@ -20,13 +20,20 @@ import { fonts } from '../../styles/fonts';
 import { topics } from '../../data/topics';
 import { Picker } from '@react-native-picker/picker';
 
-const Write = () => {
+const Write = ({ route }: any) => {
   const navigation: any = useNavigation();
+
   const [title, setTitle] = useState('');
   const [topic, setTopic] = useState('General');
   const [content, setContent] = useState('');
+
+  const [postID, setPostID] = useState('');
   const userID = useSelector(selectUserID);
   const userNickname = useSelector(selectUserNickname);
+
+  if (typeof route.params !== 'undefined') {
+    setPostID(route.params.postID);
+  }
 
   useEffect(() => {
     navigation.setOptions({

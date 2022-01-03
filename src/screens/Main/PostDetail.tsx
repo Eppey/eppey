@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
+  Alert,
   Image,
   Keyboard,
   KeyboardAvoidingView,
@@ -15,10 +16,18 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import * as queries from '../../graphql/queries';
+import { useNavigation } from '@react-navigation/native';
+
+import {
+  ModalTitle,
+  ModalContent,
+  BottomModal,
+  // @ts-ignore
+} from 'react-native-modals';
 
 import { API } from 'aws-amplify';
 import { Post, GetPostQuery, GetPostQueryVariables } from '../../API';
+import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations';
 
 import { useDispatch } from 'react-redux';
@@ -32,19 +41,67 @@ import CommentContainer from '../../components/CommentContainer';
 import { fonts } from '../../styles/fonts';
 
 const PostDetail = ({ route }: any) => {
-  const [post, setPost] = useState({} as Post);
-  const [showCommentForm, setShowCommentForm] = useState(false);
-  const [commentContent, setCommentContent] = useState('');
-  const [refreshing, setRefreshing] = useState(false);
+  const navigation: any = useNavigation();
   const { postID } = route.params;
+
+  const [post, setPost] = useState({} as Post);
+  const [commentContent, setCommentContent] = useState('');
+  const [editingComment, seteditingComment] = useState(false);
+
+  const [showModal, setShowModal] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   const dispatch = useDispatch();
   const userID = useSelector(selectUserID);
   const userNickname = useSelector(selectUserNickname);
 
   useEffect(() => {
+    navigation.setOptions({
+      headerShown: true,
+      headerTitle: '',
+      headerTintColor: '#FFFFFF',
+      headerRight: () => postDetailMenus(),
+      headerStyle: {
+        backgroundColor: '#272F40',
+      },
+    });
+  });
+
+  useEffect(() => {
     getPostDetail();
   }, []);
+
+  const postDetailMenus = () => (
+    <View style={styles.detailMenus}>
+      <Pressable
+        style={styles.detailMenuItem}
+        onPress={() => console.log('hi')}
+      >
+        <Image
+          style={styles.postIcon}
+          source={require('../../../assets/icons/notification.png')}
+        />
+      </Pressable>
+      <Pressable
+        style={styles.detailMenuItem}
+        onPress={() => console.log('hi')}
+      >
+        <Image
+          style={styles.postIcon}
+          source={require('../../../assets/icons/bookmark_off.png')}
+        />
+      </Pressable>
+      <Pressable
+        style={styles.detailMenuItem}
+        onPress={() => setShowModal(true)}
+      >
+        <Image
+          style={styles.postIcon}
+          source={require('../../../assets/icons/more.png')}
+        />
+      </Pressable>
+    </View>
+  );
 
   const getPostDetail = async () => {
     setRefreshing(true);
@@ -57,7 +114,7 @@ const PostDetail = ({ route }: any) => {
     setRefreshing(false);
   };
 
-  const writeComment = async () => {
+  const updateComment = async () => {
     let params: { [key: string]: string | undefined } = {
       postID: postID,
       userID: userID,
@@ -69,7 +126,21 @@ const PostDetail = ({ route }: any) => {
       query: mutations.createComment,
       variables: { input: params },
     });
+    Keyboard.dismiss();
+    setCommentContent('');
+    seteditingComment(false);
     getPostDetail();
+  };
+
+  const deletePost = async () => {
+    let params: { id: string } = {
+      id: postID,
+    };
+    await API.graphql({
+      query: mutations.deletePost,
+      variables: { input: params },
+    });
+    navigation.navigate('Main');
   };
 
   return (
@@ -101,13 +172,13 @@ const PostDetail = ({ route }: any) => {
           )}
         </View>
         <View style={styles.divider} />
-        {showCommentForm ? (
+        {editingComment ? (
           <View>
             <Pressable
               style={styles.closeButton}
               onPress={() => {
                 setCommentContent('');
-                setShowCommentForm(false);
+                seteditingComment(false);
                 Keyboard.dismiss();
               }}
             >
@@ -126,15 +197,12 @@ const PostDetail = ({ route }: any) => {
               onChangeText={(value) => {
                 setCommentContent(value);
               }}
-              onBlur={() => setShowCommentForm(false)}
+              onBlur={() => seteditingComment(false)}
             />
             <View style={styles.divider} />
             <Pressable
               onPress={() => {
-                writeComment();
-                setCommentContent('');
-                setShowCommentForm(false);
-                Keyboard.dismiss();
+                updateComment();
               }}
               style={styles.postButton}
             >
@@ -144,11 +212,65 @@ const PostDetail = ({ route }: any) => {
         ) : (
           <Pressable
             style={{ height: 40, paddingStart: '5%', justifyContent: 'center' }}
-            onPress={() => setShowCommentForm(true)}
+            onPress={() => seteditingComment(true)}
           >
             <Text style={fonts.body1Light}>Add a comment</Text>
           </Pressable>
         )}
+        <BottomModal
+          visible={showModal}
+          onTouchOutside={() => setShowModal(false)}
+          onSwipeOut={() => setShowModal(false)}
+          height={170}
+          width={1}
+          modalTitle={
+            <ModalTitle
+              title="Options"
+              hasTitleBar
+              style={{ backgroundColor: '#272F40' }}
+              textStyle={{ color: '#FFFFFF' }}
+            />
+          }
+        >
+          <ModalContent>
+            <Pressable
+              style={styles.modalButton}
+              onPress={() => {
+                navigation.navigate('Write', { postID: postID });
+                setShowModal(false);
+              }}
+            >
+              <Text>Edit post</Text>
+            </Pressable>
+            <View style={styles.divider} />
+            <Pressable
+              style={styles.modalButton}
+              onPress={() =>
+                Alert.alert(
+                  'Alert',
+                  'Do you really want to delete your post?',
+                  [
+                    {
+                      text: 'Cancel',
+                      onPress: () => setShowModal(false),
+                      style: 'cancel',
+                    },
+                    {
+                      text: 'Yes',
+                      onPress: () => {
+                        deletePost();
+                        setShowModal(false);
+                      },
+                      style: 'default',
+                    },
+                  ]
+                )
+              }
+            >
+              <Text>Delete post</Text>
+            </Pressable>
+          </ModalContent>
+        </BottomModal>
       </SafeAreaView>
     </KeyboardAvoidingView>
   );
@@ -189,6 +311,24 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: 'center',
     paddingStart: 5,
+  },
+  postIcon: {
+    width: 25,
+    height: 25,
+    resizeMode: 'contain',
+    marginLeft: 5,
+  },
+  detailMenus: {
+    flexDirection: 'row',
+  },
+  detailMenuItem: {
+    paddingHorizontal: 5,
+  },
+  modalButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 50,
+    width: '100%',
   },
 });
 

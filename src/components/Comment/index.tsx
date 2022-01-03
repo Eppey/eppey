@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { Alert, Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import {
+  Alert,
+  Image,
+  Keyboard,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 
 import {
   ModalTitle,
@@ -20,8 +29,6 @@ import { calculateTime } from '../../tools/calculateTime';
 
 import { fonts } from '../../styles/fonts';
 
-// https://github.com/jacklam718/react-native-modals
-
 export type commentItemProp = {
   comment: CommentType | null;
   updatePostDetail: Function;
@@ -31,6 +38,7 @@ const Comment = ({ comment, updatePostDetail }: commentItemProp) => {
   const [showModal, setShowModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [liked, setLiked] = useState(false);
+  const [editedComment, setEditedComment] = useState(comment?.content);
   const userID = useSelector(selectUserID);
   const postOwnerID = useSelector(selectPostOwnerID);
 
@@ -38,7 +46,7 @@ const Comment = ({ comment, updatePostDetail }: commentItemProp) => {
     let params: { [key: string]: string | undefined } = {
       id: comment?.id,
       content: 'Deleted comment',
-      userNickname: '-deleted-',
+      userNickname: '[deleted]',
       likes: '0',
       userID: 'DELETED_COMMENT',
     };
@@ -64,6 +72,20 @@ const Comment = ({ comment, updatePostDetail }: commentItemProp) => {
     setLiked(!liked);
   };
 
+  const editComment = async () => {
+    let params: { [key: string]: string | undefined } = {
+      id: comment?.id,
+      content: editedComment,
+    };
+    await API.graphql({
+      query: mutations.updateComment,
+      variables: { input: params },
+    });
+    setIsEditing(false);
+    updatePostDetail();
+    Keyboard.dismiss();
+  };
+
   return (
     <>
       {comment !== null ? (
@@ -78,47 +100,85 @@ const Comment = ({ comment, updatePostDetail }: commentItemProp) => {
               <Text style={styles.nickname}>{comment.userNickname}</Text>
             )}
           </View>
-          <Text style={styles.content}>{comment.content}</Text>
-          <View style={[styles.statContainer, { marginTop: 6 }]}>
-            <Text style={styles.stats}>{calculateTime(comment.createdAt)}</Text>
-            <Pressable
-              style={styles.statContainer}
-              onPress={() => likeComment()}
-            >
-              <Image
-                style={styles.icon}
-                source={require('../../../assets/icons/likes.png')}
+
+          {!isEditing ? (
+            <>
+              <Text style={styles.content}>{comment.content}</Text>
+              <View style={[styles.statContainer, { marginTop: 6 }]}>
+                <Text style={styles.stats}>
+                  {calculateTime(comment.createdAt)}
+                </Text>
+                <Pressable
+                  style={styles.statContainer}
+                  onPress={() => likeComment()}
+                >
+                  <Image
+                    style={styles.icon}
+                    source={require('../../../assets/icons/likes.png')}
+                  />
+                  <Text style={styles.stats}>{comment.likes} Likes</Text>
+                </Pressable>
+                <Pressable
+                  style={styles.statContainer}
+                  onPress={() => Alert.alert('Reply clicked', comment.id)}
+                >
+                  <Image
+                    style={styles.icon}
+                    source={require('../../../assets/icons/comment.png')}
+                  />
+                  <Text style={styles.stats}>Reply</Text>
+                </Pressable>
+                {comment.userID === userID ? (
+                  <Pressable
+                    style={[
+                      styles.statContainer,
+                      { position: 'absolute', right: 0 },
+                    ]}
+                    onPress={() => setShowModal(true)}
+                  >
+                    <Image
+                      style={styles.editIcon}
+                      source={require('../../../assets/icons/more_grey.png')}
+                    />
+                  </Pressable>
+                ) : (
+                  <View></View>
+                )}
+              </View>
+              <View style={[styles.divider, { marginTop: 12 }]} />
+            </>
+          ) : (
+            <View>
+              <TextInput
+                style={styles.commentField}
+                autoFocus={true}
+                multiline={true}
+                value={editedComment}
+                onChangeText={(value) => {
+                  setEditedComment(value);
+                }}
               />
-              <Text style={styles.stats}>{comment.likes} Likes</Text>
-            </Pressable>
-            <Pressable
-              style={styles.statContainer}
-              onPress={() => Alert.alert('Reply clicked', comment.id)}
-            >
-              <Image
-                style={styles.icon}
-                source={require('../../../assets/icons/comment.png')}
-              />
-              <Text style={styles.stats}>Reply</Text>
-            </Pressable>
-            {comment.userID === userID ? (
-              <Pressable
-                style={[
-                  styles.statContainer,
-                  { position: 'absolute', right: 0 },
-                ]}
-                onPress={() => setShowModal(true)}
-              >
-                <Image
-                  style={styles.editIcon}
-                  source={require('../../../assets/icons/more_grey.png')}
-                />
-              </Pressable>
-            ) : (
-              <View></View>
-            )}
-          </View>
-          <View style={[styles.divider, { marginTop: 12 }]} />
+              <View style={{ alignSelf: 'flex-end', flexDirection: 'row' }}>
+                <Pressable
+                  onPress={() => {
+                    setIsEditing(false);
+                    Keyboard.dismiss();
+                  }}
+                  style={styles.postButton}
+                >
+                  <Text style={styles.postText}>Cancel</Text>
+                </Pressable>
+                <Pressable
+                  onPress={() => {
+                    editComment();
+                  }}
+                  style={styles.postButton}
+                >
+                  <Text style={styles.postText}>Save</Text>
+                </Pressable>
+              </View>
+            </View>
+          )}
         </View>
       ) : (
         <View></View>
@@ -139,7 +199,13 @@ const Comment = ({ comment, updatePostDetail }: commentItemProp) => {
         }
       >
         <ModalContent>
-          <Pressable style={styles.modalButton}>
+          <Pressable
+            style={styles.modalButton}
+            onPress={() => {
+              setIsEditing(true);
+              setShowModal(false);
+            }}
+          >
             <Text>Edit comment</Text>
           </Pressable>
           <View style={styles.divider} />
@@ -221,5 +287,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     height: 50,
     width: '100%',
+  },
+  commentField: {
+    ...fonts.body1Black,
+    ...{
+      fontWeight: 'normal',
+      paddingStart: 12,
+      paddingVertical: 15,
+      marginTop: 5,
+      height: 80,
+      backgroundColor: '#272F4026',
+      borderRadius: 15,
+    },
+  },
+  postButton: {
+    height: 40,
+    width: 70,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  postText: {
+    ...fonts.body1,
   },
 });

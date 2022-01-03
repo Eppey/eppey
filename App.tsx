@@ -151,38 +151,6 @@ function Main({ navigation }: any) {
 }
 
 export default function App() {
-  const postDetailMenus = () => (
-    <View style={styles.detailMenus}>
-      <Pressable
-        style={styles.detailMenuItem}
-        onPress={() => console.log('hi')}
-      >
-        <Image
-          style={styles.postIcon}
-          source={require('./assets/icons/notification.png')}
-        />
-      </Pressable>
-      <Pressable
-        style={styles.detailMenuItem}
-        onPress={() => console.log('hi')}
-      >
-        <Image
-          style={styles.postIcon}
-          source={require('./assets/icons/bookmark_off.png')}
-        />
-      </Pressable>
-      <Pressable
-        style={styles.detailMenuItem}
-        onPress={() => console.log('hi')}
-      >
-        <Image
-          style={styles.postIcon}
-          source={require('./assets/icons/flag.png')}
-        />
-      </Pressable>
-    </View>
-  );
-
   return (
     <Provider store={store}>
       <NavigationContainer>
@@ -205,19 +173,7 @@ export default function App() {
               options={{ gestureEnabled: false }}
             />
             <Stack.Screen name="Write" component={Write} />
-            <Stack.Screen
-              name="PostDetail"
-              component={PostDetail}
-              options={{
-                headerShown: true,
-                headerTitle: '',
-                headerTintColor: '#FFFFFF',
-                headerRight: () => postDetailMenus(),
-                headerStyle: {
-                  backgroundColor: '#272F40',
-                },
-              }}
-            />
+            <Stack.Screen name="PostDetail" component={PostDetail} />
           </Stack.Navigator>
         </SafeAreaProvider>
       </NavigationContainer>
@@ -231,17 +187,5 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     resizeMode: 'contain',
-  },
-  postIcon: {
-    width: 25,
-    height: 25,
-    resizeMode: 'contain',
-    marginLeft: 5,
-  },
-  detailMenus: {
-    flexDirection: 'row',
-  },
-  detailMenuItem: {
-    paddingHorizontal: 5,
   },
 });
