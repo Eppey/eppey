@@ -19,14 +19,6 @@ import { components } from '../../styles/components';
 import { universities } from '../../data/universities';
 import { majors } from '../../data/majors';
 
-type User = {
-  email: string;
-  password: string;
-  major: string;
-  nickname: string;
-  school: string;
-};
-
 const Signup = () => {
   const navigation: any = useNavigation();
   const [email, setEmail] = useState('');
@@ -34,26 +26,27 @@ const Signup = () => {
   const [major, setMajor] = useState('-');
   const [nickname, setNickname] = useState('');
 
-  async function userSignUp(user: User): Promise<void> {
-    if (user.school == 'N/A') {
+  const userSignUp = async () => {
+    const school = await getSchool();
+
+    if (school == 'N/A') {
       Alert.alert('Error', 'Invalid email');
       return;
     }
-    if (user.major == '-') {
+    if (major == '-') {
       Alert.alert('Error', 'Pick a valid major');
       return;
     }
-
-    if (user.password.length >= 8) {
+    if (password.length >= 8) {
       try {
         await Auth.signUp({
-          username: user.email,
-          password: user.password,
+          username: email,
+          password: password,
           attributes: {
-            email: user.email,
-            nickname: user.nickname,
-            'custom:major': user.major,
-            'custom:school': user.school,
+            email: email,
+            nickname: nickname,
+            'custom:major': major,
+            'custom:school': school,
           },
         });
         navigation.navigate('SignupComplete');
@@ -63,15 +56,15 @@ const Signup = () => {
     } else {
       Alert.alert('Error', 'Password length should be between 8 ~ 20');
     }
-  }
+  };
 
-  function getSchool(email: String): string {
+  const getSchool = async () => {
     const domain = email.substring(email.indexOf('@') + 1);
     if (domain in universities) {
       return universities[domain].name;
     }
     return 'N/A';
-  }
+  };
 
   return (
     <SafeAreaView>
@@ -135,18 +128,7 @@ const Signup = () => {
           <Text style={{ fontWeight: 'bold' }}>Terms of Service</Text> and
           <Text style={{ fontWeight: 'bold' }}> Privacy Policy</Text>
         </Text>
-        <Pressable
-          style={styles.button}
-          onPress={() =>
-            userSignUp({
-              email: email,
-              password: password,
-              major: major,
-              nickname: nickname,
-              school: getSchool(email),
-            })
-          }
-        >
+        <Pressable style={styles.button} onPress={() => userSignUp()}>
           <Text style={fonts.fButton}>SIGN UP</Text>
         </Pressable>
       </View>
