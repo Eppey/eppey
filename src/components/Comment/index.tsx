@@ -46,6 +46,7 @@ const Comment = ({ comment, updatePostDetail }: commentItemProp) => {
       query: mutations.updateComment,
       variables: { input: params },
     });
+    updatePostDetail();
   };
 
   // TODO: auth users to alter likes
