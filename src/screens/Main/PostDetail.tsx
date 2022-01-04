@@ -26,7 +26,14 @@ import {
 } from 'react-native-modals';
 
 import { API } from 'aws-amplify';
-import { Post, GetPostQuery, GetPostQueryVariables } from '../../API';
+import {
+  Post,
+  GetPostQuery,
+  GetPostQueryVariables,
+  Bookmark,
+  GetUserBookmarkQuery,
+  GetUserBookmarkQueryVariables,
+} from '../../API';
 import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations';
 
@@ -45,6 +52,8 @@ const PostDetail = ({ route }: any) => {
   const { postID } = route.params;
 
   const [post, setPost] = useState({} as Post);
+  const [bookmarks, setBookmarks] = useState([] as Bookmark[] | undefined);
+  const [bookmarked, setBookmarked] = useState(false);
   const [commentContent, setCommentContent] = useState('');
   const [editingComment, setEditingComment] = useState(false);
 
@@ -68,7 +77,18 @@ const PostDetail = ({ route }: any) => {
   });
 
   useEffect(() => {
+    const fetchBookmarks = async () => {
+      const response = await (API.graphql({
+        query: queries.getUserBookmark,
+        variables: { userID: userID } as GetUserBookmarkQueryVariables,
+      }) as Promise<{ data: GetUserBookmarkQuery }>);
+      console.log(response.data.getUserBookmark?.items);
+      setBookmarks(response.data.getUserBookmark?.items);
+      console.log('-------');
+      console.log(bookmarks);
+    };
     getPostDetail();
+    fetchBookmarks();
   }, []);
 
   useEffect(() => {
@@ -89,13 +109,14 @@ const PostDetail = ({ route }: any) => {
           source={require('../../../assets/icons/notification.png')}
         />
       </Pressable>
-      <Pressable
-        style={styles.detailMenuItem}
-        onPress={() => console.log('hi')}
-      >
+      <Pressable style={styles.detailMenuItem} onPress={() => addToBookmark()}>
         <Image
           style={styles.postIcon}
-          source={require('../../../assets/icons/bookmark_off.png')}
+          source={
+            bookmarked
+              ? require('../../../assets/icons/bookmark_on.png')
+              : require('../../../assets/icons/bookmark_off.png')
+          }
         />
       </Pressable>
       {post.userID === userID ? (
@@ -116,11 +137,11 @@ const PostDetail = ({ route }: any) => {
 
   const getPostDetail = async () => {
     setRefreshing(true);
-    const response = await (API.graphql({
+    const postRes = await (API.graphql({
       query: queries.getPost,
       variables: { id: postID } as GetPostQueryVariables,
     }) as Promise<{ data: GetPostQuery }>);
-    setPost(response.data.getPost as Post);
+    setPost(postRes.data.getPost as Post);
     dispatch(setPostOwnerID(post.userID));
     setRefreshing(false);
   };
@@ -149,14 +170,38 @@ const PostDetail = ({ route }: any) => {
   };
 
   const deletePost = async () => {
-    let params: { id: string } = {
-      id: postID,
-    };
     await API.graphql({
       query: mutations.deletePost,
-      variables: { input: params },
+      variables: { input: { id: postID } },
     });
     navigation.navigate('Main');
+  };
+
+  const addToBookmark = async () => {
+    const response = await (API.graphql({
+      query: queries.getUserBookmark,
+      variables: { userID: userID } as GetUserBookmarkQueryVariables,
+    }) as Promise<{ data: GetUserBookmarkQuery }>);
+    setBookmarks(response.data.getUserBookmark?.items);
+    console.log(bookmarks);
+
+    if (bookmarks !== undefined) {
+      const idx = bookmarks.findIndex((bookmark) => bookmark.postID === postID);
+      console.log(idx);
+      if (idx != -1) {
+        await API.graphql({
+          query: mutations.deleteBookmark,
+          variables: { input: { id: bookmarks![idx].id } },
+        });
+        setBookmarked(false);
+        return;
+      }
+    }
+    await API.graphql({
+      query: mutations.createBookmark,
+      variables: { input: { postID: postID, userID: userID } },
+    });
+    setBookmarked(true);
   };
 
   return (
