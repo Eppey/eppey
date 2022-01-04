@@ -17,7 +17,7 @@ const Search = () => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={{ flex: 1 }}>
+      <View style={{ height: '100%' }}>
         <Image
           style={styles.searchIcon}
           source={require('../../../assets/icons/search_black.png')}

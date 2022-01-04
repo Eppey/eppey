@@ -36,8 +36,6 @@ const MyComments = () => {
 
     const userComments = postRes?.data?.getUserComment?.items as Array<any>;
 
-    console.log(userComments);
-
     if (loadMore) {
       setPostData([...postData, ...userComments]);
     } else {

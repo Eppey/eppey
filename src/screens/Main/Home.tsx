@@ -39,7 +39,7 @@ const Home = () => {
   };
 
   return (
-    <View>
+    <>
       <StatusBar barStyle={'dark-content'} />
       <PostContainer
         postData={postData}
@@ -47,7 +47,7 @@ const Home = () => {
         nextToken={nextToken}
         loading={loading}
       />
-    </View>
+    </>
   );
 };
 
