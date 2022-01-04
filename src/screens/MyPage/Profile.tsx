@@ -1,50 +1,30 @@
-import { API, Auth } from 'aws-amplify';
+import { API } from 'aws-amplify';
 import React, { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { GetUserCommentQuery, GetUserPostQuery } from '../../API';
+
+import { User, GetUserQuery, GetUserQueryVariables } from '../../API';
+
+import { useSelector } from 'react-redux';
+import { selectUserID } from '../../redux/slices/userSlice';
 
 import * as queries from '../../graphql/queries';
 
 import { fonts } from '../../styles/fonts';
 
-type UserInfo = {
-  nickname: string;
-  email: string;
-  sub: string;
-  postCnt: number;
-  commentCnt: number;
-};
-
 const Profile = ({ navigation }: any) => {
-  const [user, setUser] = useState({} as UserInfo);
+  const [user, setUser] = useState({} as User);
+  const userID = useSelector(selectUserID);
 
   useEffect(() => {
     getUserInfo();
-  });
+  }, []);
 
   const getUserInfo = async () => {
-    const { attributes } = await Auth.currentUserInfo();
-    const { nickname, email, sub } = attributes;
-
-    const postRes = await (API.graphql({
-      query: queries.getUserPost,
-      variables: { userID: sub },
-    }) as Promise<{ data: GetUserPostQuery }>);
-    const userPosts = postRes?.data?.getUserPost?.items as Array<any>;
-
-    const commentRes = await (API.graphql({
-      query: queries.getUserComment,
-      variables: { userID: sub },
-    }) as Promise<{ data: GetUserCommentQuery }>);
-    const userComments = commentRes?.data?.getUserComment?.items as Array<any>;
-
-    setUser({
-      nickname,
-      email,
-      sub,
-      postCnt: userPosts.length,
-      commentCnt: userComments.length,
-    });
+    const response = await (API.graphql({
+      query: queries.getUser,
+      variables: { id: userID } as GetUserQueryVariables,
+    }) as Promise<{ data: GetUserQuery }>);
+    setUser(response.data.getUser!);
   };
 
   return (
@@ -52,7 +32,9 @@ const Profile = ({ navigation }: any) => {
       <View style={{ backgroundColor: '#E0DCF3', padding: 20 }}>
         <View style={styles.userSummaryContainer}>
           <View>
-            <Text style={fonts.header2}>{user.nickname}</Text>
+            <Text style={[fonts.header2, { marginBottom: 5 }]}>
+              {user.nickname}
+            </Text>
             <Text>{user.email}</Text>
           </View>
           <Pressable>
@@ -69,15 +51,15 @@ const Profile = ({ navigation }: any) => {
         <View style={styles.userStat}>
           <View>
             <Text style={fonts.body1}>Posts</Text>
-            <Text>{user.postCnt}</Text>
+            <Text>{user.posts?.items.length}</Text>
           </View>
           <View style={styles.userStatItem}>
             <Text style={fonts.body1}>Comments</Text>
-            <Text>{user.commentCnt}</Text>
+            <Text>{user.comments?.items.length}</Text>
           </View>
           <View style={styles.userStatItem}>
             <Text style={fonts.body1}>Points</Text>
-            <Text>1,101</Text>
+            <Text>{user.points}</Text>
           </View>
         </View>
       </View>
