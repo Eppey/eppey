@@ -17,31 +17,31 @@
         "eppeyPostConfirmation": {
           "GROUP": "user",
           "deploymentBucketName": "amplify-eppey-dev-141102-deployment",
-          "s3Key": "amplify-builds/eppeyPostConfirmation-4b625655656d414a496d-build.zip"
+          "s3Key": "amplify-builds/eppeyPostConfirmation-78665161506b6e617249-build.zip"
         },
         "eppeyCustomMessage": {
           "REDIRECTURL": "https://www.google.com/",
           "EMAILSUBJECT": "[EPPEY] Account confirmation",
           "EMAILMESSAGE": "Please click the link below to verify your email address.",
           "deploymentBucketName": "amplify-eppey-dev-141102-deployment",
-          "s3Key": "amplify-builds/eppeyCustomMessage-6e4e374d757155475468-build.zip"
+          "s3Key": "amplify-builds/eppeyCustomMessage-2b793479686663745931-build.zip"
         },
         "eppeyPreSignup": {
           "DOMAINALLOWLIST": "gatech.edu, virginia.edu",
           "deploymentBucketName": "amplify-eppey-dev-141102-deployment",
-          "s3Key": "amplify-builds/eppeyPreSignup-4549724d555975415873-build.zip"
+          "s3Key": "amplify-builds/eppeyPreSignup-45713275666678474644-build.zip"
         },
         "AdminQueries168e0614": {
           "deploymentBucketName": "amplify-eppey-dev-141102-deployment",
-          "s3Key": "amplify-builds/AdminQueries168e0614-6a434950316a35776e65-build.zip"
+          "s3Key": "amplify-builds/AdminQueries168e0614-492b44682b4c76733853-build.zip"
         },
         "S3Triggera1871994": {
           "deploymentBucketName": "amplify-eppey-dev-141102-deployment",
-          "s3Key": "amplify-builds/S3Triggera1871994-392f494e737867622f43-build.zip"
+          "s3Key": "amplify-builds/S3Triggera1871994-6b61336a584f5062672b-build.zip"
         },
         "S3Triggerb0517bb4": {
           "deploymentBucketName": "amplify-eppey-dev-141102-deployment",
-          "s3Key": "amplify-builds/S3Triggerb0517bb4-6f466a75483669475350-build.zip"
+          "s3Key": "amplify-builds/S3Triggerb0517bb4-3959787a62312f6d7a77-build.zip"
         }
       },
       "hosting": {
