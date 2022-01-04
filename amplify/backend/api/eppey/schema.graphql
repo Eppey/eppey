@@ -5,7 +5,7 @@ type User
   @model
   @auth(
     rules: [
-      { allow: owner, operations: [create, update, delete] }
+      { allow: owner, ownerField: "id" }
       { allow: groups, groups: ["admin"] }
     ]
   ) {

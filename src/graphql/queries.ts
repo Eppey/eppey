@@ -55,7 +55,6 @@ export const getUser = /* GraphQL */ `
       points
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -84,7 +83,6 @@ export const listUsers = /* GraphQL */ `
         points
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }

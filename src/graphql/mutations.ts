@@ -58,7 +58,6 @@ export const createUser = /* GraphQL */ `
       points
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -118,7 +117,6 @@ export const updateUser = /* GraphQL */ `
       points
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -178,7 +176,6 @@ export const deleteUser = /* GraphQL */ `
       points
       createdAt
       updatedAt
-      owner
     }
   }
 `;
