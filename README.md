@@ -138,17 +138,33 @@ Working on it
 ## Roadmap
 
 - [x] Design App structure & workflow
-- [ ] Implement Frontend
+- [x] Frontend (React Native)
   - [x] Auth
+    - [x] Sign-up/in
+    - [x] Password Reset
   - [ ] Main
+    - [x] Home Screen
+    - [x] Search
+    - [x] Write Post
+    - [ ] Notification
+    - [x] My Page (Profile)
   - [ ] My Page
-- [ ] Implement Backend (AWS)
-  - [ ] Lambda Functions
-  - [ ] Database
-  - [ ] GraphQL API
-- [ ] Multi-language Support
+    - [x] Profile
+    - [ ] Posts/Comments/Bookmarks
+    - [ ] Settings
+    - [ ] Updates
+    - [ ] Feedbacks
+- [x] Backend (AWS)
+  - [x] Auth (Cognito)
+  - [x] Database (DynamoDB)
+  - [x] GraphQL API (Appsync)
+  - [x] Analytics (Pinpoint)
+  - [x] Storage (S3)
+  - [x] Hosting (Amplify)
+  - [x] Functions/Resolvers (Lambda)
+- [x] Multi-language Support
   - [x] English
-  - [ ] Korean
+  - [x] Korean
 
 See the [open issues](https://github.com/Eppey/eppey/issues) for a full list of proposed features (and known issues).
 
