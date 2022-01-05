@@ -1,6 +1,5 @@
 import { API, Auth } from 'aws-amplify';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import { GetUserPostQuery } from '../../API';
 import PostContainer from '../../components/PostContainer';
 
@@ -41,14 +40,14 @@ const MyPosts = () => {
     setLoading(false);
   };
   return (
-    <View>
+    <>
       <PostContainer
         postData={postData}
         getPosts={getMyPosts}
         nextToken={nextToken}
         loading={loading}
       />
-    </View>
+    </>
   );
 };
 

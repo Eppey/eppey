@@ -1,5 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
+import EditProfile from '../MyPage/EditProfile';
 
 import MyBookmarks from '../MyPage/MyBookmarks';
 import MyComments from '../MyPage/MyComments';
@@ -19,6 +20,7 @@ const MyPage = () => {
       <Stack.Screen name="MyBookmarks" component={MyBookmarks} />
       <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="Updates" component={Updates} />
+      <Stack.Screen name="EditProfile" component={EditProfile} />
     </Stack.Navigator>
   );
 };

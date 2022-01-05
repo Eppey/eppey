@@ -40,7 +40,7 @@ const Profile = ({ navigation }: any) => {
             </Text>
             <Text>{user.email}</Text>
           </View>
-          <Pressable>
+          <Pressable onPress={() => navigation.navigate('EditProfile')}>
             <Text
               style={{
                 ...fonts.body1,
