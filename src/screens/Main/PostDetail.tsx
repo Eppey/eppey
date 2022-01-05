@@ -52,7 +52,6 @@ const PostDetail = ({ route }: any) => {
   const { postID } = route.params;
 
   const [post, setPost] = useState({} as Post);
-  const [bookmarks, setBookmarks] = useState([] as Bookmark[] | undefined);
   const [bookmarked, setBookmarked] = useState(false);
   const [commentContent, setCommentContent] = useState('');
   const [editingComment, setEditingComment] = useState(false);
@@ -77,18 +76,24 @@ const PostDetail = ({ route }: any) => {
   });
 
   useEffect(() => {
-    const fetchBookmarks = async () => {
-      const response = await (API.graphql({
-        query: queries.getUserBookmark,
-        variables: { userID: userID } as GetUserBookmarkQueryVariables,
-      }) as Promise<{ data: GetUserBookmarkQuery }>);
-      console.log(response.data.getUserBookmark?.items);
-      setBookmarks(response.data.getUserBookmark?.items);
-      console.log('-------');
-      console.log(bookmarks);
+    const checkBookmarks = async () => {
+      const bookmarks = (
+        await (API.graphql({
+          query: queries.getUserBookmark,
+          variables: { userID: userID } as GetUserBookmarkQueryVariables,
+        }) as Promise<{ data: GetUserBookmarkQuery }>)
+      ).data.getUserBookmark?.items;
+      if (bookmarks !== undefined) {
+        const idx = bookmarks.findIndex(
+          (bookmark) => bookmark!.postID === postID
+        );
+        if (idx != -1) {
+          setBookmarked(true);
+        }
+      }
     };
     getPostDetail();
-    fetchBookmarks();
+    checkBookmarks();
   }, []);
 
   useEffect(() => {
@@ -97,43 +102,6 @@ const PostDetail = ({ route }: any) => {
     });
     return editFinished;
   }, [navigation]);
-
-  const postDetailMenus = () => (
-    <View style={styles.detailMenus}>
-      <Pressable
-        style={styles.detailMenuItem}
-        onPress={() => console.log('hi')}
-      >
-        <Image
-          style={styles.postIcon}
-          source={require('../../../assets/icons/notification.png')}
-        />
-      </Pressable>
-      <Pressable style={styles.detailMenuItem} onPress={() => addToBookmark()}>
-        <Image
-          style={styles.postIcon}
-          source={
-            bookmarked
-              ? require('../../../assets/icons/bookmark_on.png')
-              : require('../../../assets/icons/bookmark_off.png')
-          }
-        />
-      </Pressable>
-      {post.userID === userID ? (
-        <Pressable
-          style={styles.detailMenuItem}
-          onPress={() => setShowModal(true)}
-        >
-          <Image
-            style={styles.postIcon}
-            source={require('../../../assets/icons/more.png')}
-          />
-        </Pressable>
-      ) : (
-        <View></View>
-      )}
-    </View>
-  );
 
   const getPostDetail = async () => {
     setRefreshing(true);
@@ -178,20 +146,23 @@ const PostDetail = ({ route }: any) => {
   };
 
   const addToBookmark = async () => {
-    const response = await (API.graphql({
-      query: queries.getUserBookmark,
-      variables: { userID: userID } as GetUserBookmarkQueryVariables,
-    }) as Promise<{ data: GetUserBookmarkQuery }>);
-    setBookmarks(response.data.getUserBookmark?.items);
-    console.log(bookmarks);
+    const bookmarks = (
+      await (API.graphql({
+        query: queries.getUserBookmark,
+        variables: { userID: userID } as GetUserBookmarkQueryVariables,
+      }) as Promise<{ data: GetUserBookmarkQuery }>)
+    ).data.getUserBookmark?.items;
 
     if (bookmarks !== undefined) {
-      const idx = bookmarks.findIndex((bookmark) => bookmark.postID === postID);
-      console.log(idx);
+      const idx = bookmarks.findIndex(
+        (bookmark) => bookmark!.postID === postID
+      );
       if (idx != -1) {
         await API.graphql({
           query: mutations.deleteBookmark,
-          variables: { input: { id: bookmarks![idx].id } },
+          variables: {
+            input: { id: bookmarks[idx]!.id },
+          },
         });
         setBookmarked(false);
         return;
@@ -203,6 +174,43 @@ const PostDetail = ({ route }: any) => {
     });
     setBookmarked(true);
   };
+
+  const postDetailMenus = () => (
+    <View style={styles.detailMenus}>
+      <Pressable
+        style={styles.detailMenuItem}
+        onPress={() => console.log('hi')}
+      >
+        <Image
+          style={styles.postIcon}
+          source={require('../../../assets/icons/notification.png')}
+        />
+      </Pressable>
+      <Pressable style={styles.detailMenuItem} onPress={() => addToBookmark()}>
+        <Image
+          style={styles.postIcon}
+          source={
+            bookmarked
+              ? require('../../../assets/icons/bookmark_on.png')
+              : require('../../../assets/icons/bookmark_off.png')
+          }
+        />
+      </Pressable>
+      {post.userID === userID ? (
+        <Pressable
+          style={styles.detailMenuItem}
+          onPress={() => setShowModal(true)}
+        >
+          <Image
+            style={styles.postIcon}
+            source={require('../../../assets/icons/more.png')}
+          />
+        </Pressable>
+      ) : (
+        <View></View>
+      )}
+    </View>
+  );
 
   return (
     <KeyboardAvoidingView

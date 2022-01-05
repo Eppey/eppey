@@ -116,3 +116,13 @@ type Bookmark @model @auth(rules: [{ allow: owner }]) {
   post: Post @hasOne(fields: ["postID"])
   createdAt: AWSDateTime!
 }
+
+# https://docs.amplify.aws/lib/graphqlapi/subscribe-data/q/platform/js/
+# https://docs.amplify.aws/guides/api-graphql/subscriptions-by-id/q/platform/js/
+
+type Subscription {
+  onCommentByPostId(postID: ID!): Comment
+    @aws_subscribe(mutations: ["createComment"])
+  onReplyByCommentId(commentID: ID!): Reply
+    @aws_subscribe(mutations: ["createReply"])
+}

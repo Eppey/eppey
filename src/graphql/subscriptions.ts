@@ -2,6 +2,93 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const onCommentByPostId = /* GraphQL */ `
+  subscription OnCommentByPostId($postID: ID!) {
+    onCommentByPostId(postID: $postID) {
+      id
+      userID
+      postID
+      likes
+      content
+      userNickname
+      post {
+        id
+        userID
+        userNickname
+        title
+        topic
+        content
+        views
+        bookmarks
+        comments {
+          nextToken
+        }
+        createdAt
+        type
+        updatedAt
+        owner
+      }
+      replies {
+        items {
+          id
+          userID
+          commentID
+          content
+          userNickname
+          createdAt
+          updatedAt
+          owner
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
+export const onReplyByCommentId = /* GraphQL */ `
+  subscription OnReplyByCommentId($commentID: ID!) {
+    onReplyByCommentId(commentID: $commentID) {
+      id
+      userID
+      commentID
+      content
+      userNickname
+      comment {
+        id
+        userID
+        postID
+        likes
+        content
+        userNickname
+        post {
+          id
+          userID
+          userNickname
+          title
+          topic
+          content
+          views
+          bookmarks
+          createdAt
+          type
+          updatedAt
+          owner
+        }
+        replies {
+          nextToken
+        }
+        createdAt
+        updatedAt
+        owner
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+  }
+`;
 export const onCreateUser = /* GraphQL */ `
   subscription OnCreateUser($id: String) {
     onCreateUser(id: $id) {
