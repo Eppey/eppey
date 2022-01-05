@@ -30,7 +30,6 @@ import {
   Post,
   GetPostQuery,
   GetPostQueryVariables,
-  Bookmark,
   GetUserBookmarkQuery,
   GetUserBookmarkQueryVariables,
 } from '../../API';
@@ -115,7 +114,7 @@ const PostDetail = ({ route }: any) => {
   };
 
   const updateComment = async () => {
-    if (commentContent.length == 0) {
+    if (commentContent.trim().length == 0) {
       Alert.alert('Error', "Comment can't be empty!");
       return;
     }
