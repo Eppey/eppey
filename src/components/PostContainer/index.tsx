@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 
 import Post from '../Post';

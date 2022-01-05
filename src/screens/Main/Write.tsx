@@ -67,9 +67,9 @@ const Write = ({ route }: any) => {
       return;
     }
     const params = {
-      title: title,
+      title: title.trim(),
       topic: topic,
-      content: content,
+      content: content.trim(),
       userID: userID,
       userNickname: userNickname,
       views: 0,

@@ -73,7 +73,7 @@ const PostDetail = ({ route }: any) => {
         backgroundColor: '#272F40',
       },
     });
-  });
+  }, [bookmarked, showModal, post]);
 
   useEffect(() => {
     const checkBookmarks = async () => {
@@ -124,7 +124,7 @@ const PostDetail = ({ route }: any) => {
       postID: postID,
       userID: userID,
       userNickname: userNickname,
-      content: commentContent,
+      content: commentContent.trim(),
       likes: '0',
     };
     await API.graphql({
