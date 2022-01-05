@@ -1,6 +1,6 @@
 import { API } from 'aws-amplify';
 import React, { useEffect, useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { User, GetUserQuery, GetUserQueryVariables } from '../../API';
 
@@ -90,7 +90,7 @@ const Profile = ({ navigation }: any) => {
           <Text style={styles.pageMenuItem}>Updates</Text>
         </Pressable>
         <View style={styles.subDivider} />
-        <Pressable onPress={() => navigation.navigate('Feedback')}>
+        <Pressable onPress={() => Linking.openURL('mailto:help@eppey.app')}>
           <Text style={styles.pageMenuItem}>Send Feedback</Text>
         </Pressable>
       </View>
