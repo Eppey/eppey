@@ -74,6 +74,7 @@ const Write = ({ route }: any) => {
       userNickname: userNickname,
       views: 0,
       bookmarks: 0,
+      type: 'Post',
     };
     try {
       await API.graphql({
