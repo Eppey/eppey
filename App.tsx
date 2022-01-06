@@ -124,7 +124,7 @@ function Main({ navigation }: any) {
         name="MyPage"
         component={MyPage}
         options={{
-          title: 'My Page',
+          headerShown: false,
           tabBarIcon: () => {
             return (
               <Image
@@ -133,17 +133,6 @@ function Main({ navigation }: any) {
               />
             );
           },
-          headerStyle: {
-            backgroundColor: '#D1CAF2',
-          },
-          headerRight: () => (
-            <Pressable onPress={() => logOut()}>
-              <Image
-                style={[styles.icon, { marginRight: '10%' }]}
-                source={require('./assets/icons/logout.png')}
-              />
-            </Pressable>
-          ),
         }}
       />
     </Tab.Navigator>

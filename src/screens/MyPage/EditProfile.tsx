@@ -6,7 +6,7 @@ import { components } from '../../styles/components';
 import { fonts } from '../../styles/fonts';
 import { Auth } from 'aws-amplify';
 
-const EditProfile = ({ route }: any) => {
+const EditProfile = () => {
   const [user, setUser] = useState({} as any);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const EditProfile = ({ route }: any) => {
       </View>
       <View style={{ alignItems: 'center' }}>
         <Text style={[styles.body1Light, { textAlign: 'center' }]}>
-          By signing up, you‚Äôre agreeing to{'\n'}EPPEY‚Äôs{' '}
+          By signing up, you’re agreeing to{'\n'}EPPEY’s{' '}
           <Text style={{ fontWeight: 'bold' }}>Terms of Service</Text> and
           <Text style={{ fontWeight: 'bold' }}> Privacy Policy</Text>
         </Text>
