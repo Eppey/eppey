@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, StatusBar, View } from 'react-native';
+import { StyleSheet, StatusBar } from 'react-native';
 
 import PostContainer from '../../components/PostContainer';
 
 import { API } from 'aws-amplify';
-import * as customQueries from '../../request/customQueries';
+import { getLatestPost } from '../../request/customQueries';
 
 const Home = () => {
   const [nextToken, setNextToken] = useState('');
@@ -25,7 +25,7 @@ const Home = () => {
     };
 
     const posts: any = await API.graphql({
-      query: customQueries.getLatestPost,
+      query: getLatestPost,
       variables: params,
     });
 

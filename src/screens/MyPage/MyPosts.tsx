@@ -1,10 +1,10 @@
 import { API, Auth } from 'aws-amplify';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { View } from 'react-native';
 import { GetUserPostQuery } from '../../API';
 import PostContainer from '../../components/PostContainer';
 
-import * as queries from '../../graphql/queries';
+import { getUserPost } from '../../graphql/queries';
 
 const MyPosts = () => {
   const [nextToken, setNextToken] = useState('');
@@ -26,7 +26,7 @@ const MyPosts = () => {
     };
 
     const postRes = await (API.graphql({
-      query: queries.getUserPost,
+      query: getUserPost,
       variables: params,
     }) as Promise<{ data: GetUserPostQuery }>);
 

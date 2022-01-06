@@ -20,7 +20,7 @@ import { selectUserID, selectUserNickname } from '../../redux/slices/userSlice';
 import { Post } from '../../API';
 
 import { API } from 'aws-amplify';
-import * as mutations from '../../graphql/mutations';
+import { createPost, updatePost } from '../../graphql/mutations';
 
 import { fonts } from '../../styles/fonts';
 import { topics } from '../../data/topics';
@@ -85,7 +85,7 @@ const Write = ({ route }: any) => {
     };
     try {
       await API.graphql({
-        query: mutations.createPost,
+        query: createPost,
         variables: { input: params },
       });
       navigation.navigate('Main');
@@ -107,7 +107,7 @@ const Write = ({ route }: any) => {
       content: content.trim(),
     };
     await API.graphql({
-      query: mutations.updatePost,
+      query: updatePost,
       variables: { input: params },
     });
     navigation.goBack();
