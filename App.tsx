@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, Image, View, Pressable, Alert } from 'react-native';
+import { StyleSheet, Image, Pressable, Alert } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { store } from './src/redux/store';
 import { Provider } from 'react-redux';
 
@@ -29,8 +30,15 @@ import PostDetail from './src/screens/Main/PostDetail';
 import Notification from './src/screens/Main/Notification';
 import MyPage from './src/screens/Main/MyPage';
 
+import SchoolBoard from './src/screens/Main/SchoolBoard';
+import MajorBoard from './src/screens/Main/MajorBoard';
+
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+const TopTab = createMaterialTopTabNavigator();
+
+import { useSelector } from 'react-redux';
+import { selectSchool, selectMajor } from './src/redux/slices/userSlice';
 
 function Main({ navigation }: any) {
   const logOut = async () => {
@@ -50,8 +58,8 @@ function Main({ navigation }: any) {
       }}
     >
       <Tab.Screen
-        name="Home"
-        component={Home}
+        name="HomeTopTabs"
+        component={HomeTopTabs}
         options={{
           tabBarIcon: () => {
             return (
@@ -63,7 +71,9 @@ function Main({ navigation }: any) {
           },
           headerStyle: {
             backgroundColor: '#FFE1BD',
+            height: 44,
           },
+          headerShadowVisible: false,
         }}
       />
       <Tab.Screen
@@ -150,11 +160,45 @@ function Main({ navigation }: any) {
   );
 }
 
+function HomeTopTabs() {
+  const major = useSelector(selectMajor);
+  const school = useSelector(selectSchool);
+  return (
+    <TopTab.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        tabBarStyle: { backgroundColor: '#FFE1BD' },
+        tabBarAllowFontScaling: true,
+        tabBarActiveTintColor: '#272F40',
+        tabBarLabelStyle: { fontSize: 12 },
+        tabBarIndicatorStyle: { backgroundColor: '#272F40' },
+        lazy: true,
+      }}
+    >
+      <TopTab.Screen
+        name="SchoolBoard"
+        component={SchoolBoard}
+        options={{ title: school }}
+      />
+      <TopTab.Screen
+        name="Home"
+        component={Home}
+        options={{ title: 'Topic' }}
+      />
+      <TopTab.Screen
+        name="MajorBoard"
+        component={MajorBoard}
+        options={{ title: major }}
+      />
+    </TopTab.Navigator>
+  );
+}
+
 export default function App() {
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <SafeAreaProvider>
+      <SafeAreaProvider>
+        <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Welcome" component={Welcome} />
             <Stack.Screen name="Signup" component={Signup} />
@@ -175,8 +219,8 @@ export default function App() {
             <Stack.Screen name="Write" component={Write} />
             <Stack.Screen name="PostDetail" component={PostDetail} />
           </Stack.Navigator>
-        </SafeAreaProvider>
-      </NavigationContainer>
+        </NavigationContainer>
+      </SafeAreaProvider>
       <ModalPortal />
     </Provider>
   );
