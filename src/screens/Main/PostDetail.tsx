@@ -26,7 +26,13 @@ import {
 } from 'react-native-modals';
 
 import { API } from 'aws-amplify';
-import { Post, GetPostQuery, GetPostQueryVariables } from '../../API';
+import {
+  Post,
+  GetPostQuery,
+  GetPostQueryVariables,
+  GetUserBookmarkQuery,
+  GetUserBookmarkQueryVariables,
+} from '../../API';
 import * as queries from '../../graphql/queries';
 import * as mutations from '../../graphql/mutations';
 
@@ -45,6 +51,7 @@ const PostDetail = ({ route }: any) => {
   const { postID } = route.params;
 
   const [post, setPost] = useState({} as Post);
+  const [bookmarked, setBookmarked] = useState(false);
   const [commentContent, setCommentContent] = useState('');
   const [editingComment, setEditingComment] = useState(false);
 
@@ -65,10 +72,27 @@ const PostDetail = ({ route }: any) => {
         backgroundColor: '#272F40',
       },
     });
-  });
+  }, [bookmarked, showModal, post]);
 
   useEffect(() => {
+    const checkBookmarks = async () => {
+      const bookmarks = (
+        await (API.graphql({
+          query: queries.getUserBookmark,
+          variables: { userID: userID } as GetUserBookmarkQueryVariables,
+        }) as Promise<{ data: GetUserBookmarkQuery }>)
+      ).data.getUserBookmark?.items;
+      if (bookmarks !== undefined) {
+        const idx = bookmarks.findIndex(
+          (bookmark) => bookmark!.postID === postID
+        );
+        if (idx != -1) {
+          setBookmarked(true);
+        }
+      }
+    };
     getPostDetail();
+    checkBookmarks();
   }, []);
 
   useEffect(() => {
@@ -77,6 +101,78 @@ const PostDetail = ({ route }: any) => {
     });
     return editFinished;
   }, [navigation]);
+
+  const getPostDetail = async () => {
+    setRefreshing(true);
+    const postRes = await (API.graphql({
+      query: queries.getPost,
+      variables: { id: postID } as GetPostQueryVariables,
+    }) as Promise<{ data: GetPostQuery }>);
+    setPost(postRes.data.getPost as Post);
+    dispatch(setPostOwnerID(post.userID));
+    setRefreshing(false);
+  };
+
+  const updateComment = async () => {
+    if (commentContent.trim().length == 0) {
+      Alert.alert('Error', "Comment can't be empty!");
+      return;
+    }
+
+    let params: { [key: string]: string | undefined } = {
+      postID: postID,
+      userID: userID,
+      userNickname: userNickname,
+      content: commentContent.trim(),
+      likes: '0',
+    };
+    await API.graphql({
+      query: mutations.createComment,
+      variables: { input: params },
+    });
+    Keyboard.dismiss();
+    setCommentContent('');
+    setEditingComment(false);
+    getPostDetail();
+  };
+
+  const deletePost = async () => {
+    await API.graphql({
+      query: mutations.deletePost,
+      variables: { input: { id: postID } },
+    });
+    navigation.navigate('Main');
+  };
+
+  const addToBookmark = async () => {
+    const bookmarks = (
+      await (API.graphql({
+        query: queries.getUserBookmark,
+        variables: { userID: userID } as GetUserBookmarkQueryVariables,
+      }) as Promise<{ data: GetUserBookmarkQuery }>)
+    ).data.getUserBookmark?.items;
+
+    if (bookmarks !== undefined) {
+      const idx = bookmarks.findIndex(
+        (bookmark) => bookmark!.postID === postID
+      );
+      if (idx != -1) {
+        await API.graphql({
+          query: mutations.deleteBookmark,
+          variables: {
+            input: { id: bookmarks[idx]!.id },
+          },
+        });
+        setBookmarked(false);
+        return;
+      }
+    }
+    await API.graphql({
+      query: mutations.createBookmark,
+      variables: { input: { postID: postID, userID: userID } },
+    });
+    setBookmarked(true);
+  };
 
   const postDetailMenus = () => (
     <View style={styles.detailMenus}>
@@ -89,13 +185,14 @@ const PostDetail = ({ route }: any) => {
           source={require('../../../assets/icons/notification.png')}
         />
       </Pressable>
-      <Pressable
-        style={styles.detailMenuItem}
-        onPress={() => console.log('hi')}
-      >
+      <Pressable style={styles.detailMenuItem} onPress={() => addToBookmark()}>
         <Image
           style={styles.postIcon}
-          source={require('../../../assets/icons/bookmark_off.png')}
+          source={
+            bookmarked
+              ? require('../../../assets/icons/bookmark_on.png')
+              : require('../../../assets/icons/bookmark_off.png')
+          }
         />
       </Pressable>
       {post.userID === userID ? (
@@ -113,51 +210,6 @@ const PostDetail = ({ route }: any) => {
       )}
     </View>
   );
-
-  const getPostDetail = async () => {
-    setRefreshing(true);
-    const response = await (API.graphql({
-      query: queries.getPost,
-      variables: { id: postID } as GetPostQueryVariables,
-    }) as Promise<{ data: GetPostQuery }>);
-    setPost(response.data.getPost as Post);
-    dispatch(setPostOwnerID(post.userID));
-    setRefreshing(false);
-  };
-
-  const updateComment = async () => {
-    if (commentContent.length == 0) {
-      Alert.alert('Error', "Comment can't be empty!");
-      return;
-    }
-
-    let params: { [key: string]: string | undefined } = {
-      postID: postID,
-      userID: userID,
-      userNickname: userNickname,
-      content: commentContent,
-      likes: '0',
-    };
-    await API.graphql({
-      query: mutations.createComment,
-      variables: { input: params },
-    });
-    Keyboard.dismiss();
-    setCommentContent('');
-    setEditingComment(false);
-    getPostDetail();
-  };
-
-  const deletePost = async () => {
-    let params: { id: string } = {
-      id: postID,
-    };
-    await API.graphql({
-      query: mutations.deletePost,
-      variables: { input: params },
-    });
-    navigation.navigate('Main');
-  };
 
   return (
     <KeyboardAvoidingView

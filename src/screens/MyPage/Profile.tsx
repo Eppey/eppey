@@ -16,8 +16,11 @@ const Profile = ({ navigation }: any) => {
   const userID = useSelector(selectUserID);
 
   useEffect(() => {
-    getUserInfo();
-  }, []);
+    const screenFocused = navigation.addListener('focus', () => {
+      getUserInfo();
+    });
+    return screenFocused;
+  }, [navigation]);
 
   const getUserInfo = async () => {
     const response = await (API.graphql({

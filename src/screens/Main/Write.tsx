@@ -8,6 +8,11 @@ import {
   Alert,
   Button,
   SafeAreaView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
 } from 'react-native';
 
 import { useSelector } from 'react-redux';
@@ -34,12 +39,6 @@ const Write = ({ route }: any) => {
 
   useEffect(() => {
     navigation.setOptions({
-      headerShown: true,
-      headerStyle: {
-        backgroundColor: '#272F40',
-      },
-      headerTintColor: '#FFFFFF',
-      headerTitle: Object.keys(postData).length ? 'Edit Post' : 'New Post',
       headerRight: () => (
         <Button
           onPress={() =>
@@ -50,7 +49,7 @@ const Write = ({ route }: any) => {
         />
       ),
     });
-  }, [navigation, content]);
+  }, [title, topic, content]);
 
   useEffect(() => {
     if (typeof route.params !== 'undefined') {
@@ -59,21 +58,30 @@ const Write = ({ route }: any) => {
       setTopic(postData.topic);
       setContent(postData.content);
     }
+    navigation.setOptions({
+      headerShown: true,
+      headerStyle: {
+        backgroundColor: '#272F40',
+      },
+      headerTintColor: '#FFFFFF',
+      headerTitle: Object.keys(postData).length ? 'Edit Post' : 'New Post',
+    });
   }, [postData]);
 
   const writePost = async () => {
-    if (!title.length || !content.length) {
+    if (!title.trim().length || !content.trim().length) {
       Alert.alert('Error', "Title or content can't be empty!");
       return;
     }
     const params = {
-      title: title,
+      title: title.trim(),
       topic: topic,
-      content: content,
+      content: content.trim(),
       userID: userID,
       userNickname: userNickname,
       views: 0,
       bookmarks: 0,
+      type: 'Post',
     };
     try {
       await API.graphql({
@@ -88,15 +96,15 @@ const Write = ({ route }: any) => {
   };
 
   const editPost = async () => {
-    if (!title.length || !content.length) {
+    if (!title.trim().length || !content.trim().length) {
       Alert.alert('Error', "Title or content can't be empty!");
       return;
     }
     let params: { [key: string]: string } = {
       id: postData.id,
-      title: title,
+      title: title.trim(),
       topic: topic,
-      content: content,
+      content: content.trim(),
     };
     await API.graphql({
       query: mutations.updatePost,
@@ -106,46 +114,57 @@ const Write = ({ route }: any) => {
   };
 
   return (
-    <SafeAreaView>
-      <StatusBar barStyle="light-content" />
-      <View style={{ marginHorizontal: '5%' }}>
-        <TextInput
-          value={title}
-          style={styles.titleField}
-          placeholder="Write a title"
-          placeholderTextColor="#272F40B2"
-          autoCorrect={false}
-          autoFocus={true}
-          onChangeText={(value) => {
-            setTitle(value);
-          }}
-        ></TextInput>
-        <Picker
-          selectedValue={topic}
-          onValueChange={(itemValue) => setTopic(itemValue)}
-          itemStyle={styles.pickerText}
-          style={{ borderBottomWidth: 1, borderBottomColor: '#272F4026' }}
-        >
-          {topics.map((item) => (
-            <Picker.Item label={item} value={item} key={item} />
-          ))}
-        </Picker>
-        <TextInput
-          value={content}
-          style={styles.bodyField}
-          placeholder={
-            'Start a conversation!\n\nMake sure you are not writing ' +
-            'down any personal information or secrets :)'
-          }
-          placeholderTextColor="#272F40B2"
-          multiline={true}
-          autoCorrect={false}
-          onChangeText={(value) => {
-            setContent(value);
-          }}
-        ></TextInput>
-      </View>
-    </SafeAreaView>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 450 : 0}
+      style={{ flex: 1 }}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <SafeAreaView>
+          <StatusBar barStyle="light-content" />
+          <View style={{ marginHorizontal: '5%' }}>
+            <TextInput
+              value={title}
+              style={styles.titleField}
+              placeholder="Write a title"
+              placeholderTextColor="#272F40B2"
+              autoCorrect={false}
+              autoFocus={true}
+              onChangeText={(value) => {
+                setTitle(value);
+              }}
+              maxLength={50}
+            ></TextInput>
+            <Picker
+              selectedValue={topic}
+              onValueChange={(itemValue) => setTopic(itemValue)}
+              itemStyle={styles.pickerText}
+              style={{ borderBottomWidth: 1, borderBottomColor: '#272F4026' }}
+            >
+              {topics.map((item) => (
+                <Picker.Item label={item} value={item} key={item} />
+              ))}
+            </Picker>
+            <ScrollView>
+              <TextInput
+                value={content}
+                style={styles.bodyField}
+                placeholder={
+                  'Start a conversation!\n\nMake sure you are not writing ' +
+                  'down any personal information or secrets :)'
+                }
+                placeholderTextColor="#272F40B2"
+                multiline={true}
+                autoCorrect={false}
+                onChangeText={(value) => {
+                  setContent(value);
+                }}
+              />
+            </ScrollView>
+          </View>
+        </SafeAreaView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 
