@@ -37,11 +37,11 @@
         },
         "S3Triggera1871994": {
           "deploymentBucketName": "amplify-eppey-dev-141102-deployment",
-          "s3Key": "amplify-builds/S3Triggera1871994-6d4354394c3075562f48-build.zip"
+          "s3Key": "amplify-builds/S3Triggera1871994-392f494e737867622f43-build.zip"
         },
         "S3Triggerb0517bb4": {
           "deploymentBucketName": "amplify-eppey-dev-141102-deployment",
-          "s3Key": "amplify-builds/S3Triggerb0517bb4-316e4b3647544e524139-build.zip"
+          "s3Key": "amplify-builds/S3Triggerb0517bb4-6f466a75483669475350-build.zip"
         }
       },
       "hosting": {
