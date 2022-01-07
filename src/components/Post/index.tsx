@@ -22,15 +22,18 @@ const Post = ({ post }: PostProps) => {
       style={{ marginHorizontal: '5%' }}
       onPress={() => navigation.navigate('PostDetail', { postID: post.id })}
     >
-      <View style={styles.divider} />
-      <View
-        style={[
-          components.postTopicBox,
-          { backgroundColor: topicColors[post.topic] },
-        ]}
-      >
-        <Text style={fonts.body1Black}>{post.topic}</Text>
-      </View>
+      {post.topic in topicColors ? (
+        <View
+          style={[
+            components.postTopicBox,
+            { backgroundColor: topicColors[post.topic] },
+          ]}
+        >
+          <Text style={fonts.body1Black}>{post.topic}</Text>
+        </View>
+      ) : (
+        <View style={{ marginTop: 10 }}></View>
+      )}
       <Text style={styles.header2}>{post.title}</Text>
       <View style={{ flexDirection: 'row' }}>
         <Text style={styles.body1}>{post.userNickname} | </Text>
@@ -43,7 +46,7 @@ const Post = ({ post }: PostProps) => {
         </Text>
         <Text style={styles.body1Custom}>{post.bookmarks} bookmarks</Text>
       </View>
-      <Text></Text>
+      <View style={styles.divider} />
     </Pressable>
   );
 };
@@ -63,7 +66,7 @@ const styles = StyleSheet.create({
   divider: {
     borderBottomColor: '#272F4026',
     borderBottomWidth: 1,
-    marginBottom: 10,
+    marginTop: 10,
     marginHorizontal: '-100%',
   },
 });

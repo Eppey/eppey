@@ -16,7 +16,12 @@ import {
 } from 'react-native';
 
 import { useSelector } from 'react-redux';
-import { selectUserID, selectUserNickname } from '../../redux/slices/userSlice';
+import {
+  selectUserID,
+  selectUserNickname,
+  selectSchool,
+  selectMajor,
+} from '../../redux/slices/userSlice';
 import { Post } from '../../API';
 
 import { API } from 'aws-amplify';
@@ -34,8 +39,11 @@ const Write = ({ route }: any) => {
   const [content, setContent] = useState('');
 
   const [postData, setPostData] = useState({} as Post);
+  const [topicUpdated, setTopicUpdated] = useState(false);
   const userID = useSelector(selectUserID);
   const userNickname = useSelector(selectUserNickname);
+  const school = useSelector(selectSchool);
+  const major = useSelector(selectMajor);
 
   useEffect(() => {
     navigation.setOptions({
@@ -67,6 +75,13 @@ const Write = ({ route }: any) => {
       headerTitle: Object.keys(postData).length ? 'Edit Post' : 'New Post',
     });
   }, [postData]);
+
+  useEffect(() => {
+    if (!topicUpdated) {
+      topics.push(school, major);
+      setTopicUpdated(true);
+    }
+  }, []);
 
   const writePost = async () => {
     if (!title.trim().length || !content.trim().length) {
@@ -134,7 +149,7 @@ const Write = ({ route }: any) => {
                 setTitle(value);
               }}
               maxLength={50}
-            ></TextInput>
+            />
             <Picker
               selectedValue={topic}
               onValueChange={(itemValue) => setTopic(itemValue)}

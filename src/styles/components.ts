@@ -23,6 +23,7 @@ export const components = StyleSheet.create({
   },
   postTopicBox: {
     paddingHorizontal: 10,
+    marginTop: 10,
     marginBottom: 10,
     height: 20,
     borderRadius: 15,
