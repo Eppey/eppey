@@ -150,10 +150,10 @@ Working on it
     - [x] My Page (Profile)
   - [ ] My Page
     - [x] Profile
-    - [ ] Posts/Comments/Bookmarks
+    - [x] Posts/Comments/Bookmarks
     - [ ] Settings
     - [ ] Updates
-    - [ ] Feedbacks
+    - [x] Feedbacks
 - [x] Backend (AWS)
   - [x] Auth (Cognito)
   - [x] Database (DynamoDB)
