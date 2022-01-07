@@ -30,12 +30,16 @@ import {
   Post,
   GetPostQuery,
   GetPostQueryVariables,
-  Bookmark,
   GetUserBookmarkQuery,
   GetUserBookmarkQueryVariables,
 } from '../../API';
-import * as queries from '../../graphql/queries';
-import * as mutations from '../../graphql/mutations';
+import { getPost, getUserBookmark } from '../../graphql/queries';
+import {
+  createComment,
+  createBookmark,
+  deletePost,
+  deleteBookmark,
+} from '../../graphql/mutations';
 
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -73,13 +77,13 @@ const PostDetail = ({ route }: any) => {
         backgroundColor: '#272F40',
       },
     });
-  });
+  }, [bookmarked, showModal, post]);
 
   useEffect(() => {
     const checkBookmarks = async () => {
       const bookmarks = (
         await (API.graphql({
-          query: queries.getUserBookmark,
+          query: getUserBookmark,
           variables: { userID: userID } as GetUserBookmarkQueryVariables,
         }) as Promise<{ data: GetUserBookmarkQuery }>)
       ).data.getUserBookmark?.items;
@@ -106,7 +110,7 @@ const PostDetail = ({ route }: any) => {
   const getPostDetail = async () => {
     setRefreshing(true);
     const postRes = await (API.graphql({
-      query: queries.getPost,
+      query: getPost,
       variables: { id: postID } as GetPostQueryVariables,
     }) as Promise<{ data: GetPostQuery }>);
     setPost(postRes.data.getPost as Post);
@@ -115,7 +119,7 @@ const PostDetail = ({ route }: any) => {
   };
 
   const updateComment = async () => {
-    if (commentContent.length == 0) {
+    if (commentContent.trim().length == 0) {
       Alert.alert('Error', "Comment can't be empty!");
       return;
     }
@@ -124,11 +128,11 @@ const PostDetail = ({ route }: any) => {
       postID: postID,
       userID: userID,
       userNickname: userNickname,
-      content: commentContent,
+      content: commentContent.trim(),
       likes: '0',
     };
     await API.graphql({
-      query: mutations.createComment,
+      query: createComment,
       variables: { input: params },
     });
     Keyboard.dismiss();
@@ -137,9 +141,9 @@ const PostDetail = ({ route }: any) => {
     getPostDetail();
   };
 
-  const deletePost = async () => {
+  const removePost = async () => {
     await API.graphql({
-      query: mutations.deletePost,
+      query: deletePost,
       variables: { input: { id: postID } },
     });
     navigation.navigate('Main');
@@ -148,7 +152,7 @@ const PostDetail = ({ route }: any) => {
   const addToBookmark = async () => {
     const bookmarks = (
       await (API.graphql({
-        query: queries.getUserBookmark,
+        query: getUserBookmark,
         variables: { userID: userID } as GetUserBookmarkQueryVariables,
       }) as Promise<{ data: GetUserBookmarkQuery }>)
     ).data.getUserBookmark?.items;
@@ -159,7 +163,7 @@ const PostDetail = ({ route }: any) => {
       );
       if (idx != -1) {
         await API.graphql({
-          query: mutations.deleteBookmark,
+          query: deleteBookmark,
           variables: {
             input: { id: bookmarks[idx]!.id },
           },
@@ -169,7 +173,7 @@ const PostDetail = ({ route }: any) => {
       }
     }
     await API.graphql({
-      query: mutations.createBookmark,
+      query: createBookmark,
       variables: { input: { postID: postID, userID: userID } },
     });
     setBookmarked(true);
@@ -327,7 +331,7 @@ const PostDetail = ({ route }: any) => {
                     {
                       text: 'Yes',
                       onPress: () => {
-                        deletePost();
+                        removePost();
                         setShowModal(false);
                       },
                       style: 'default',

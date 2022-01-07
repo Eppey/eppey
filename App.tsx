@@ -1,16 +1,23 @@
 import React from 'react';
-import { StyleSheet, Image, View, Pressable, Alert } from 'react-native';
+import { StyleSheet, Image, Pressable, Alert } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {
+  AnimatedTabBarNavigator,
+  DotSize,
+  TabElementDisplayOptions,
+} from 'react-native-animated-nav-tab-bar';
 import { store } from './src/redux/store';
 import { Provider } from 'react-redux';
 
 // @ts-ignore
 import { ModalPortal } from 'react-native-modals';
-import Amplify, { Auth } from 'aws-amplify';
+// @ts-ignore
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import Amplify, { Auth } from 'aws-amplify';
 import config from './src/aws-exports';
 Amplify.configure({ ...config, Analytics: { disabled: true } });
 
@@ -29,8 +36,17 @@ import PostDetail from './src/screens/Main/PostDetail';
 import Notification from './src/screens/Main/Notification';
 import MyPage from './src/screens/Main/MyPage';
 
+import SchoolBoard from './src/screens/Main/SchoolBoard';
+import MajorBoard from './src/screens/Main/MajorBoard';
+
+import { fonts } from './src/styles/fonts';
+
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+const TopTab = AnimatedTabBarNavigator();
+
+import { useSelector } from 'react-redux';
+import { selectSchool, selectMajor } from './src/redux/slices/userSlice';
 
 function Main({ navigation }: any) {
   const logOut = async () => {
@@ -50,8 +66,8 @@ function Main({ navigation }: any) {
       }}
     >
       <Tab.Screen
-        name="Home"
-        component={Home}
+        name="HomeTopTabs"
+        component={HomeTopTabs}
         options={{
           tabBarIcon: () => {
             return (
@@ -62,8 +78,10 @@ function Main({ navigation }: any) {
             );
           },
           headerStyle: {
-            backgroundColor: '#FFE1BD',
+            backgroundColor: '#F2F2F2',
+            height: 44,
           },
+          headerShadowVisible: false,
         }}
       />
       <Tab.Screen
@@ -139,11 +157,68 @@ function Main({ navigation }: any) {
   );
 }
 
+function HomeTopTabs() {
+  const major = useSelector(selectMajor);
+  const school = useSelector(selectSchool);
+  return (
+    <TopTab.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        lazy: true,
+      }}
+      appearance={{
+        tabBarBackground: '#FFE1BD',
+        activeTabBackgrounds: '#FFFFFF',
+        whenInactiveShow: TabElementDisplayOptions.ICON_ONLY,
+        whenActiveShow: TabElementDisplayOptions.LABEL_ONLY,
+        dotSize: DotSize.MEDIUM,
+        bottomPadding: -20,
+      }}
+      tabBarOptions={{ labelStyle: { ...fonts.body1 } }}
+    >
+      <TopTab.Screen
+        name="SchoolBoard"
+        component={SchoolBoard}
+        options={{
+          title: school,
+          tabBarIcon: ({ size }: any) => (
+            <MaterialCommunityIcons name="school" color="#272F40" size={size} />
+          ),
+        }}
+      />
+      <TopTab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          title: 'Topic',
+          tabBarIcon: ({ size }: any) => (
+            <MaterialCommunityIcons name="home" color="#272F40" size={size} />
+          ),
+        }}
+      />
+      <TopTab.Screen
+        name="MajorBoard"
+        component={MajorBoard}
+        options={{
+          title: major,
+          tabBarIcon: ({ size }: any) => (
+            <MaterialCommunityIcons
+              name="book-open-variant"
+              color="#272F40"
+              size={size}
+            />
+          ),
+        }}
+      />
+    </TopTab.Navigator>
+  );
+}
+
 export default function App() {
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <SafeAreaProvider>
+      <SafeAreaProvider>
+        <NavigationContainer>
           <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Welcome" component={Welcome} />
             <Stack.Screen name="Signup" component={Signup} />
@@ -164,8 +239,8 @@ export default function App() {
             <Stack.Screen name="Write" component={Write} />
             <Stack.Screen name="PostDetail" component={PostDetail} />
           </Stack.Navigator>
-        </SafeAreaProvider>
-      </NavigationContainer>
+        </NavigationContainer>
+      </SafeAreaProvider>
       <ModalPortal />
     </Provider>
   );

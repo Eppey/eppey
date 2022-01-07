@@ -1,10 +1,10 @@
 import { API, Auth } from 'aws-amplify';
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
-import { GetUserBookmarkQuery, GetUserPostQuery } from '../../API';
+import { View } from 'react-native';
+import { GetUserBookmarkQuery } from '../../API';
 import PostContainer from '../../components/PostContainer';
 
-import * as queries from '../../graphql/queries';
+import { getUserBookmark } from '../../graphql/queries';
 
 const MyBookmarks = () => {
   const [nextToken, setNextToken] = useState('');
@@ -26,7 +26,7 @@ const MyBookmarks = () => {
     };
 
     const bookmarkRes = await (API.graphql({
-      query: queries.getUserBookmark,
+      query: getUserBookmark,
       variables: params,
     }) as Promise<{ data: GetUserBookmarkQuery }>);
 

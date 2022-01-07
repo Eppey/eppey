@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, StatusBar } from 'react-native';
 
 import PostContainer from '../../components/PostContainer';
 
 import { API } from 'aws-amplify';
 import { getLatestPost } from '../../request/customQueries';
 
-const Home = () => {
+import { useSelector } from 'react-redux';
+import { selectMajor } from '../../redux/slices/userSlice';
+
+const MajorBoard = () => {
   const [nextToken, setNextToken] = useState('');
   const [postData, setPostData] = useState(Array());
   const [loading, setLoading] = useState(false);
+
+  const major = useSelector(selectMajor);
 
   useEffect(() => {
     getPosts();
@@ -18,6 +22,7 @@ const Home = () => {
   const getPosts = async (loadMore?: boolean) => {
     setLoading(true);
     let params = {
+      filter: { topic: { eq: major } },
       type: 'Post',
       limit: '20',
       sortDirection: 'DESC',
@@ -40,7 +45,6 @@ const Home = () => {
 
   return (
     <>
-      <StatusBar barStyle={'dark-content'} />
       <PostContainer
         postData={postData}
         getPosts={getPosts}
@@ -51,6 +55,4 @@ const Home = () => {
   );
 };
 
-export default Home;
-
-const styles = StyleSheet.create({});
+export default MajorBoard;

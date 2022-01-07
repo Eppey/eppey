@@ -1,6 +1,6 @@
 import { useScrollToTop } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native';
+import { FlatList, SafeAreaView, StyleSheet } from 'react-native';
 
 import { API } from 'aws-amplify';
 import * as customQueries from '../../request/customQueries';

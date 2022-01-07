@@ -7,7 +7,7 @@ import { User, GetUserQuery, GetUserQueryVariables } from '../../API';
 import { useSelector } from 'react-redux';
 import { selectUserID } from '../../redux/slices/userSlice';
 
-import * as queries from '../../graphql/queries';
+import { getUser } from '../../graphql/queries';
 
 import { fonts } from '../../styles/fonts';
 
@@ -24,7 +24,7 @@ const Profile = ({ navigation }: any) => {
 
   const getUserInfo = async () => {
     const response = await (API.graphql({
-      query: queries.getUser,
+      query: getUser,
       variables: { id: userID } as GetUserQueryVariables,
     }) as Promise<{ data: GetUserQuery }>);
     setUser(response.data.getUser!);

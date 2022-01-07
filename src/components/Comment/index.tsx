@@ -80,7 +80,7 @@ const Comment = ({ comment, updatePostDetail }: commentItemProp) => {
 
     let params: { [key: string]: string | undefined } = {
       id: comment?.id,
-      content: editedComment,
+      content: editedComment!.trim(),
     };
     await API.graphql({
       query: mutations.updateComment,

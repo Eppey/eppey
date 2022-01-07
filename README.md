@@ -19,7 +19,7 @@
   <h3 align="center">EPPEY</h3>
 
   <p align="center">
-    Anonymous Community for International Students
+    Anonymous Network for International Students
     <br />
     <a href="https://github.com/Eppey/eppey"><strong>Explore the docs »</strong></a>
     <br />
@@ -66,7 +66,7 @@
 
 **Why is there no well-known community where international students can discuss anonymously?**
 
-To find a solution, we started to build a safe & secure anonymous social networking platform for international students.
+International Students attending US colleges often struggle with collecting information due to the lack of an existing social networking platform in the current market. EPPEY provides an anonymous community where international students can freely share their opinions and helpful information.x
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -150,10 +150,10 @@ Working on it
     - [x] My Page (Profile)
   - [ ] My Page
     - [x] Profile
-    - [ ] Posts/Comments/Bookmarks
+    - [x] Posts/Comments/Bookmarks
     - [ ] Settings
     - [ ] Updates
-    - [ ] Feedbacks
+    - [x] Feedbacks
 - [x] Backend (AWS)
   - [x] Auth (Cognito)
   - [x] Database (DynamoDB)

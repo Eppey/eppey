@@ -1,11 +1,11 @@
 import { useScrollToTop } from '@react-navigation/native';
 import { API, Auth } from 'aws-amplify';
 import React, { useEffect, useState } from 'react';
-import { FlatList, View } from 'react-native';
+import { FlatList } from 'react-native';
 import { GetUserCommentQuery } from '../../API';
 import PostComment from '../../components/PostComment';
 
-import * as queries from '../../graphql/queries';
+import { getUserComment } from '../../graphql/queries';
 
 const MyComments = () => {
   const [nextToken, setNextToken] = useState('');
@@ -30,7 +30,7 @@ const MyComments = () => {
     };
 
     const postRes = await (API.graphql({
-      query: queries.getUserComment,
+      query: getUserComment,
       variables: params,
     }) as Promise<{ data: GetUserCommentQuery }>);
 

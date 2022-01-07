@@ -16,9 +16,7 @@ const PostContent = ({ post }: PostProps) => {
         {post.userNickname} | {calculateTime(post.createdAt)}
       </Text>
       <View style={styles.contentContainer}>
-        <Text style={styles.content}>
-          {post.content.replace(/\r?\n|\r/g, ' ')}
-        </Text>
+        <Text style={styles.content}>{post.content}</Text>
       </View>
       <View style={styles.statContainer}>
         <Image
