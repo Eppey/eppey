@@ -66,7 +66,7 @@
 
 **Why is there no well-known community where international students can discuss anonymously?**
 
-International Students attending US colleges often struggle with collecting information due to the lack of an existing social networking platform in the current market. EPPEY provides an anonymous community where international students can freely share their opinions and helpful information.x
+International Students attending US colleges often struggle with collecting information due to the lack of an existing social networking platform in the current market. EPPEY provides an anonymous community where international students can freely share their opinions and helpful information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
