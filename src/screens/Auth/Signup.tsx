@@ -28,16 +28,17 @@ const Signup = () => {
 
   const userSignUp = async () => {
     const school = await getSchool();
+    const PW_MIN_LENGTH = 8;
 
-    if (school == 'N/A') {
+    if (school === 'N/A') {
       Alert.alert('Error', 'Invalid email');
       return;
     }
-    if (major == '-') {
+    if (major === '-') {
       Alert.alert('Error', 'Pick a valid major');
       return;
     }
-    if (password.length >= 8) {
+    if (password.length >= PW_MIN_LENGTH) {
       try {
         await Auth.signUp({
           username: email,
@@ -54,7 +55,10 @@ const Signup = () => {
         Alert.alert('Error', err.message);
       }
     } else {
-      Alert.alert('Error', 'Password length should be between 8 ~ 20');
+      Alert.alert(
+        'Error',
+        `Password length should be between ${PW_MIN_LENGTH} ~ 20`
+      );
     }
   };
 

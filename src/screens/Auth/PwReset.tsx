@@ -25,7 +25,9 @@ const PwReset = () => {
   const [email, setEmail] = useState('');
 
   const userFindPW = async () => {
-    if (email.length != 0 && email.includes('.edu')) {
+    const domain = email.substring(email.indexOf('@') + 1);
+
+    if (email.length != 0 && domain.includes('.edu')) {
       try {
         await Auth.forgotPassword(email);
         dispatch(setResetEmail(email));
@@ -38,7 +40,7 @@ const PwReset = () => {
         }
       }
     } else {
-      if (email.length == 0) {
+      if (email.length === 0) {
         Alert.alert('Error', 'Email length should be longer than 0');
       } else {
         Alert.alert('Error', 'Email should end with .edu');
