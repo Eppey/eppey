@@ -14,6 +14,22 @@ export const topics: Array<string> = [
   '19+',
 ];
 
+export const originalTopics: Array<string> = [
+  'General',
+  'Career',
+  'COVID-19',
+  'Dating',
+  'Grad School',
+  'Information',
+  'Investment',
+  'Socialize',
+  'Sublease / Roommate',
+  'Subscription',
+  'Travel',
+  'Visa',
+  '19+',
+];
+
 export const topicColors: { [topic: string]: string } = {
   General: '#FFE1BD',
   Career: '#98C4EC',

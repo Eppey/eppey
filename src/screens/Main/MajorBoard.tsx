@@ -24,7 +24,7 @@ const MajorBoard = () => {
     let params = {
       filter: { topic: { eq: major } },
       type: 'Post',
-      limit: '20',
+      limit: '30',
       sortDirection: 'DESC',
       nextToken: loadMore ? nextToken : null,
     };

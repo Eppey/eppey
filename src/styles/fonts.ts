@@ -12,7 +12,7 @@ export const fonts = StyleSheet.create({
   header2: {
     fontFamily: 'System',
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 19,
     lineHeight: 25,
     letterSpacing: -0.24,
     color: '#283244',

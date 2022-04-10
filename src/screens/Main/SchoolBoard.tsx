@@ -24,7 +24,7 @@ const SchoolBoard = () => {
     let params = {
       filter: { topic: { eq: school } },
       type: 'Post',
-      limit: '20',
+      limit: '30',
       sortDirection: 'DESC',
       nextToken: loadMore ? nextToken : null,
     };

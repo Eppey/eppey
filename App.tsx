@@ -1,12 +1,11 @@
 import React from 'react';
-import { StyleSheet, Image, Pressable, Alert } from 'react-native';
+import { StyleSheet, Image, Alert } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   AnimatedTabBarNavigator,
-  DotSize,
   TabElementDisplayOptions,
 } from 'react-native-animated-nav-tab-bar';
 import { store } from './src/redux/store';
@@ -17,7 +16,7 @@ import { ModalPortal } from 'react-native-modals';
 // @ts-ignore
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import Amplify, { Auth } from 'aws-amplify';
+import { Amplify, Auth } from 'aws-amplify';
 import config from './src/aws-exports';
 Amplify.configure({ ...config, Analytics: { disabled: true } });
 
@@ -168,13 +167,15 @@ function HomeTopTabs() {
       }}
       appearance={{
         tabBarBackground: '#FFE1BD',
-        activeTabBackgrounds: '#FFFFFF',
+        activeTabBackgrounds: '#FFE1BD',
         whenInactiveShow: TabElementDisplayOptions.ICON_ONLY,
         whenActiveShow: TabElementDisplayOptions.LABEL_ONLY,
-        dotSize: DotSize.MEDIUM,
-        bottomPadding: -20,
+        bottomPadding: -30,
+        topPadding: 0,
       }}
-      tabBarOptions={{ labelStyle: { ...fonts.body1 } }}
+      tabBarOptions={{
+        labelStyle: { ...fonts.body1 },
+      }}
     >
       <TopTab.Screen
         name="SchoolBoard"

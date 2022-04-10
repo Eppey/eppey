@@ -19,7 +19,7 @@ const Home = () => {
     setLoading(true);
     let params = {
       type: 'Post',
-      limit: '20',
+      limit: '30',
       sortDirection: 'DESC',
       nextToken: loadMore ? nextToken : null,
     };
