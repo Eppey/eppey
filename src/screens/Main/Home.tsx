@@ -6,6 +6,8 @@ import PostContainer from '../../components/PostContainer';
 import { API } from 'aws-amplify';
 import { getLatestPost } from '../../request/customQueries';
 
+import { originalTopics } from '../../data/topics';
+
 const Home = () => {
   const [nextToken, setNextToken] = useState('');
   const [postData, setPostData] = useState(Array());
@@ -42,7 +44,9 @@ const Home = () => {
     <>
       <StatusBar barStyle={'dark-content'} />
       <PostContainer
-        postData={postData}
+        postData={postData.filter((item) =>
+          originalTopics.includes(item.topic)
+        )}
         getPosts={getPosts}
         nextToken={nextToken}
         loading={loading}

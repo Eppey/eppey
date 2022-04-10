@@ -19,7 +19,7 @@ const PostContainer = ({ postData, getPosts, nextToken, loading }: any) => {
         </View>
       ) : (
         <>
-          {useRoute().name === 'Home' ? (
+          {useRoute().name === 'Home' || useRoute().name === 'SchoolBoard' ? (
             <TopicContainer curTopic={topic} setTopic={setTopic} />
           ) : (
             <></>

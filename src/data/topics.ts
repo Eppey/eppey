@@ -30,6 +30,14 @@ export const originalTopics: Array<string> = [
   '19+',
 ];
 
+export const schoolTopics: Array<string> = [
+  'General',
+  'Marketplace',
+  'Sublease',
+  'Ask4Help',
+  'Course Recommendation',
+];
+
 export const topicColors: { [topic: string]: string } = {
   General: '#FFE1BD',
   Career: '#98C4EC',
@@ -44,4 +52,8 @@ export const topicColors: { [topic: string]: string } = {
   Travel: '#E0DCF3',
   Visa: '#FFD099',
   '19+': '#FF99C5',
+  Marketplace: '#98C4EC',
+  Sublease: '#99EC97',
+  Ask4Help: '#FE9E8F',
+  'Course Recommendation': '#D1CAF2',
 };
