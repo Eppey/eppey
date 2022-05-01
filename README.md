@@ -24,7 +24,7 @@
     <a href="https://github.com/Eppey/eppey"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/Eppey/eppey">View Demo</a>
+    <a href="https://youtu.be/9Qi1FjR9_Bo">View Demo</a>
     ·
     <a href="https://github.com/Eppey/eppey/issues">Report Bug</a>
     ·
